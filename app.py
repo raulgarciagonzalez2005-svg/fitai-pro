@@ -17,32 +17,32 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Sora:wght@400;600;700;800&display=swap');
 
 :root {
-  --bg: #f8fafc;
+  --bg: #f0f4f8;
   --surface: #ffffff;
-  --surface2: #f1f5f9;
+  --surface2: #f8fafc;
   --border: #e2e8f0;
   --border2: #cbd5e1;
   --green: #10b981;
   --green2: #059669;
-  --green3: rgba(16,185,129,.10);
-  --green4: rgba(16,185,129,.05);
+  --green3: rgba(16,185,129,.12);
+  --green4: rgba(16,185,129,.06);
   --blue: #3b82f6;
   --blue2: #2563eb;
-  --blue3: rgba(59,130,246,.10);
-  --blue4: rgba(59,130,246,.05);
+  --blue3: rgba(59,130,246,.12);
+  --blue4: rgba(59,130,246,.06);
   --teal: #14b8a6;
-  --teal3: rgba(20,184,166,.10);
+  --teal3: rgba(20,184,166,.12);
   --sky: #0ea5e9;
   --emerald: #34d399;
   --text: #0f172a;
   --text2: #475569;
-  --text3: #64748b;
-  --text4: #94a3b8;
-  --shadow: 0 1px 3px rgba(0,0,0,.05), 0 4px 12px rgba(0,0,0,.03);
-  --shadow2: 0 10px 30px rgba(15,23,42,.08);
-  --r: 16px;
+  --text3: #94a3b8;
+  --text4: #cbd5e1;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
+  --shadow2: 0 4px 24px rgba(0,0,0,.10);
+  --r: 18px;
   --rsm: 12px;
-  --rxs: 6px;
+  --rxs: 8px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,59 +62,59 @@ html, body,
 [data-testid="stStatusWidget"] { display: none !important; }
 
 .block-container {
-  max-width: 840px !important;
-  padding: 0 1.5rem 6rem !important;
+  max-width: 780px !important;
+  padding: 0 1rem 6rem !important;
   margin: 0 auto !important;
 }
 
 /* ── TOP HEADER ── */
 .fap-header {
   background: var(--surface);
-  border-radius: 0 0 20px 20px;
-  padding: 1.5rem;
-  margin: 0 -1.5rem 1.5rem;
+  border-radius: 0 0 24px 24px;
+  padding: 1.4rem 1.5rem 1.2rem;
+  margin: 0 -1rem 1.4rem;
   box-shadow: var(--shadow);
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border);
 }
-.fap-greeting { font-size: .65rem; font-weight: 700; color: var(--text4); letter-spacing: .08em; text-transform: uppercase; }
-.fap-name { font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--text); line-height: 1.2; margin-top: .15rem; }
-.fap-date { font-size: .7rem; font-weight: 500; color: var(--text3); margin-top: .2rem; }
+.fap-greeting { font-size: .62rem; font-weight: 600; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; }
+.fap-name { font-family: 'Sora', sans-serif; font-size: 1.32rem; font-weight: 800; color: var(--text); line-height: 1.15; margin-top: .1rem; }
+.fap-date { font-size: .65rem; font-weight: 500; color: var(--text3); margin-top: .1rem; }
 .fap-avatar {
   width: 44px; height: 44px;
   background: linear-gradient(135deg, var(--green), var(--blue));
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
   font-size: .85rem; font-weight: 700; color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(16,185,129,.2);
+  box-shadow: 0 4px 16px rgba(16,185,129,.3);
 }
 
-/* ── CARDS (Fuerzan texto blanco y alta visibilidad) ── */
+/* ── CARDS (Ajuste estricto de herencia y contraste de color de texto) ── */
 .fap-card {
   background: var(--surface);
   border-radius: var(--r);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1rem;
+  padding: 1.2rem 1.35rem;
+  margin-bottom: .8rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
 }
-.fap-card-green, .fap-card-green *, .fap-card-green div, .fap-card-green span {
+.fap-card-green, .fap-card-green *, .fap-card-green div, .fap-card-green span, .fap-card-green small {
   background: linear-gradient(135deg, #10b981, #059669);
   border: none !important;
   color: #ffffff !important;
 }
-.fap-card-green { box-shadow: 0 6px 20px rgba(16,185,129,.2); }
+.fap-card-green { box-shadow: 0 6px 24px rgba(16,185,129,.3); }
 
-.fap-card-blue, .fap-card-blue *, .fap-card-blue div, .fap-card-blue span {
+.fap-card-blue, .fap-card-blue *, .fap-card-blue div, .fap-card-blue span, .fap-card-blue small {
   background: linear-gradient(135deg, #3b82f6, #2563eb);
   border: none !important;
   color: #ffffff !important;
 }
-.fap-card-blue { box-shadow: 0 6px 20px rgba(59,130,246,.18); }
+.fap-card-blue { box-shadow: 0 6px 24px rgba(59,130,246,.28); }
 
-.fap-card-teal, .fap-card-teal *, .fap-card-teal div, .fap-card-teal span {
+.fap-card-teal, .fap-card-teal *, .fap-card-teal div, .fap-card-teal span, .fap-card-teal small {
   background: linear-gradient(135deg, #14b8a6, #0d9488);
   border: none !important;
   color: #ffffff !important;
@@ -122,137 +122,136 @@ html, body,
 
 /* ── SECTION LABELS ── */
 .fap-lbl {
-  font-size: .65rem;
+  font-size: .6rem;
   font-weight: 700;
   color: var(--text3);
-  letter-spacing: .08em;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  margin-bottom: .6rem;
+  margin-bottom: .5rem;
 }
 .fap-lbl-green { color: var(--green) !important; }
 .fap-lbl-blue  { color: var(--blue)  !important; }
 
-/* ── BIG NUMBER (Escalado para evitar roturas) ── */
+/* ── BIG NUMBER (Reducido sutilmente para evitar desbordes en grid móvil) ── */
 .fap-big {
   font-family: 'Sora', sans-serif;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 800;
   color: var(--text);
-  line-height: 1.1;
+  line-height: 1;
 }
 .fap-big-sub {
-  font-size: .65rem;
+  font-size: .6rem;
   font-weight: 600;
   color: var(--text3);
   text-transform: uppercase;
-  letter-spacing: .06em;
-  margin-top: .2rem;
+  letter-spacing: .08em;
+  margin-top: .15rem;
 }
 
 /* ── PROGRESS BAR ── */
-.fap-pb { background: var(--surface2); border-radius: 999px; height: 8px; overflow: hidden; margin-top: .6rem; }
-.fap-pb-f { height: 100%; border-radius: 999px; transition: width .6s ease; }
+.fap-pb { background: var(--bg); border-radius: 999px; height: 7px; overflow: hidden; margin-top: .55rem; }
+.fap-pb-f { height: 100%; border-radius: 999px; transition: width .7s cubic-bezier(.4,0,.2,1); }
 
 /* ── RINGS ── */
-.fap-ring-wrap { display: flex; flex-direction: column; align-items: center; gap: .4rem; }
-.fap-ring { position: relative; width: 100px; height: 100px; }
+.fap-ring-wrap { display: flex; flex-direction: column; align-items: center; gap: .35rem; }
+.fap-ring { position: relative; width: 108px; height: 108px; }
 .fap-ring svg { transform: rotate(-90deg); }
 .fap-ring-val { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
 .fap-ring-num { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 800; color: var(--text); line-height: 1; }
-.fap-ring-unit { font-size: .55rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; }
-.fap-ring-label { font-size: .65rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .05em; text-align: center; }
-.fap-mgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
-.fap-sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fap-ring-unit { font-size: .48rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; }
+.fap-ring-label { font-size: .58rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .07em; text-align: center; }
+.fap-mgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .9rem; }
+.fap-sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
 
 /* ── MINI STAT ── */
 .fap-mini {
   background: var(--surface);
   border-radius: var(--rsm);
-  padding: 1.1rem;
+  padding: 1rem;
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
   text-align: center;
 }
-.fap-mini-val { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text); line-height: 1; }
-.fap-mini-lbl { font-size: .6rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-top: .2rem; }
+.fap-mini-val { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); line-height: 1; }
+.fap-mini-lbl { font-size: .57rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .07em; margin-top: .15rem; }
 
-/* ── BADGES LIMPIOS (Sin emojis) ── */
+/* ── BADGES LIMPIOS ── */
 .fap-badge {
   display: inline-flex; align-items: center;
-  padding: .25rem .65rem;
+  padding: .2rem .6rem;
   border-radius: 999px;
-  font-size: .65rem;
+  font-size: .62rem;
   font-weight: 700;
-  margin: .1rem .1rem 0 0;
+  margin: .1rem .05rem 0 0;
 }
 .b-green  { background: var(--green3); color: var(--green2); }
 .b-blue   { background: var(--blue3);  color: var(--blue2); }
 .b-teal   { background: var(--teal3);  color: var(--teal); }
-.b-sky    { background: rgba(14,165,233,.10); color: #0284c7; }
-.b-gray   { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
-.b-amber  { background: rgba(245,158,11,.10); color: #b45309; }
-.b-red    { background: rgba(239,68,68,.08);  color: #dc2626; }
+.b-sky    { background: rgba(14,165,233,.12); color: #0284c7; }
+.b-gray   { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
+.b-amber  { background: rgba(245,158,11,.12); color: #b45309; }
+.b-red    { background: rgba(239,68,68,.1);   color: #dc2626; }
 
-/* ── ROWS Y TABLAS ── */
+/* ── ROWS Y ENCABEZADOS DE TABLA SaaS ── */
 .fap-row {
   display: flex; justify-content: space-between; align-items: center;
-  padding: .5rem 0; border-bottom: 1px solid var(--border); font-size: .82rem;
+  padding: .4rem 0; border-bottom: 1px solid var(--border); font-size: .8rem;
 }
 .fap-row:last-child { border-bottom: none; }
 .fap-rl { color: var(--text2); }
-.fap-rr { color: var(--text); font-size: .8rem; font-weight: 600; }
-.fap-meal-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
-.fap-meal-ttl { font-family: 'Sora', sans-serif; font-size: .95rem; font-weight: 700; color: var(--text); }
+.fap-rr { color: var(--text); font-size: .76rem; font-weight: 600; }
+.fap-meal-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.fap-meal-ttl { font-family: 'Sora', sans-serif; font-size: .88rem; font-weight: 700; color: var(--text); }
 
-/* Encabezados Profesionales de Tablas */
 .fap-table-hdr {
   display: flex; justify-content: space-between;
-  background: var(--surface2);
-  padding: .4rem .6rem;
+  background: #e2e8f0;
+  padding: .45rem .65rem;
   border-radius: var(--rxs);
   font-size: .65rem;
   font-weight: 700;
-  color: var(--text3);
+  color: var(--text2);
   text-transform: uppercase;
-  letter-spacing: .05em;
-  margin-bottom: .25rem;
+  letter-spacing: .06em;
+  margin-bottom: .3rem;
 }
 
 /* ── DIVIDER ── */
-.fap-sep { display: flex; align-items: center; gap: .7rem; margin: 1.5rem 0 1rem; }
+.fap-sep { display: flex; align-items: center; gap: .6rem; margin: 1.4rem 0 .85rem; }
 .fap-sep-l { flex: 1; height: 1px; background: var(--border); }
-.fap-sep-t { font-size: .6rem; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: .12em; white-space: nowrap; }
+.fap-sep-t { font-size: .56rem; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: .14em; white-space: nowrap; }
 
 /* ── TYPE BADGE ── */
 .fap-typebadge {
-  font-size: .55rem; font-weight: 800;
-  padding: .2rem .6rem; border-radius: 999px;
-  letter-spacing: .05em; text-transform: uppercase;
+  font-size: .52rem; font-weight: 800;
+  padding: .18rem .55rem; border-radius: 999px;
+  letter-spacing: .04em; text-transform: uppercase;
 }
-.fap-exnum { font-family: 'DM Mono', monospace; font-size: .75rem; font-weight: 600; color: var(--green); min-width: 28px; }
+.fap-exnum { font-family: 'DM Mono', monospace; font-size: .73rem; font-weight: 500; color: var(--green); min-width: 26px; }
 
-/* ── BUTTONS (Color corporativo mate, sin degradado "IA") ── */
+/* ── BUTTONS (Color corporativo sólido, eliminando degradado brillante tipo IA) ── */
 div.stButton > button {
   background: var(--green2) !important;
   color: #ffffff !important;
   font-family: 'DM Sans', sans-serif !important;
-  font-size: .85rem !important;
+  font-size: .82rem !important;
   font-weight: 700 !important;
   border: none !important;
   border-radius: var(--rsm) !important;
-  padding: .7rem 1.4rem !important;
+  padding: .65rem 1.25rem !important;
   width: 100% !important;
   cursor: pointer !important;
   transition: background .2s static, transform .1s ease !important;
   box-shadow: none !important;
-  letter-spacing: .02em !important;
+  letter-spacing: .01em !important;
 }
 div.stButton > button:hover {
   background: #047857 !important;
 }
 div.stButton > button:active { transform: scale(0.99) !important; }
 
-/* ── INPUTS REALES (Fondo blanco e invariables al contraste externo) ── */
+/* ── INPUTS (Estilo sólido invariable con el contraste externo del navegador) ── */
 div[data-baseweb="input"] input,
 div[data-baseweb="textarea"] textarea,
 .stNumberInput input {
@@ -261,12 +260,12 @@ div[data-baseweb="textarea"] textarea,
   border: 1.5px solid var(--border2) !important;
   border-radius: var(--rsm) !important;
   font-family: 'DM Sans', sans-serif !important;
-  font-size: .85rem !important;
+  font-size: .82rem !important;
 }
 div[data-baseweb="input"] input:focus,
 div[data-baseweb="textarea"] textarea:focus {
   border-color: var(--green) !important;
-  box-shadow: 0 0 0 3px rgba(16,185,129,.1) !important;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.14) !important;
 }
 div[data-baseweb="select"] > div {
   background: #ffffff !important;
@@ -276,19 +275,19 @@ div[data-baseweb="select"] > div {
 }
 label {
   color: var(--text) !important;
-  font-size: .78rem !important;
+  font-size: .76rem !important;
   font-family: 'DM Sans', sans-serif !important;
   font-weight: 700 !important;
-  margin-bottom: .2rem !important;
+  margin-bottom: .25rem !important;
   display: inline-block;
 }
 
-/* ── TABS (Sin emojis) ── */
+/* ── TABS (Remoción de gradientes y bordes extraños) ── */
 [data-baseweb="tab-list"] {
   background: var(--surface) !important;
   border-radius: var(--rsm) !important;
-  padding: 4px !important;
-  gap: 4px !important;
+  padding: 3px !important;
+  gap: 2px !important;
   box-shadow: var(--shadow) !important;
   border: 1px solid var(--border) !important;
 }
@@ -296,22 +295,22 @@ label {
   color: var(--text3) !important;
   font-family: 'DM Sans', sans-serif !important;
   font-weight: 700 !important;
-  font-size: .72rem !important;
+  font-size: .68rem !important;
   border-radius: var(--rxs) !important;
-  padding: .45rem 1rem !important;
+  padding: .38rem .85rem !important;
 }
 [aria-selected="true"][data-baseweb="tab"] {
   background: var(--green2) !important;
   color: #ffffff !important;
 }
 
-/* ── ALERTS Y ELEMENTOS ADICIONALES ── */
+/* ── ALERTS ── */
 [data-testid="stAlert"] {
   background: var(--green4) !important;
-  border: 1px solid rgba(16,185,129,.15) !important;
+  border: 1px solid rgba(16,185,129,.2) !important;
   border-left: 4px solid var(--green) !important;
   border-radius: var(--rsm) !important;
-  font-size: .8rem !important;
+  font-size: .79rem !important;
   color: var(--green2) !important;
 }
 [data-testid="stExpander"] {
@@ -322,38 +321,56 @@ label {
 }
 [data-testid="stExpander"] summary {
   color: var(--text2) !important;
-  font-size: .82rem !important;
-  font-weight: 700 !important;
+  font-size: .79rem !important;
+  font-weight: 600 !important;
 }
 
+/* ── FILE UPLOADER ── */
+[data-testid="stFileUploader"] {
+  border: 2px dashed var(--border2) !important;
+  border-radius: var(--r) !important;
+  background: var(--surface2) !important;
+}
+
+/* ── LOGIN ── */
 .fap-login-box {
   background: var(--surface);
-  border-radius: 20px;
-  padding: 2.2rem 2rem;
+  border-radius: 24px;
+  padding: 2rem 1.8rem;
   box-shadow: var(--shadow2);
   border: 1px solid var(--border);
   max-width: 420px;
-  margin: 2rem auto;
+  margin: 0 auto;
 }
 
-[data-baseweb="popover"] { background: var(--surface) !important; border: 1px solid var(--border2) !important; border-radius: var(--rsm) !important; }
+/* ── DROPDOWNS ── */
+[data-baseweb="popover"] {
+  background: var(--surface) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: var(--rsm) !important;
+}
 [data-baseweb="menu"] { background: var(--surface) !important; }
 li[role="option"] { color: var(--text) !important; font-family: 'DM Sans', sans-serif !important; }
 li[role="option"]:hover { background: var(--green3) !important; }
 
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 999px; }
+
 @media (max-width: 520px) {
-  .block-container { padding: 0 .75rem 5rem !important; }
-  .fap-big { font-size: 1.9rem; }
-  .fap-mgrid { gap: .6rem; }
+  .block-container { padding: 0 .65rem 6rem !important; }
+  .fap-big { font-size: 2.1rem; }
+  .fap-mgrid { gap: .5rem; }
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ── DATA ──────────────────────────────────────────────────────────────────────
+# ── DATA (Limpieza total de emoticonos de strings estructurales) ─────────────────
 USERS_FILE = "fitai_users.json"
 
 def food_icon(alimento_nombre):
-    # Función modificada para no romper la estética seria del software profesional
+    # Modificado para mantener la interfaz completamente profesional y limpia
     return ""
 
 ALIMENTOS_DB = {
@@ -428,22 +445,151 @@ DIETAS_TEMPLATE = {
         {"nombre":"Almuerzo","alimentos":"Arroz 120g + Ternera magra 150g + Ensalada + AOVE","cal":600,"prot":45,"carb":60,"grasa":18},
         {"nombre":"Merienda","alimentos":"Platano + Pan integral + Pavo 80g","cal":310,"prot":26,"carb":42,"grasa":4},
         {"nombre":"Cena","alimentos":"Salmon 150g + Garbanzos 100g + Verduras","cal":540,"prot":40,"carb":42,"grasa":21}]},
+    "Vegana alta proteina (2200 kcal)":{"objetivo":"Dieta plant-based con aporte proteico suficiente","macros":{"prot":140,"carb":280,"grasa":65},"comidas":[
+        {"nombre":"Desayuno","alimentos":"Avena 80g + Proteina vegana 30g + Platano","cal":520,"prot":35,"carb":80,"grasa":10},
+        {"nombre":"Media manana","alimentos":"Hummus 100g + Pan integral + Tomate","cal":290,"prot":12,"carb":35,"grasa":10},
+        {"nombre":"Almuerzo","alimentos":"Lentejas 200g + Arroz 100g + Verduras + AOVE","cal":590,"prot":28,"carb":95,"grasa":12},
+        {"nombre":"Merienda","alimentos":"Aguacate + Pan integral + Batido espinacas","cal":350,"prot":10,"carb":30,"grasa":22},
+        {"nombre":"Cena","alimentos":"Tofu 200g + Garbanzos 100g + Brocoli + AOVE","cal":470,"prot":38,"carb":35,"grasa":20}]},
+    "Recomposicion (2100 kcal)":{"objetivo":"Ganar musculo y perder grasa al mismo tiempo","macros":{"prot":200,"carb":200,"grasa":65},"comidas":[
+        {"nombre":"Desayuno","alimentos":"Claras 5 uds + 1 huevo + Avena 40g + Arandanos","cal":380,"prot":40,"carb":38,"grasa":8},
+        {"nombre":"Pre-entreno","alimentos":"Platano + Whey 30g","cal":240,"prot":25,"carb":30,"grasa":2},
+        {"nombre":"Almuerzo","alimentos":"Pollo 200g + Quinoa 100g + Pimiento + Zanahoria","cal":490,"prot":55,"carb":45,"grasa":9},
+        {"nombre":"Merienda","alimentos":"Queso cottage 200g + Nueces 20g","cal":270,"prot":26,"carb":7,"grasa":15},
+        {"nombre":"Cena","alimentos":"Salmon 180g + Espinacas + Tomate + AOVE 8ml","cal":440,"prot":38,"carb":8,"grasa":28},
+        {"nombre":"Antes dormir","alimentos":"Caseina 30g","cal":110,"prot":24,"carb":3,"grasa":1}]},
 }
 
 EJERCICIOS_GYM = {
     "Pecho":[
         {"nombre":"Press banca plano","tipo":"Fuerza","equipo":"Barra","series_rec":"4","reps_rec":"6-12","descanso":"90s","notas":"Escapulas retraidas"},
         {"nombre":"Press banca inclinado","tipo":"Hipertrofia","equipo":"Mancuernas","series_rec":"3-4","reps_rec":"10-15","descanso":"75s","notas":"Angulo 30-45 grados"},
+        {"nombre":"Aperturas mancuernas","tipo":"Aislamiento","equipo":"Mancuernas","series_rec":"3","reps_rec":"12-15","descanso":"60s","notas":"Codos ligeramente flexionados"},
+        {"nombre":"Fondos en paralelas","tipo":"Peso corporal","equipo":"Paralelas","series_rec":"3-4","reps_rec":"Max","descanso":"90s","notas":"Torso inclinado adelante"},
+        {"nombre":"Crossover en polea","tipo":"Aislamiento","equipo":"Poleas","series_rec":"3","reps_rec":"15-20","descanso":"45s","notas":"Estiramiento completo arriba"},
     ],
     "Espalda":[
         {"nombre":"Peso muerto convencional","tipo":"Fuerza","equipo":"Barra","series_rec":"4","reps_rec":"4-8","descanso":"3 min","notas":"Espalda neutra"},
         {"nombre":"Dominadas","tipo":"Fuerza","equipo":"Barra fija","series_rec":"4","reps_rec":"Max","descanso":"90s","notas":"Rango completo"},
+        {"nombre":"Jalon al pecho","tipo":"Hipertrofia","equipo":"Polea alta","series_rec":"4","reps_rec":"10-15","descanso":"75s","notas":"Codos hacia abajo"},
+        {"nombre":"Remo con barra","tipo":"Fuerza","equipo":"Barra","series_rec":"4","reps_rec":"8-12","descanso":"90s","notas":"Torso a 45 grados"},
+        {"nombre":"Face pulls","tipo":"Prevencion","equipo":"Polea alta","series_rec":"3","reps_rec":"15-20","descanso":"45s","notas":"Manguito rotador"},
     ],
     "Pierna":[
         {"nombre":"Sentadilla con barra","tipo":"Fuerza","equipo":"Barra","series_rec":"4-5","reps_rec":"5-10","descanso":"2-3 min","notas":"Rodillas alineadas"},
         {"nombre":"Prensa de piernas","tipo":"Hipertrofia","equipo":"Maquina","series_rec":"4","reps_rec":"10-15","descanso":"90s","notas":"Pies altos = isquios"},
-    ]
+        {"nombre":"Femoral tumbado","tipo":"Aislamiento","equipo":"Maquina","series_rec":"3","reps_rec":"12-15","descanso":"60s","notas":"Aisla isquiotibiales"},
+        {"nombre":"Hip Thrust","tipo":"Gluteos","equipo":"Barra","series_rec":"4","reps_rec":"10-15","descanso":"90s","notas":"Contraccion maxima"},
+        {"nombre":"Peso muerto rumano","tipo":"Hipertrofia","equipo":"Barra","series_rec":"3-4","reps_rec":"10-12","descanso":"90s","notas":"Bisagra de cadera"},
+        {"nombre":"Elevacion de gemelos","tipo":"Aislamiento","equipo":"Maquina","series_rec":"4","reps_rec":"15-25","descanso":"45s","notas":"Rango completo"},
+    ],
+    "Hombros":[
+        {"nombre":"Press militar con barra","tipo":"Fuerza","equipo":"Barra","series_rec":"4","reps_rec":"6-10","descanso":"2 min","notas":"Core activado"},
+        {"nombre":"Elevaciones laterales","tipo":"Aislamiento","equipo":"Mancuernas","series_rec":"4","reps_rec":"15-20","descanso":"45s","notas":"Hasta la horizontal"},
+        {"nombre":"Press Arnold","tipo":"Hipertrofia","equipo":"Mancuernas","series_rec":"3","reps_rec":"10-12","descanso":"75s","notas":"Rotacion completa"},
+        {"nombre":"Pajaro posterior","tipo":"Aislamiento","equipo":"Mancuernas","series_rec":"3","reps_rec":"15-20","descanso":"45s","notas":"Torso a 90 grados"},
+    ],
+    "Biceps":[
+        {"nombre":"Curl con barra","tipo":"Fuerza","equipo":"Barra","series_rec":"4","reps_rec":"8-12","descanso":"75s","notas":"Codos fijos"},
+        {"nombre":"Curl mancuernas alterno","tipo":"Hipertrofia","equipo":"Mancuernas","series_rec":"3","reps_rec":"10-14/brazo","descanso":"60s","notas":"Supinacion al subir"},
+        {"nombre":"Curl martillo","tipo":"Braquial","equipo":"Mancuernas","series_rec":"3","reps_rec":"10-15","descanso":"60s","notas":"Agarre neutro"},
+        {"nombre":"Curl predicador","tipo":"Aislamiento","equipo":"Barra EZ","series_rec":"3","reps_rec":"12-15","descanso":"60s","notas":"No extender del todo"},
+    ],
+    "Triceps":[
+        {"nombre":"Press agarre cerrado","tipo":"Fuerza","equipo":"Barra","series_rec":"4","reps_rec":"8-12","descanso":"90s","notas":"Codos pegados"},
+        {"nombre":"Pushdown en polea","tipo":"Aislamiento","equipo":"Polea alta","series_rec":"3-4","reps_rec":"15-20","descanso":"45s","notas":"Extension completa"},
+        {"nombre":"Extension sobre la cabeza","tipo":"Hipertrofia","equipo":"Mancuerna","series_rec":"3","reps_rec":"12-15","descanso":"60s","notas":"Estiramiento maximo"},
+        {"nombre":"Press frances","tipo":"Hipertrofia","equipo":"Barra EZ","series_rec":"3","reps_rec":"10-15","descanso":"60s","notas":"Controlado a la frente"},
+    ],
+    "Core":[
+        {"nombre":"Plancha frontal","tipo":"Estabilidad","equipo":"Peso corporal","series_rec":"3-4","reps_rec":"45-90s","descanso":"45s","notas":"Cuerpo recto"},
+        {"nombre":"Rueda abdominal","tipo":"Fuerza","equipo":"Rueda ab","series_rec":"3","reps_rec":"8-15","descanso":"60s","notas":"Empezar de rodillas"},
+        {"nombre":"Crunch en polea","tipo":"Aislamiento","equipo":"Polea alta","series_rec":"4","reps_rec":"15-20","descanso":"45s","notas":"Flexion de columna"},
+        {"nombre":"Elevacion piernas colgado","tipo":"Fuerza","equipo":"Barra fija","series_rec":"3","reps_rec":"10-15","descanso":"60s","notas":"Retroversion pelvica"},
+    ],
+    "Cardio":[
+        {"nombre":"HIIT en cinta","tipo":"Cardio","equipo":"Cinta","series_rec":"8-12","reps_rec":"30s sprint/30s caminar","descanso":"","notas":"FC 85-90%"},
+        {"nombre":"Tabata bicicleta","tipo":"Cardio","equipo":"Bicicleta","series_rec":"8","reps_rec":"20s/10s pausa","descanso":"","notas":"4 min por ronda"},
+        {"nombre":"Zona 2 eliptica","tipo":"Cardio","equipo":"Eliptica","series_rec":"1","reps_rec":"30-45 min","descanso":"","notas":"FC 120-140 ppm"},
+        {"nombre":"Remo en ergometro","tipo":"Cardio","equipo":"Remo","series_rec":"5","reps_rec":"500m","descanso":"2 min","notas":"Cardio + espalda"},
+    ],
 }
+
+RUTINAS_DEFAULT = {
+    "PPL Empuje":{"desc":"Pecho, hombros y triceps","ejercicios":[
+        {"ejercicio":"Press banca plano","series":4,"reps":"6-10","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Press banca inclinado","series":3,"reps":"10-12","peso":"","descanso":"75s","notas":""},
+        {"ejercicio":"Press Arnold","series":4,"reps":"10-12","peso":"","descanso":"75s","notas":""},
+        {"ejercicio":"Elevaciones laterales","series":4,"reps":"15-20","peso":"","descanso":"45s","notas":""},
+        {"ejercicio":"Pushdown en polea","series":3,"reps":"15-20","peso":"","descanso":"45s","notas":""},
+        {"ejercicio":"Extension sobre la cabeza","series":3,"reps":"12-15","peso":"","descanso":"60s","notas":""}]},
+    "PPL Tiron":{"desc":"Espalda y biceps","ejercicios":[
+        {"ejercicio":"Dominadas","series":4,"reps":"Max","peso":"Corporal","descanso":"90s","notas":""},
+        {"ejercicio":"Remo con barra","series":4,"reps":"8-10","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Jalon al pecho","series":3,"reps":"12-15","peso":"","descanso":"75s","notas":""},
+        {"ejercicio":"Curl con barra","series":3,"reps":"10-12","peso":"","descanso":"75s","notas":""},
+        {"ejercicio":"Curl martillo","series":3,"reps":"12-15","peso":"","descanso":"60s","notas":""}]},
+    "PPL Piernas":{"desc":"Cuadriceps, isquios, gluteos y gemelos","ejercicios":[
+        {"ejercicio":"Sentadilla con barra","series":4,"reps":"6-8","peso":"","descanso":"2-3 min","notas":""},
+        {"ejercicio":"Prensa de piernas","series":4,"reps":"10-15","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Peso muerto rumano","series":3,"reps":"10-12","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Hip Thrust","series":4,"reps":"12-15","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Elevacion de gemelos","series":4,"reps":"20-25","peso":"","descanso":"45s","notas":""}]},
+    "Full Body":{"desc":"3 dias/semana — Principiantes","ejercicios":[
+        {"ejercicio":"Sentadilla con barra","series":3,"reps":"8-10","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Press banca plano","series":3,"reps":"8-10","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Peso muerto convencional","series":3,"reps":"6-8","peso":"","descanso":"2 min","notas":""},
+        {"ejercicio":"Press militar","series":3,"reps":"8-10","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Dominadas","series":3,"reps":"Max","peso":"Corporal","descanso":"90s","notas":""},
+        {"ejercicio":"Plancha frontal","series":3,"reps":"60s","peso":"","descanso":"45s","notas":""}]},
+    "Upper":{"desc":"Pecho, espalda, hombros y brazos","ejercicios":[
+        {"ejercicio":"Press banca plano","series":4,"reps":"6-10","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Remo con barra","series":4,"reps":"8-10","peso":"","descanso":"90s","notas":""},
+        {"ejercicio":"Press banca inclinado","series":3,"reps":"10-12","peso":"","descanso":"75s","notas":""},
+        {"ejercicio":"Jalon al pecho","series":3,"reps":"12-15","peso":"","descanso":"75s","notas":""},
+        {"ejercicio":"Elevaciones laterales","series":3,"reps":"15-20","peso":"","descanso":"45s","notas":""},
+        {"ejercicio":"Curl con barra","series":3,"reps":"10-12","peso":"","descanso":"60s","notas":""}]},
+    "HIIT Core":{"desc":"Alta intensidad + abdominales — 35 min","ejercicios":[
+        {"ejercicio":"Burpees","series":5,"reps":"30s/15s pausa","peso":"","descanso":"30s","notas":""},
+        {"ejercicio":"Mountain climbers","series":5,"reps":"30s/15s pausa","peso":"","descanso":"30s","notas":""},
+        {"ejercicio":"Saltos en caja","series":4,"reps":"10","peso":"","descanso":"45s","notas":""},
+        {"ejercicio":"Plancha frontal","series":3,"reps":"60s","peso":"","descanso":"30s","notas":""},
+        {"ejercicio":"Rueda abdominal","series":3,"reps":"10","peso":"","descanso":"60s","notas":""}]},
+}
+
+TIPO_COLOR = {
+    "Fuerza":        {"color":"#10b981","bg":"rgba(16,185,129,.1)"},
+    "Hipertrofia":   {"color":"#3b82f6","bg":"rgba(59,130,246,.1)"},
+    "Aislamiento":   {"color":"#8b5cf6","bg":"rgba(139,92,246,.1)"},
+    "Peso corporal":{"color":"#10b981","bg":"rgba(16,185,129,.1)"},
+    "Cardio":        {"color":"#0ea5e9","bg":"rgba(14,165,233,.1)"},
+    "Estabilidad":   {"color":"#14b8a6","bg":"rgba(20,184,166,.1)"},
+    "Gluteos":       {"color":"#f59e0b","bg":"rgba(245,158,11,.1)"},
+    "Prevencion":    {"color":"#14b8a6","bg":"rgba(20,184,166,.1)"},
+    "Braquial":      {"color":"#8b5cf6","bg":"rgba(139,92,246,.1)"},
+}
+
+# ── AUTH & PERSISTENCE ────────────────────────────────────────────────────────
+def hash_pw(pw): return hashlib.sha256(pw.encode()).hexdigest()
+
+def load_users():
+    if os.path.exists(USERS_FILE):
+        try:
+            with open(USERS_FILE, "r", encoding="utf-8") as f: 
+                return json.load(f)
+        except: 
+            pass
+    return {}
+
+def save_users(u):
+    try:
+        with open(USERS_FILE, "w", encoding="utf-8") as f: 
+            json.dump(u, f, ensure_ascii=False, indent=2)
+    except Exception as e: 
+        st.warning(f"Error guardando usuarios: {e}")
+
+def get_user_file(uid): 
+    return f"fitai_{uid[:8]}.json"
 
 # ── COMPONENTES UI AUXILIARES ─────────────────────────────────────────────────
 def card(html_content, card_type=""):
@@ -494,7 +640,7 @@ if not st.session_state.authenticated:
     st.markdown('</div>', unsafe_allow_html=True)
 
 else:
-    # Obtener Iniciales para un Avatar Limpio tipo SaaS profesional
+    # Obtener Iniciales del usuario para el avatar superior
     initials = "".join([w[0].upper() for w in st.session_state.user_name.split()[:2]]) if st.session_state.user_name else "US"
     
     # ── HEADER PRINCIPAL ──
@@ -510,7 +656,7 @@ else:
         unsafe_allow_html=True
     )
 
-    # NAVEGACIÓN POR PESTAÑAS (Emojis removidos)
+    # NAVEGACIÓN PRINCIPAL
     tab1, tab2, tab3, tab4 = st.tabs(["Dashboard", "Nutricion", "Entrenamiento", "Ajustes"])
 
     # ── PESTAÑA 1: DASHBOARD ──
@@ -546,36 +692,33 @@ else:
 
     # ── PESTAÑA 2: NUTRICIÓN ──
     with tab2:
-        sdiv("Registro de Alimentos")
+        sdiv("Registro de Alimentos de la Base de Datos")
         
-        # Corrección crítica: Se remueve label_visibility para que las cajas digan explícitamente qué datos van ahí
         cx1, cx2 = st.columns(2)
         with cx1:
-            alimento_sel = st.selectbox("Seleccionar Alimento de la Base de Datos", list(ALIMENTOS_DB.keys()))
+            alimento_sel = st.selectbox("Seleccionar Alimento de Referencia", list(ALIMENTOS_DB.keys()))
         with cx2:
-            cantidad_g = st.number_input("Cantidad a registrar (en gramos)", min_value=1, value=100, step=10)
+            cantidad_g = st.number_input("Cantidad a registrar en la comida actual (gramos):", min_value=1, value=100, step=10)
             
         if st.button("Añadir Alimento al Diario"):
             st.success(f"Registrados {cantidad_g}g de {alimento_sel} correctamente.")
             
-        sdiv("Formulario de Registro Manual (Campos Completamente Identificados)")
-        
-        # Corrección crítica de campos vacíos sin explicación
+        sdiv("Formulario de Registro Manual")
         st.markdown('<div class="fap-table-hdr"><span>Concepto</span><span>Valor Técnico Requerido</span></div>', unsafe_allow_html=True)
         
         c_m1, c_m2 = st.columns(2)
         with c_m1:
             manual_name = st.text_input("Nombre descriptivo del alimento o plato:", placeholder="Ej. Tortilla de claras con espinacas")
-            manual_cal = st.number_input("Calorías totales del plato (kcal):", min_value=0, value=0)
+            manual_cal = st.number_input("Calorías totales calculadas para el plato (kcal):", min_value=0, value=0)
         with c_m2:
-            manual_prot = st.number_input("Gramos de Proteína netos (g):", min_value=0.0, value=0.0, step=0.5)
-            manual_carb = st.number_input("Gramos de Carbohidratos netos (g):", min_value=0.0, value=0.0, step=0.5)
+            manual_prot = st.number_input("Gramos de Proteína netos estimados (g):", min_value=0.0, value=0.0, step=0.5)
+            manual_carb = st.number_input("Gramos de Carbohidratos netos estimados (g):", min_value=0.0, value=0.0, step=0.5)
             
         if st.button("Guardar Alimento Personalizado"):
             if manual_name:
-                st.info(f"Guardado: {manual_name} - {manual_cal} kcal")
+                st.info(f"Guardado en el historial: {manual_name} - {manual_cal} kcal")
             else:
-                st.warning("Por favor, introduce un nombre válido antes de guardar.")
+                st.warning("Por favor, introduce un nombre descriptivo válido antes de guardar.")
 
     # ── PESTAÑA 3: ENTRENAMIENTO ──
     with tab3:
@@ -594,23 +737,22 @@ else:
             )
             
         sdiv("Registro de Series Realizadas")
-        # Corrección: Nombres e indicaciones explícitas de variables en la tabla
         st.markdown('<div class="fap-table-hdr"><span>Métrica de Carga</span><span>Introducción de Datos Reales</span></div>', unsafe_allow_html=True)
         
         st_c1, st_c2, st_c3 = st.columns(3)
         with st_c1:
-            num_serie = st.number_input("Número de Serie actual (Ej: 1, 2, 3...)", min_value=1, value=1)
+            num_serie = st.number_input("Número de Serie actual correlativo (Ej: 1, 2, 3...):", min_value=1, value=1)
         with st_c2:
-            num_reps = st.number_input("Repeticiones logradas en esta serie:", min_value=0, value=10)
+            num_reps = st.number_input("Repeticiones logradas completas en esta serie:", min_value=0, value=10)
         with st_c3:
-            num_peso = st.number_input("Peso total levantado (en kg o lb):", min_value=0.0, value=60.0, step=2.5)
+            num_peso = st.number_input("Peso total efectivo utilizado (en kg o lb):", min_value=0.0, value=60.0, step=2.5)
             
         if st.button("Guardar Serie en el Historial"):
             st.success(f"Serie {num_serie} registrada: {num_reps} reps con {num_peso} kg.")
 
-    # ── PESTAÑA 4: AJUSTES DE CONFIGURACIÓN ──
+    # ── PESTAÑA 4: AJUSTES ──
     with tab4:
-        sdiv("Información del Sistema de Datos")
+        sdiv("Información General del Sistema")
         card(
             f'<div class="fap-row"><span class=\"fap-rl\">Versión del Software</span><span class=\"fap-rr\">FitAI Pro 6.0</span></div>'
             f'<div class="fap-row"><span class=\"fap-rl\">Arquitectura Frontend</span><span class=\"fap-rr\">Streamlit · Clean Responsive CSS Grid</span></div>'
