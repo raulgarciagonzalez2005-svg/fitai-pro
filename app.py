@@ -14,139 +14,340 @@ st.set_page_config(page_title="FitAI Pro", page_icon="💪",
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Sora:wght@400;600;700;800&display=swap');
+
 :root {
-  --bg:#f4f5f7; --surface:#fff; --border:#e8eaed; --border2:#d0d3d9;
-  --orange:#ff6b35; --orange2:#ff8c5a; --orange3:rgba(255,107,53,.12);
-  --purple:#6c5ce7; --purple2:rgba(108,92,231,.12);
-  --green:#00b894; --green2:rgba(0,184,148,.12);
-  --blue:#0984e3; --blue2:rgba(9,132,227,.1);
-  --red:#e17055; --amber:#fdcb6e; --amber2:rgba(253,203,110,.18);
-  --text:#2d3436; --text2:#636e72; --text3:#b2bec3;
-  --shadow:0 2px 16px rgba(0,0,0,.07); --shadow2:0 6px 28px rgba(0,0,0,.13);
-  --r:20px; --rsm:12px; --rxs:8px;
+  --bg: #f0f4f8;
+  --surface: #ffffff;
+  --surface2: #f8fafc;
+  --border: #e2e8f0;
+  --border2: #cbd5e1;
+  --green: #10b981;
+  --green2: #059669;
+  --green3: rgba(16,185,129,.12);
+  --green4: rgba(16,185,129,.06);
+  --blue: #3b82f6;
+  --blue2: #2563eb;
+  --blue3: rgba(59,130,246,.12);
+  --blue4: rgba(59,130,246,.06);
+  --teal: #14b8a6;
+  --teal3: rgba(20,184,166,.12);
+  --sky: #0ea5e9;
+  --emerald: #34d399;
+  --text: #0f172a;
+  --text2: #475569;
+  --text3: #94a3b8;
+  --text4: #cbd5e1;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
+  --shadow2: 0 4px 24px rgba(0,0,0,.10);
+  --r: 18px;
+  --rsm: 12px;
+  --rxs: 8px;
 }
-*,*::before,*::after{box-sizing:border-box}
-html,body,[data-testid="stAppViewContainer"],[data-testid="stMain"],.main{
-  background:var(--bg)!important; color:var(--text)!important;
-  font-family:'Poppins',sans-serif!important}
-#MainMenu,footer,header,[data-testid="stToolbar"],[data-testid="stDecoration"],
-[data-testid="stStatusWidget"]{display:none!important}
-.block-container{max-width:800px!important;padding:0 1rem 7rem!important;margin:0 auto!important}
-.top-header{background:var(--surface);border-radius:0 0 28px 28px;
-  padding:1.5rem 1.4rem 1.3rem;margin:0 -1rem 1.5rem;
-  box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center}
-.header-greeting{font-size:.7rem;color:var(--text3);font-weight:700;letter-spacing:.04em}
-.header-name{font-family:'Nunito',sans-serif;font-size:1.4rem;font-weight:900;color:var(--text);line-height:1.1}
-.header-avatar{width:46px;height:46px;
-  background:linear-gradient(135deg,var(--orange),var(--purple));
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;box-shadow:0 4px 16px rgba(255,107,53,.35)}
-.card{background:var(--surface);border-radius:var(--r);padding:1.25rem 1.35rem;
-  margin-bottom:.85rem;box-shadow:var(--shadow);border:1px solid var(--border);transition:box-shadow .2s}
-.card:hover{box-shadow:var(--shadow2)}
-.card-orange{background:linear-gradient(135deg,#ff6b35,#ff8c5a);border:none;color:#fff;
-  box-shadow:0 6px 24px rgba(255,107,53,.35)}
-.card-purple{background:linear-gradient(135deg,#6c5ce7,#a29bfe);border:none;color:#fff}
-.lbl{font-size:.62rem;font-weight:700;color:var(--text3);letter-spacing:.1em;
-  text-transform:uppercase;margin-bottom:.5rem}
-.lbl-orange{color:var(--orange)!important}
-.big{font-family:'Nunito',sans-serif;font-size:2.9rem;font-weight:900;line-height:1;color:var(--text)}
-.big-sub{font-size:.62rem;color:var(--text3);font-weight:700;margin-top:.2rem;
-  text-transform:uppercase;letter-spacing:.07em}
-.ring-wrap{display:flex;flex-direction:column;align-items:center;gap:.4rem}
-.ring{position:relative;width:110px;height:110px}
-.ring svg{transform:rotate(-90deg)}
-.ring-val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
-.ring-num{font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:900;color:var(--text);line-height:1}
-.ring-unit{font-size:.5rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em}
-.ring-label{font-size:.6rem;font-weight:700;color:var(--text2);text-transform:uppercase;
-  letter-spacing:.07em;text-align:center}
-.pb{background:var(--bg);border-radius:999px;height:8px;overflow:hidden;margin-top:.55rem}
-.pb-f{height:100%;border-radius:999px;transition:width .7s cubic-bezier(.4,0,.2,1)}
-.mgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.mini-stat{background:var(--surface);border-radius:var(--rsm);padding:1rem;
-  box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
-.mini-val{font-family:'Nunito',sans-serif;font-size:1.65rem;font-weight:900;color:var(--text);line-height:1}
-.mini-lbl{font-size:.58rem;font-weight:700;color:var(--text3);text-transform:uppercase;
-  letter-spacing:.07em;margin-top:.15rem}
-.badge{display:inline-flex;align-items:center;padding:.22rem .65rem;border-radius:999px;
-  font-size:.63rem;font-weight:700;margin:.1rem .05rem 0 0}
-.bk,.b-orange{background:var(--orange3);color:var(--orange)}
-.bp,.b-green{background:var(--green2);color:var(--green)}
-.bc,.b-purple{background:var(--purple2);color:var(--purple)}
-.bf,.b-amber{background:var(--amber2);color:#b7860b}
-.bn,.b-gray{background:var(--bg);color:var(--text2);border:1px solid var(--border)}
-.bw,.b-red{background:rgba(225,112,85,.12);color:var(--red)}
-.b-blue{background:var(--blue2);color:var(--blue)}
-.row{display:flex;justify-content:space-between;align-items:center;
-  padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.81rem}
-.row:last-child{border-bottom:none}
-.rl{color:var(--text2)} .rr{color:var(--text);font-size:.77rem;font-weight:600}
-.meal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem}
-.meal-title{font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:900;color:var(--text)}
-.sep{display:flex;align-items:center;gap:.65rem;margin:1.5rem 0 .9rem}
-.sep-l{flex:1;height:2px;background:var(--bg);border-radius:999px}
-.sep-t{font-size:.58rem;font-weight:800;color:var(--orange);text-transform:uppercase;
-  letter-spacing:.14em;white-space:nowrap}
-.typebadge{font-size:.54rem;font-weight:800;padding:.2rem .58rem;border-radius:999px;
-  letter-spacing:.05em;text-transform:uppercase}
-.ex-num{font-family:'Nunito',sans-serif;font-size:.75rem;font-weight:900;
-  color:var(--orange);min-width:26px}
-div.stButton>button{
-  background:linear-gradient(135deg,var(--orange),var(--orange2))!important;
-  color:#fff!important;font-family:'Poppins',sans-serif!important;
-  font-size:.83rem!important;font-weight:700!important;border:none!important;
-  border-radius:var(--rsm)!important;padding:.68rem 1.3rem!important;width:100%!important;
-  cursor:pointer!important;transition:all .2s!important;
-  box-shadow:0 4px 16px rgba(255,107,53,.3)!important;letter-spacing:.01em!important}
-div.stButton>button:hover{box-shadow:0 6px 24px rgba(255,107,53,.5)!important;
-  transform:translateY(-1px)!important}
-div.stButton>button:active{transform:translateY(0)!important}
-div[data-baseweb="input"] input,div[data-baseweb="textarea"] textarea,.stNumberInput input{
-  background:var(--bg)!important;color:var(--text)!important;
-  border:1.5px solid var(--border2)!important;border-radius:var(--rsm)!important;
-  font-family:'Poppins',sans-serif!important;font-size:.83rem!important}
-div[data-baseweb="input"] input:focus,div[data-baseweb="textarea"] textarea:focus{
-  border-color:var(--orange)!important;box-shadow:0 0 0 3px rgba(255,107,53,.14)!important}
-div[data-baseweb="select"]>div{background:var(--bg)!important;
-  border:1.5px solid var(--border2)!important;border-radius:var(--rsm)!important;
-  color:var(--text)!important}
-label{color:var(--text2)!important;font-size:.75rem!important;
-  font-family:'Poppins',sans-serif!important;font-weight:600!important}
-[data-baseweb="tab-list"]{background:var(--surface)!important;border-radius:var(--rsm)!important;
-  padding:4px!important;gap:3px!important;box-shadow:var(--shadow)!important;
-  border:1px solid var(--border)!important}
-[data-baseweb="tab"]{color:var(--text3)!important;font-family:'Poppins',sans-serif!important;
-  font-weight:700!important;font-size:.7rem!important;border-radius:var(--rxs)!important;
-  padding:.4rem .9rem!important}
-[aria-selected="true"][data-baseweb="tab"]{
-  background:linear-gradient(135deg,var(--orange),var(--orange2))!important;
-  color:#fff!important;box-shadow:0 2px 10px rgba(255,107,53,.35)!important}
-[data-testid="stFileUploader"]{border:2px dashed var(--border2)!important;
-  border-radius:var(--r)!important;background:var(--bg)!important}
-[data-testid="stAlert"]{background:var(--orange3)!important;
-  border:1px solid rgba(255,107,53,.25)!important;
-  border-left:4px solid var(--orange)!important;
-  border-radius:var(--rsm)!important;font-size:.8rem!important;color:var(--orange)!important}
-[data-testid="stExpander"]{background:var(--surface)!important;
-  border:1px solid var(--border)!important;border-radius:var(--rsm)!important;
-  box-shadow:var(--shadow)!important}
-[data-testid="stExpander"] summary{color:var(--text2)!important;font-size:.8rem!important;
-  font-weight:600!important}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:999px}
-.login-box{background:var(--surface);border-radius:24px;padding:2rem 1.8rem;
-  box-shadow:var(--shadow2);border:1px solid var(--border);max-width:420px;margin:0 auto}
-[data-baseweb="popover"]{background:var(--surface)!important;
-  border:1px solid var(--border2)!important;border-radius:var(--rsm)!important}
-[data-baseweb="menu"]{background:var(--surface)!important}
-li[role="option"]{color:var(--text)!important;font-family:'Poppins',sans-serif!important}
-li[role="option"]:hover{background:var(--orange3)!important}
-@media(max-width:520px){.block-container{padding:0 .7rem 6rem!important}
-  .big{font-size:2.4rem} .mgrid{gap:.5rem}}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"],
+.main {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+#MainMenu, footer, header,
+[data-testid="stToolbar"],
+[data-testid="stDecoration"],
+[data-testid="stStatusWidget"] { display: none !important; }
+
+.block-container {
+  max-width: 780px !important;
+  padding: 0 1rem 6rem !important;
+  margin: 0 auto !important;
+}
+
+/* ── TOP HEADER ── */
+.fap-header {
+  background: var(--surface);
+  border-radius: 0 0 24px 24px;
+  padding: 1.4rem 1.5rem 1.2rem;
+  margin: 0 -1rem 1.4rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+.fap-greeting { font-size: .62rem; font-weight: 600; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; }
+.fap-name { font-family: 'Sora', sans-serif; font-size: 1.32rem; font-weight: 800; color: var(--text); line-height: 1.15; margin-top: .1rem; }
+.fap-date { font-size: .65rem; font-weight: 500; color: var(--text3); margin-top: .1rem; }
+.fap-avatar {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 16px rgba(16,185,129,.3);
+}
+
+/* ── CARDS ── */
+.fap-card {
+  background: var(--surface);
+  border-radius: var(--r);
+  padding: 1.2rem 1.35rem;
+  margin-bottom: .8rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.fap-card-green {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(16,185,129,.3);
+}
+.fap-card-blue {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border: none;
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(59,130,246,.28);
+}
+.fap-card-teal {
+  background: linear-gradient(135deg, #14b8a6, #0d9488);
+  border: none;
+  color: #fff;
+}
+
+/* ── SECTION LABELS ── */
+.fap-lbl {
+  font-size: .6rem;
+  font-weight: 700;
+  color: var(--text3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.fap-lbl-green { color: var(--green) !important; }
+.fap-lbl-blue  { color: var(--blue)  !important; }
+
+/* ── BIG NUMBER ── */
+.fap-big {
+  font-family: 'Sora', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+.fap-big-sub {
+  font-size: .6rem;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-top: .15rem;
+}
+
+/* ── PROGRESS BAR ── */
+.fap-pb { background: var(--bg); border-radius: 999px; height: 7px; overflow: hidden; margin-top: .55rem; }
+.fap-pb-f { height: 100%; border-radius: 999px; transition: width .7s cubic-bezier(.4,0,.2,1); }
+
+/* ── RINGS ── */
+.fap-ring-wrap { display: flex; flex-direction: column; align-items: center; gap: .35rem; }
+.fap-ring { position: relative; width: 108px; height: 108px; }
+.fap-ring svg { transform: rotate(-90deg); }
+.fap-ring-val { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
+.fap-ring-num { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 800; color: var(--text); line-height: 1; }
+.fap-ring-unit { font-size: .48rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; }
+.fap-ring-label { font-size: .58rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .07em; text-align: center; }
+.fap-mgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .9rem; }
+.fap-sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+
+/* ── MINI STAT ── */
+.fap-mini {
+  background: var(--surface);
+  border-radius: var(--rsm);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.fap-mini-val { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); line-height: 1; }
+.fap-mini-lbl { font-size: .57rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .07em; margin-top: .15rem; }
+
+/* ── BADGES ── */
+.fap-badge {
+  display: inline-flex; align-items: center;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  font-size: .62rem;
+  font-weight: 700;
+  margin: .1rem .05rem 0 0;
+}
+.b-green  { background: var(--green3); color: var(--green2); }
+.b-blue   { background: var(--blue3);  color: var(--blue2); }
+.b-teal   { background: var(--teal3);  color: var(--teal); }
+.b-sky    { background: rgba(14,165,233,.12); color: #0284c7; }
+.b-gray   { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
+.b-amber  { background: rgba(245,158,11,.12); color: #b45309; }
+.b-red    { background: rgba(239,68,68,.1);   color: #dc2626; }
+
+/* ── ROWS ── */
+.fap-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .4rem 0; border-bottom: 1px solid var(--border); font-size: .8rem;
+}
+.fap-row:last-child { border-bottom: none; }
+.fap-rl { color: var(--text2); }
+.fap-rr { color: var(--text); font-size: .76rem; font-weight: 600; }
+.fap-meal-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.fap-meal-ttl { font-family: 'Sora', sans-serif; font-size: .88rem; font-weight: 700; color: var(--text); }
+
+/* ── DIVIDER ── */
+.fap-sep { display: flex; align-items: center; gap: .6rem; margin: 1.4rem 0 .85rem; }
+.fap-sep-l { flex: 1; height: 1px; background: var(--border); }
+.fap-sep-t { font-size: .56rem; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: .14em; white-space: nowrap; }
+
+/* ── TYPE BADGE ── */
+.fap-typebadge {
+  font-size: .52rem; font-weight: 800;
+  padding: .18rem .55rem; border-radius: 999px;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.fap-exnum { font-family: 'DM Mono', monospace; font-size: .73rem; font-weight: 500; color: var(--green); min-width: 26px; }
+
+/* ── BUTTONS ── */
+div.stButton > button {
+  background: linear-gradient(135deg, var(--green), var(--green2)) !important;
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: .82rem !important;
+  font-weight: 700 !important;
+  border: none !important;
+  border-radius: var(--rsm) !important;
+  padding: .65rem 1.25rem !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: all .2s !important;
+  box-shadow: 0 3px 14px rgba(16,185,129,.3) !important;
+  letter-spacing: .01em !important;
+}
+div.stButton > button:hover {
+  box-shadow: 0 5px 20px rgba(16,185,129,.45) !important;
+  transform: translateY(-1px) !important;
+}
+div.stButton > button:active { transform: translateY(0) !important; }
+
+/* ── INPUTS ── */
+div[data-baseweb="input"] input,
+div[data-baseweb="textarea"] textarea,
+.stNumberInput input {
+  background: var(--surface2) !important;
+  color: var(--text) !important;
+  border: 1.5px solid var(--border2) !important;
+  border-radius: var(--rsm) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: .82rem !important;
+}
+div[data-baseweb="input"] input:focus,
+div[data-baseweb="textarea"] textarea:focus {
+  border-color: var(--green) !important;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.14) !important;
+}
+div[data-baseweb="select"] > div {
+  background: var(--surface2) !important;
+  border: 1.5px solid var(--border2) !important;
+  border-radius: var(--rsm) !important;
+  color: var(--text) !important;
+}
+label {
+  color: var(--text2) !important;
+  font-size: .74rem !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* ── TABS ── */
+[data-baseweb="tab-list"] {
+  background: var(--surface) !important;
+  border-radius: var(--rsm) !important;
+  padding: 3px !important;
+  gap: 2px !important;
+  box-shadow: var(--shadow) !important;
+  border: 1px solid var(--border) !important;
+}
+[data-baseweb="tab"] {
+  color: var(--text3) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: .68rem !important;
+  border-radius: var(--rxs) !important;
+  padding: .38rem .85rem !important;
+}
+[aria-selected="true"][data-baseweb="tab"] {
+  background: linear-gradient(135deg, var(--green), var(--green2)) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 10px rgba(16,185,129,.3) !important;
+}
+
+/* ── ALERTS ── */
+[data-testid="stAlert"] {
+  background: var(--green4) !important;
+  border: 1px solid rgba(16,185,129,.2) !important;
+  border-left: 4px solid var(--green) !important;
+  border-radius: var(--rsm) !important;
+  font-size: .79rem !important;
+  color: var(--green2) !important;
+}
+[data-testid="stExpander"] {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--rsm) !important;
+  box-shadow: var(--shadow) !important;
+}
+[data-testid="stExpander"] summary {
+  color: var(--text2) !important;
+  font-size: .79rem !important;
+  font-weight: 600 !important;
+}
+
+/* ── FILE UPLOADER ── */
+[data-testid="stFileUploader"] {
+  border: 2px dashed var(--border2) !important;
+  border-radius: var(--r) !important;
+  background: var(--surface2) !important;
+}
+
+/* ── LOGIN ── */
+.fap-login-box {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 2rem 1.8rem;
+  box-shadow: var(--shadow2);
+  border: 1px solid var(--border);
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ── DROPDOWNS ── */
+[data-baseweb="popover"] {
+  background: var(--surface) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: var(--rsm) !important;
+}
+[data-baseweb="menu"] { background: var(--surface) !important; }
+li[role="option"] { color: var(--text) !important; font-family: 'DM Sans', sans-serif !important; }
+li[role="option"]:hover { background: var(--green3) !important; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 999px; }
+
+@media (max-width: 520px) {
+  .block-container { padding: 0 .65rem 6rem !important; }
+  .fap-big { font-size: 2.3rem; }
+  .fap-mgrid { gap: .5rem; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -297,27 +498,27 @@ EJERCICIOS_GYM = {
         {"nombre":"Elevacion piernas colgado","tipo":"Fuerza","equipo":"Barra fija","series_rec":"3","reps_rec":"10-15","descanso":"60s","notas":"Retroversion pelvica"},
     ],
     "Cardio":[
-        {"nombre":"HIIT en cinta","tipo":"Cardio","equipo":"Cinta","series_rec":"8-12","reps_rec":"30s sprint/30s caminar","descanso":"—","notas":"FC 85-90%"},
-        {"nombre":"Tabata bicicleta","tipo":"Cardio","equipo":"Bicicleta","series_rec":"8","reps_rec":"20s/10s pausa","descanso":"—","notas":"4 min por ronda"},
-        {"nombre":"Zona 2 eliptica","tipo":"Cardio","equipo":"Eliptica","series_rec":"1","reps_rec":"30-45 min","descanso":"—","notas":"FC 120-140 ppm"},
+        {"nombre":"HIIT en cinta","tipo":"Cardio","equipo":"Cinta","series_rec":"8-12","reps_rec":"30s sprint/30s caminar","descanso":"","notas":"FC 85-90%"},
+        {"nombre":"Tabata bicicleta","tipo":"Cardio","equipo":"Bicicleta","series_rec":"8","reps_rec":"20s/10s pausa","descanso":"","notas":"4 min por ronda"},
+        {"nombre":"Zona 2 eliptica","tipo":"Cardio","equipo":"Eliptica","series_rec":"1","reps_rec":"30-45 min","descanso":"","notas":"FC 120-140 ppm"},
         {"nombre":"Remo en ergometro","tipo":"Cardio","equipo":"Remo","series_rec":"5","reps_rec":"500m","descanso":"2 min","notas":"Cardio + espalda"},
     ],
 }
 RUTINAS_DEFAULT = {
-    "PPL — Empuje":{"desc":"Pecho, hombros y triceps","ejercicios":[
+    "PPL Empuje":{"desc":"Pecho, hombros y triceps","ejercicios":[
         {"ejercicio":"Press banca plano","series":4,"reps":"6-10","peso":"","descanso":"90s","notas":""},
         {"ejercicio":"Press banca inclinado","series":3,"reps":"10-12","peso":"","descanso":"75s","notas":""},
         {"ejercicio":"Press Arnold","series":4,"reps":"10-12","peso":"","descanso":"75s","notas":""},
         {"ejercicio":"Elevaciones laterales","series":4,"reps":"15-20","peso":"","descanso":"45s","notas":""},
         {"ejercicio":"Pushdown en polea","series":3,"reps":"15-20","peso":"","descanso":"45s","notas":""},
         {"ejercicio":"Extension sobre la cabeza","series":3,"reps":"12-15","peso":"","descanso":"60s","notas":""}]},
-    "PPL — Tiron":{"desc":"Espalda y biceps","ejercicios":[
+    "PPL Tiron":{"desc":"Espalda y biceps","ejercicios":[
         {"ejercicio":"Dominadas","series":4,"reps":"Max","peso":"Corporal","descanso":"90s","notas":""},
         {"ejercicio":"Remo con barra","series":4,"reps":"8-10","peso":"","descanso":"90s","notas":""},
         {"ejercicio":"Jalon al pecho","series":3,"reps":"12-15","peso":"","descanso":"75s","notas":""},
         {"ejercicio":"Curl con barra","series":3,"reps":"10-12","peso":"","descanso":"75s","notas":""},
         {"ejercicio":"Curl martillo","series":3,"reps":"12-15","peso":"","descanso":"60s","notas":""}]},
-    "PPL — Piernas":{"desc":"Cuadriceps, isquios, gluteos y gemelos","ejercicios":[
+    "PPL Piernas":{"desc":"Cuadriceps, isquios, gluteos y gemelos","ejercicios":[
         {"ejercicio":"Sentadilla con barra","series":4,"reps":"6-8","peso":"","descanso":"2-3 min","notas":""},
         {"ejercicio":"Prensa de piernas","series":4,"reps":"10-15","peso":"","descanso":"90s","notas":""},
         {"ejercicio":"Peso muerto rumano","series":3,"reps":"10-12","peso":"","descanso":"90s","notas":""},
@@ -337,7 +538,7 @@ RUTINAS_DEFAULT = {
         {"ejercicio":"Jalon al pecho","series":3,"reps":"12-15","peso":"","descanso":"75s","notas":""},
         {"ejercicio":"Elevaciones laterales","series":3,"reps":"15-20","peso":"","descanso":"45s","notas":""},
         {"ejercicio":"Curl con barra","series":3,"reps":"10-12","peso":"","descanso":"60s","notas":""}]},
-    "HIIT + Core":{"desc":"Alta intensidad + abdominales — 35 min","ejercicios":[
+    "HIIT Core":{"desc":"Alta intensidad + abdominales — 35 min","ejercicios":[
         {"ejercicio":"Burpees","series":5,"reps":"30s/15s pausa","peso":"","descanso":"30s","notas":""},
         {"ejercicio":"Mountain climbers","series":5,"reps":"30s/15s pausa","peso":"","descanso":"30s","notas":""},
         {"ejercicio":"Saltos en caja","series":4,"reps":"10","peso":"","descanso":"45s","notas":""},
@@ -345,15 +546,15 @@ RUTINAS_DEFAULT = {
         {"ejercicio":"Rueda abdominal","series":3,"reps":"10","peso":"","descanso":"60s","notas":""}]},
 }
 TIPO_COLOR = {
-    "Fuerza":       {"color":"#00b894","bg":"rgba(0,184,148,.12)"},
-    "Hipertrofia":  {"color":"#0984e3","bg":"rgba(9,132,227,.1)"},
-    "Aislamiento":  {"color":"#6c5ce7","bg":"rgba(108,92,231,.1)"},
-    "Peso corporal":{"color":"#00b894","bg":"rgba(0,184,148,.12)"},
-    "Cardio":       {"color":"#ff6b35","bg":"rgba(255,107,53,.1)"},
-    "Estabilidad":  {"color":"#00cec9","bg":"rgba(0,206,201,.1)"},
-    "Gluteos":      {"color":"#e17055","bg":"rgba(225,112,85,.1)"},
-    "Prevencion":   {"color":"#00cec9","bg":"rgba(0,206,201,.1)"},
-    "Braquial":     {"color":"#6c5ce7","bg":"rgba(108,92,231,.1)"},
+    "Fuerza":       {"color":"#10b981","bg":"rgba(16,185,129,.1)"},
+    "Hipertrofia":  {"color":"#3b82f6","bg":"rgba(59,130,246,.1)"},
+    "Aislamiento":  {"color":"#8b5cf6","bg":"rgba(139,92,246,.1)"},
+    "Peso corporal":{"color":"#10b981","bg":"rgba(16,185,129,.1)"},
+    "Cardio":       {"color":"#0ea5e9","bg":"rgba(14,165,233,.1)"},
+    "Estabilidad":  {"color":"#14b8a6","bg":"rgba(20,184,166,.1)"},
+    "Gluteos":      {"color":"#f59e0b","bg":"rgba(245,158,11,.1)"},
+    "Prevencion":   {"color":"#14b8a6","bg":"rgba(20,184,166,.1)"},
+    "Braquial":     {"color":"#8b5cf6","bg":"rgba(139,92,246,.1)"},
 }
 
 # ── AUTH & PERSISTENCE ────────────────────────────────────────────────────────
@@ -467,6 +668,7 @@ def save_udata(uid, data):
 # ── SESSION STATE ─────────────────────────────────────────────────────────────
 def _ss(k,v):
     if k not in st.session_state: st.session_state[k]=v
+
 for k,v in [("logged_in",False),("user_id",""),("user_email",""),("datos",{}),
             ("gemini_key",""),("groq_key",""),("proveedor_ia","Groq (recomendado)"),
             ("scan_res",None),("ia_res",None),("ej_temp",[]),("sets_temp",[]),
@@ -487,46 +689,70 @@ def obj_cal(): return int(get_pf().get("objetivo_cal",2000))
 def cal_hoy(): return st.session_state.datos.get("historial_calorias",{}).get(hoy(),0)
 def mac_hoy(): return st.session_state.datos.get("historial_macros",{}).get(hoy(),{"prot":0.0,"carb":0.0,"grasa":0.0})
 def save_datos(): save_udata(st.session_state.user_id, st.session_state.datos)
+
 def food_icon(n):
     for k,v in FOOD_ICONS.items():
         if k.lower() in n.lower(): return v
     return "🥗"
+
 def sdiv(lbl):
-    st.markdown(f'<div class="sep"><div class="sep-l"></div><span class="sep-t">{lbl}</span><div class="sep-l"></div></div>',unsafe_allow_html=True)
-def C(html, cls=""):
-    return f'<div class="card {cls}">{html}</div>'
+    st.markdown(
+        f'<div class="fap-sep">'
+        f'<div class="fap-sep-l"></div>'
+        f'<span class="fap-sep-t">{lbl}</span>'
+        f'<div class="fap-sep-l"></div>'
+        f'</div>',
+        unsafe_allow_html=True
+    )
+
+def card(html, extra_cls=""):
+    st.markdown(f'<div class="fap-card {extra_cls}">{html}</div>', unsafe_allow_html=True)
 
 def pb(val, mx, color):
-    pct = min(val/mx*100,100) if mx>0 else 0
-    return f'<div class="pb"><div class="pb-f" style="width:{pct:.1f}%;background:{color}"></div></div>'
+    pct = min(val/mx*100, 100) if mx > 0 else 0
+    return (f'<div class="fap-pb">'
+            f'<div class="fap-pb-f" style="width:{pct:.1f}%;background:{color}"></div>'
+            f'</div>')
 
 def ring(pct, color, label, val_str, unit_str=""):
-    r=46; c=2*3.14159*r; d=c*min(pct,100)/100; g=c-d
-    return (f'<div class="ring-wrap"><div class="ring">'
-            f'<svg width="110" height="110" viewBox="0 0 110 110">'
-            f'<circle cx="55" cy="55" r="{r}" fill="none" stroke="#f0f1f3" stroke-width="9"/>'
-            f'<circle cx="55" cy="55" r="{r}" fill="none" stroke="{color}" stroke-width="9"'
-            f' stroke-dasharray="{d:.1f} {g:.1f}" stroke-linecap="round"/></svg>'
-            f'<div class="ring-val"><div class="ring-num">{val_str}</div>'
-            f'<div class="ring-unit">{unit_str}</div></div></div>'
-            f'<div class="ring-label">{label}</div></div>')
+    r = 46; c = 2*3.14159*r
+    d = c * min(pct, 100) / 100; g = c - d
+    return (
+        f'<div class="fap-ring-wrap">'
+        f'<div class="fap-ring">'
+        f'<svg width="108" height="108" viewBox="0 0 108 108">'
+        f'<circle cx="54" cy="54" r="{r}" fill="none" stroke="#e2e8f0" stroke-width="8"/>'
+        f'<circle cx="54" cy="54" r="{r}" fill="none" stroke="{color}" stroke-width="8"'
+        f' stroke-dasharray="{d:.1f} {g:.1f}" stroke-linecap="round"/>'
+        f'</svg>'
+        f'<div class="fap-ring-val">'
+        f'<div class="fap-ring-num">{val_str}</div>'
+        f'<div class="fap-ring-unit">{unit_str}</div>'
+        f'</div></div>'
+        f'<div class="fap-ring-label">{label}</div>'
+        f'</div>'
+    )
+
+def badge(txt, cls="b-gray"):
+    return f'<span class="fap-badge {cls}">{txt}</span>'
 
 def calcular_tdee(peso, altura, edad, sexo, act):
     bmr = (88.36+13.4*peso+4.8*altura-5.7*edad) if sexo=="Hombre" else (447.6+9.2*peso+3.1*altura-4.3*edad)
     f = {"Sedentario (sin ejercicio)":1.2,"Ligero (1-2 dias/semana)":1.375,
          "Moderado (3-4 dias/semana)":1.55,"Activo (5-6 dias/semana)":1.725,"Muy activo (2 veces/dia)":1.9}
-    return int(bmr*f.get(act,1.55))
+    return int(bmr * f.get(act, 1.55))
 
 def registrar_alimento(nombre, cal, prot, carb, grasa, comida):
     d = st.session_state.datos
-    d.setdefault("historial_calorias",{})[hoy()] = cal_hoy()+int(cal)
+    d.setdefault("historial_calorias",{})[hoy()] = cal_hoy() + int(cal)
     dm = d.setdefault("historial_macros",{}).setdefault(hoy(),{"prot":0.0,"carb":0.0,"grasa":0.0})
-    dm["prot"]  = round(dm["prot"] +float(prot),1)
-    dm["carb"]  = round(dm["carb"] +float(carb),1)
-    dm["grasa"] = round(dm["grasa"]+float(grasa),1)
-    d.setdefault("diario_comidas",{}).setdefault(hoy(),[]).append(
-        {"comida":comida,"alimento":nombre,"cal":int(cal),"prot":float(prot),
-         "carb":float(carb),"grasa":float(grasa),"hora":datetime.now().strftime("%H:%M")})
+    dm["prot"]  = round(dm["prot"]  + float(prot),  1)
+    dm["carb"]  = round(dm["carb"]  + float(carb),  1)
+    dm["grasa"] = round(dm["grasa"] + float(grasa), 1)
+    d.setdefault("diario_comidas",{}).setdefault(hoy(),[]).append({
+        "comida":comida,"alimento":nombre,"cal":int(cal),"prot":float(prot),
+        "carb":float(carb),"grasa":float(grasa),"hora":datetime.now().strftime("%H:%M")
+    })
     save_datos()
 
 def ia_call(prompt, img_bytes=None):
@@ -542,16 +768,21 @@ def ia_call(prompt, img_bytes=None):
                 except: ext = "jpeg"
                 msgs = [{"role":"user","content":[
                     {"type":"image_url","image_url":{"url":f"data:image/{ext};base64,{b64}"}},
-                    {"type":"text","text":prompt}]}]
+                    {"type":"text","text":prompt}
+                ]}]
                 model = "meta-llama/llama-4-scout-17b-16e-instruct"
             else:
                 msgs = [{"role":"user","content":prompt}]
                 model = "llama-3.3-70b-versatile"
-            r = requests.post("https://api.groq.com/openai/v1/chat/completions",
-                headers=hdrs,json={"model":model,"messages":msgs,"max_tokens":1200,"temperature":0.4},timeout=30)
-            if r.status_code==401: return "API Key de Groq invalida. Verifica en console.groq.com/keys"
-            if r.status_code==429: return "Limite de Groq alcanzado. Espera un minuto."
-            if r.status_code!=200: return f"Error Groq {r.status_code}"
+            r = requests.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers=hdrs,
+                json={"model":model,"messages":msgs,"max_tokens":1200,"temperature":0.4},
+                timeout=30
+            )
+            if r.status_code == 401: return "API Key de Groq invalida. Verifica en console.groq.com/keys"
+            if r.status_code == 429: return "Limite de Groq alcanzado. Espera un minuto."
+            if r.status_code != 200: return f"Error Groq {r.status_code}"
             return r.json()["choices"][0]["message"]["content"]
         except Exception as e: return f"Error conexion: {str(e)[:120]}"
     else:
@@ -562,18 +793,18 @@ def ia_call(prompt, img_bytes=None):
             genai.configure(api_key=key)
             m = genai.GenerativeModel("gemini-1.5-flash")
             if img_bytes:
-                return m.generate_content([prompt,Image.open(io.BytesIO(img_bytes))]).text
+                return m.generate_content([prompt, Image.open(io.BytesIO(img_bytes))]).text
             return m.generate_content(prompt).text
         except Exception as e:
-            err=str(e)
+            err = str(e)
             if "QUOTA" in err.upper() or "429" in err: return "Cuota Gemini agotada. Cambia a Groq."
             return f"Error Gemini: {err[:120]}"
 
 def extraer_kcal(txt):
     try:
-        m=re.search(r"TOTAL.*?(\d{2,4})\s*kcal",txt,re.IGNORECASE)
+        m = re.search(r"TOTAL.*?(\d{2,4})\s*kcal", txt, re.IGNORECASE)
         if m: return int(m.group(1))
-        m2=re.search(r"(\d{3,4})\s*kcal",txt,re.IGNORECASE)
+        m2 = re.search(r"(\d{3,4})\s*kcal", txt, re.IGNORECASE)
         if m2: return int(m2.group(1))
     except: pass
     return 0
@@ -583,22 +814,23 @@ def extraer_kcal(txt):
 # ═══════════════════════════════════════════════════════════════════════════════
 if not st.session_state.logged_in:
     st.markdown("""
-    <div style="background:linear-gradient(135deg,#ff6b35 0%,#ff8c5a 55%,#6c5ce7 100%);
-                border-radius:0 0 32px 32px;padding:2.8rem 1.4rem 2.2rem;margin:0 -1rem 2rem;text-align:center">
-      <div style="font-size:.6rem;font-weight:800;color:rgba(255,255,255,.7);
-                  letter-spacing:.2em;text-transform:uppercase;margin-bottom:.7rem">
-        💪 Tu asistente fitness con IA
+    <div style="background:linear-gradient(135deg,#10b981 0%,#059669 45%,#3b82f6 100%);
+                border-radius:0 0 28px 28px;padding:2.8rem 1.4rem 2.2rem;
+                margin:0 -1rem 2rem;text-align:center">
+      <div style="font-size:.58rem;font-weight:700;color:rgba(255,255,255,.65);
+                  letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8rem">
+        Tu asistente fitness con IA
       </div>
-      <div style="font-family:'Nunito',sans-serif;font-size:4rem;font-weight:900;
-                  color:#fff;line-height:.88;letter-spacing:-.02em;margin-bottom:.5rem">
-        Fit<span style="color:#fdcb6e">AI</span>
+      <div style="font-family:'Sora',sans-serif;font-size:4rem;font-weight:800;
+                  color:#fff;line-height:.9;letter-spacing:-.03em;margin-bottom:.5rem">
+        Fit<span style="color:#a7f3d0">AI</span>
       </div>
-      <div style="font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;
-                  color:rgba(255,255,255,.75);margin-bottom:.7rem">PRO</div>
-      <div style="font-size:.72rem;color:rgba(255,255,255,.65);
+      <div style="font-family:'Sora',sans-serif;font-size:.95rem;font-weight:700;
+                  color:rgba(255,255,255,.7);margin-bottom:.8rem">PRO</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.6);
                   display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap">
-        <span>Nutricion</span><span>·</span><span>Dietas IA</span>
-        <span>·</span><span>Gimnasio</span><span>·</span><span>Progreso</span>
+        <span>Nutricion</span><span style="opacity:.5">·</span><span>Dietas IA</span>
+        <span style="opacity:.5">·</span><span>Gimnasio</span><span style="opacity:.5">·</span><span>Progreso</span>
       </div>
     </div>
     """, unsafe_allow_html=True)
@@ -606,23 +838,26 @@ if not st.session_state.logged_in:
     _, col, _ = st.columns([0.3, 3, 0.3])
     with col:
         mode = st.session_state.auth_mode
-        t = "Bienvenido de nuevo 👋" if mode=="login" else "Crear cuenta 🚀"
-        s = "Accede a tu cuenta" if mode=="login" else "Registrate gratis en segundos"
-        st.markdown(f'<div class="login-box"><div style="text-align:center;margin-bottom:1.4rem">'
-                    f'<div style="font-family:Nunito,sans-serif;font-size:1.3rem;font-weight:900;'
-                    f'color:var(--text)">{t}</div>'
-                    f'<div style="font-size:.73rem;color:var(--text3);margin-top:.2rem">{s}</div>'
-                    f'</div>', unsafe_allow_html=True)
+        t = "Bienvenido de nuevo" if mode=="login" else "Crear cuenta"
+        s = "Accede a tu cuenta" if mode=="login" else "Registrate gratis"
+        st.markdown(
+            f'<div class="fap-login-box">'
+            f'<div style="text-align:center;margin-bottom:1.4rem">'
+            f'<div style="font-family:Sora,sans-serif;font-size:1.25rem;font-weight:800;color:var(--text)">{t}</div>'
+            f'<div style="font-size:.72rem;color:var(--text3);margin-top:.25rem">{s}</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
 
-        email_in = st.text_input("📧 Correo electronico", placeholder="hola@ejemplo.com", key="ae")
-        pw_in    = st.text_input("🔒 Contrasena", type="password", placeholder="Minimo 6 caracteres", key="ap")
-        if mode=="register":
-            nombre_in = st.text_input("👤 Nombre (opcional)", placeholder="Alex", key="an")
+        email_in = st.text_input("Correo electronico", placeholder="hola@ejemplo.com", key="ae")
+        pw_in    = st.text_input("Contrasena", type="password", placeholder="Minimo 6 caracteres", key="ap")
+        if mode == "register":
+            nombre_in = st.text_input("Nombre (opcional)", placeholder="Alex", key="an")
 
         st.markdown('<div style="height:.4rem"></div>', unsafe_allow_html=True)
 
-        if mode=="login":
-            if st.button("Entrar →", key="btn_login"):
+        if mode == "login":
+            if st.button("Entrar", key="btn_login"):
                 if not email_in or not pw_in:
                     st.warning("Rellena correo y contrasena.")
                 else:
@@ -633,23 +868,20 @@ if not st.session_state.logged_in:
                         st.session_state.user_email = email_in.strip().lower()
                         st.session_state.datos      = load_udata(uid)
                         ak = st.session_state.datos.get("api_keys",{})
-                        if not st.session_state.groq_key:
-                            st.session_state.groq_key = ak.get("groq_key","")
-                        if not st.session_state.gemini_key:
-                            st.session_state.gemini_key = ak.get("gemini_key","")
-                        if ak.get("proveedor_ia"):
-                            st.session_state.proveedor_ia = ak["proveedor_ia"]
+                        if not st.session_state.groq_key:   st.session_state.groq_key   = ak.get("groq_key","")
+                        if not st.session_state.gemini_key: st.session_state.gemini_key = ak.get("gemini_key","")
+                        if ak.get("proveedor_ia"):          st.session_state.proveedor_ia = ak["proveedor_ia"]
                         st.rerun()
                     else:
-                        st.error(f"❌ {err}")
-            st.markdown('<div style="height:.5rem"></div>', unsafe_allow_html=True)
-            if st.button("Crear cuenta nueva →", key="btn_go_reg"):
-                st.session_state.auth_mode="register"; st.rerun()
+                        st.error(f"{err}")
+            st.markdown('<div style="height:.4rem"></div>', unsafe_allow_html=True)
+            if st.button("Crear cuenta nueva", key="btn_go_reg"):
+                st.session_state.auth_mode = "register"; st.rerun()
         else:
-            if st.button("Registrarme →", key="btn_reg"):
+            if st.button("Registrarme", key="btn_reg"):
                 if not email_in or not pw_in:
                     st.warning("Rellena correo y contrasena.")
-                elif len(pw_in)<6:
+                elif len(pw_in) < 6:
                     st.warning("La contrasena debe tener al menos 6 caracteres.")
                 else:
                     ok, uid_or_err = sb_register(email_in.strip().lower(), pw_in)
@@ -662,12 +894,12 @@ if not st.session_state.logged_in:
                         st.session_state.datos["perfil"] = {
                             "nombre":nom,"objetivo_cal":2000,"obj_prot":150,"obj_carb":220,"obj_grasa":60}
                         save_datos()
-                        st.success("✅ Cuenta creada. Bienvenido/a!"); st.rerun()
+                        st.success("Cuenta creada correctamente."); st.rerun()
                     else:
-                        st.error(f"❌ {uid_or_err}")
-            st.markdown('<div style="height:.5rem"></div>', unsafe_allow_html=True)
-            if st.button("← Ya tengo cuenta", key="btn_go_login"):
-                st.session_state.auth_mode="login"; st.rerun()
+                        st.error(f"{uid_or_err}")
+            st.markdown('<div style="height:.4rem"></div>', unsafe_allow_html=True)
+            if st.button("Ya tengo cuenta", key="btn_go_login"):
+                st.session_state.auth_mode = "login"; st.rerun()
 
         st.markdown('</div>', unsafe_allow_html=True)
     st.stop()
@@ -676,508 +908,696 @@ if not st.session_state.logged_in:
 # MAIN APP
 # ═══════════════════════════════════════════════════════════════════════════════
 nombre_u = get_pf().get("nombre","") or st.session_state.user_email.split("@")[0]
-fecha_str = datetime.now().strftime("%A %d %b").capitalize()
-st.markdown(f"""
-<div class="top-header">
-  <div>
-    <div class="header-greeting">Hola de nuevo 👋</div>
-    <div class="header-name">{nombre_u}</div>
-    <div style="font-size:.62rem;color:var(--text3);margin-top:.1rem">{fecha_str}</div>
-  </div>
-  <div class="header-avatar">💪</div>
-</div>
-""", unsafe_allow_html=True)
+fecha_str = datetime.now().strftime("%d %b %Y")
 
-t_nut,t_diet,t_gym,t_hist,t_cfg = st.tabs(["🍎 Kcal","🥗 Dietas","💪 Gym","📊 Stats","⚙️ Config"])
+st.markdown(
+    f'<div class="fap-header">'
+    f'<div>'
+    f'<div class="fap-greeting">Hola de nuevo</div>'
+    f'<div class="fap-name">{nombre_u}</div>'
+    f'<div class="fap-date">{fecha_str}</div>'
+    f'</div>'
+    f'<div class="fap-avatar">💪</div>'
+    f'</div>',
+    unsafe_allow_html=True
+)
+
+t_nut, t_diet, t_gym, t_hist, t_cfg = st.tabs(["🍎 Kcal","🥗 Dietas","💪 Gym","📊 Stats","⚙️ Config"])
 
 # ══════════════════════════════════════════════════════════════════════════════
 # NUTRICION
 # ══════════════════════════════════════════════════════════════════════════════
 with t_nut:
-    cv   = cal_hoy(); oc = obj_cal(); mh = mac_hoy()
-    pf   = get_pf()
-    op   = int(pf.get("obj_prot",150))
-    ocb  = int(pf.get("obj_carb",220))
-    og   = int(pf.get("obj_grasa",60))
-    rest = max(oc-cv,0); exc = max(cv-oc,0); ok_c = cv<=oc
+    cv  = cal_hoy(); oc = obj_cal(); mh = mac_hoy()
+    pf  = get_pf()
+    op  = int(pf.get("obj_prot",150))
+    ocb = int(pf.get("obj_carb",220))
+    og  = int(pf.get("obj_grasa",60))
+    rest = max(oc-cv,0); ok_c = cv <= oc
     pct  = int(min(cv/oc*100,100)) if oc else 0
     pct_p  = int(min(mh["prot"] /op *100,100)) if op  else 0
     pct_cb = int(min(mh["carb"] /ocb*100,100)) if ocb else 0
     pct_g  = int(min(mh["grasa"]/og *100,100)) if og  else 0
-    rc = "#ff6b35" if ok_c else "#e17055"
+    ring_c  = "#10b981" if ok_c else "#3b82f6"
+    val_c   = "#10b981" if ok_c else "#2563eb"
 
-    c1,c2 = st.columns([1,1.8])
+    c1, c2 = st.columns([1, 1.8])
     with c1:
-        st.markdown(C(ring(pct,rc,"Kcal hoy",str(cv),"kcal")), unsafe_allow_html=True)
+        card(ring(pct, ring_c, "Kcal hoy", str(cv), "kcal"))
     with c2:
-        ev = rest if ok_c else exc
-        el = "kcal restantes" if ok_c else "kcal excedidas"
-        ec = "#00b894" if ok_c else "#e17055"
-        st.markdown(C(
-            f'<div class="lbl lbl-orange">Objetivo diario</div>'
-            f'<div class="big">{oc}</div>'
-            f'<div class="big-sub">kcal / dia</div>'
-            f'{pb(cv,oc,rc)}'
+        ev = rest if ok_c else (cv - oc)
+        el = "restantes" if ok_c else "excedidas"
+        ec = "#10b981" if ok_c else "#3b82f6"
+        card(
+            f'<div class="fap-lbl fap-lbl-green">Objetivo diario</div>'
+            f'<div class="fap-big">{oc}</div>'
+            f'<div class="fap-big-sub">kcal / dia</div>'
+            f'{pb(cv, oc, ring_c)}'
             f'<div style="margin-top:.7rem;display:flex;align-items:center;gap:.5rem">'
-            f'<span style="font-family:Nunito,sans-serif;font-size:1.5rem;font-weight:900;color:{ec}">{ev}</span>'
-            f'<span style="font-size:.63rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">{el}</span></div>'
-        ), unsafe_allow_html=True)
+            f'<span style="font-family:Sora,sans-serif;font-size:1.5rem;font-weight:800;color:{ec}">{ev}</span>'
+            f'<span style="font-size:.62rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">{el}</span>'
+            f'</div>'
+        )
 
-    pv=f"{mh['prot']:.0f}g"; cbv=f"{mh['carb']:.0f}g"; gv=f"{mh['grasa']:.0f}g"
-    st.markdown(C(
-        f'<div class="lbl lbl-orange">Macronutrientes</div>'
-        f'<div class="mgrid" style="justify-items:center">'
-        f'{ring(pct_p,"#00b894","Proteina",pv,f"/{op}g")}'
-        f'{ring(pct_cb,"#6c5ce7","Carbohidr.",cbv,f"/{ocb}g")}'
-        f'{ring(pct_g,"#fdcb6e","Grasas",gv,f"/{og}g")}'
+    pv  = f"{mh['prot']:.0f}g"
+    cbv = f"{mh['carb']:.0f}g"
+    gv  = f"{mh['grasa']:.0f}g"
+    card(
+        f'<div class="fap-lbl fap-lbl-green">Macronutrientes</div>'
+        f'<div class="fap-mgrid" style="justify-items:center">'
+        f'{ring(pct_p,"#10b981","Proteina",pv,f"/{op}g")}'
+        f'{ring(pct_cb,"#3b82f6","Carbohidr.",cbv,f"/{ocb}g")}'
+        f'{ring(pct_g,"#14b8a6","Grasas",gv,f"/{og}g")}'
         f'</div>'
-    ), unsafe_allow_html=True)
+    )
 
     sdiv("Scanner IA")
     prov_a = st.session_state.proveedor_ia
     key_a  = st.session_state.groq_key if "Groq" in prov_a else st.session_state.gemini_key
     if not key_a.strip():
-        st.info("🔑 Configura tu API Key en Config para activar el scanner IA.")
+        st.info("Configura tu API Key en Config para activar el scanner IA.")
     else:
-        img_up = st.file_uploader("📷 Foto del plato",type=["jpg","jpeg","png","webp"],key="up_scan")
+        img_up = st.file_uploader("Foto del plato", type=["jpg","jpeg","png","webp"], key="up_scan")
         if img_up:
-            st.image(img_up,use_container_width=True)
-            s1,s2 = st.columns(2)
-            with s1: com_scan=st.selectbox("Comida",["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],key="sc_com")
+            st.image(img_up, use_container_width=True)
+            s1, s2 = st.columns(2)
+            with s1:
+                com_scan = st.selectbox("Comida",
+                    ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="sc_com")
             with s2:
-                if st.button("🔍 Analizar",key="btn_scan"):
+                if st.button("Analizar", key="btn_scan"):
                     with st.spinner("Analizando..."):
-                        pr=("Eres nutricionista experto. Analiza en espanol con formato:\n"
-                            "Alimentos detectados:\n- [alimento] — [X] kcal · P:[Xg] C:[Xg] G:[Xg]\n\n"
-                            "TOTAL: [NNN] kcal | P:[Xg] C:[Xg] G:[Xg]\nValoracion: [frase]")
-                        res=ia_call(pr,img_up.read())
-                        if res=="ERROR_NO_KEY": st.warning("Configura API Key en Config.")
-                        else: st.session_state.scan_res=res
+                        pr = ("Eres nutricionista experto. Analiza en espanol con formato:\n"
+                              "Alimentos detectados:\n- [alimento] - [X] kcal P:[Xg] C:[Xg] G:[Xg]\n\n"
+                              "TOTAL: [NNN] kcal | P:[Xg] C:[Xg] G:[Xg]\nValoracion: [frase]")
+                        res = ia_call(pr, img_up.read())
+                        if res == "ERROR_NO_KEY":
+                            st.warning("Configura API Key en Config.")
+                        else:
+                            st.session_state.scan_res = res
+
     if st.session_state.scan_res:
-        st.markdown(C(f'<div class="lbl lbl-orange">Analisis IA</div>'
-                      f'<p style="white-space:pre-wrap;color:var(--text2);font-size:.8rem;line-height:1.85;margin:0">'
-                      f'{st.session_state.scan_res}</p>'), unsafe_allow_html=True)
-        kd=extraer_kcal(st.session_state.scan_res)
-        if kd>0:
-            r1,r2=st.columns(2)
+        card(
+            f'<div class="fap-lbl fap-lbl-green">Analisis IA</div>'
+            f'<p style="white-space:pre-wrap;color:var(--text2);font-size:.79rem;line-height:1.85;margin:0">'
+            f'{st.session_state.scan_res}</p>'
+        )
+        kd = extraer_kcal(st.session_state.scan_res)
+        if kd > 0:
+            r1, r2 = st.columns(2)
             with r1:
-                if st.button(f"✅ Registrar {kd} kcal",key="btn_reg_scan"):
-                    registrar_alimento("Foto IA",kd,0,0,0,st.session_state.get("sc_com","Extra"))
-                    st.session_state.scan_res=None; st.success("Registrado."); st.rerun()
+                if st.button(f"Registrar {kd} kcal", key="btn_reg_scan"):
+                    registrar_alimento("Foto IA", kd, 0, 0, 0,
+                                       st.session_state.get("sc_com","Extra"))
+                    st.session_state.scan_res = None; st.success("Registrado."); st.rerun()
             with r2:
-                if st.button("✕ Descartar",key="btn_disc"):
-                    st.session_state.scan_res=None; st.rerun()
+                if st.button("Descartar", key="btn_disc"):
+                    st.session_state.scan_res = None; st.rerun()
 
     sdiv("Registrar alimento")
-    ra1,ra2=st.columns([3,1])
-    with ra1: alim=st.selectbox("Alimento",list(ALIMENTOS_DB.keys()),key="sel_alim",label_visibility="collapsed")
-    with ra2: cant=st.number_input("g",1,2000,100,key="cant",label_visibility="collapsed")
-    ad=ALIMENTOS_DB[alim]; fac=cant/100
-    cav=round(ad["cal"]*fac); prv=round(ad["prot"]*fac,1)
-    cbv2=round(ad["carb"]*fac,1); grv=round(ad["grasa"]*fac,1)
-    st.markdown(C(
-        f'<div style="display:flex;align-items:center;gap:.8rem">'
-        f'<div style="font-size:2.2rem">{food_icon(alim)}</div>'
-        f'<div><div style="font-family:Nunito,sans-serif;font-size:.88rem;font-weight:800;'
+    ra1, ra2 = st.columns([3,1])
+    with ra1:
+        alim = st.selectbox("Alimento", list(ALIMENTOS_DB.keys()),
+                            key="sel_alim", label_visibility="collapsed")
+    with ra2:
+        cant = st.number_input("g", 1, 2000, 100, key="cant", label_visibility="collapsed")
+    ad = ALIMENTOS_DB[alim]; fac = cant / 100
+    cav   = round(ad["cal"]  * fac)
+    prv   = round(ad["prot"] * fac, 1)
+    cbv2  = round(ad["carb"] * fac, 1)
+    grv   = round(ad["grasa"]* fac, 1)
+    card(
+        f'<div style="display:flex;align-items:center;gap:.85rem">'
+        f'<div style="font-size:2.1rem">{food_icon(alim)}</div>'
+        f'<div>'
+        f'<div style="font-family:Sora,sans-serif;font-size:.86rem;font-weight:700;'
         f'color:var(--text);margin-bottom:.35rem">{alim} — {cant}g</div>'
-        f'<span class="badge bk">🔥 {cav} kcal</span>'
-        f'<span class="badge bp">P {prv}g</span>'
-        f'<span class="badge bc">C {cbv2}g</span>'
-        f'<span class="badge bf">G {grv}g</span></div></div>'
-    ), unsafe_allow_html=True)
-    ra3,ra4=st.columns([2,1])
-    with ra3: com_db=st.selectbox("Comida",["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],key="com_db")
+        f'{badge(f"🔥 {cav} kcal","b-green")}'
+        f'{badge(f"P {prv}g","b-blue")}'
+        f'{badge(f"C {cbv2}g","b-teal")}'
+        f'{badge(f"G {grv}g","b-amber")}'
+        f'</div></div>'
+    )
+    ra3, ra4 = st.columns([2,1])
+    with ra3:
+        com_db = st.selectbox("Comida",
+            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="com_db")
     with ra4:
-        if st.button("➕ Añadir",key="btn_add_db"):
-            registrar_alimento(f"{alim} ({cant}g)",cav,prv,cbv2,grv,com_db)
-            st.success(f"✅ {cav} kcal"); st.rerun()
+        if st.button("Anadir", key="btn_add_db"):
+            registrar_alimento(f"{alim} ({cant}g)", cav, prv, cbv2, grv, com_db)
+            st.success(f"{cav} kcal registradas"); st.rerun()
 
     sdiv("Registro manual")
-    m1,m2,m3,m4=st.columns([3,1,1,1])
-    with m1: nm=st.text_input("Nombre",placeholder="Plato casero",key="nm",label_visibility="collapsed")
-    with m2: km=st.number_input("kcal",0,5000,0,5,key="km",label_visibility="collapsed")
-    with m3: pm2=st.number_input("P(g)",0.0,300.0,0.0,.5,key="pm2",label_visibility="collapsed")
-    with m4: cbm=st.number_input("C(g)",0.0,500.0,0.0,.5,key="cbm",label_visibility="collapsed")
-    m5,m6=st.columns([2,1])
-    with m5: comm=st.selectbox("Comida",["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],key="comm")
+    m1, m2, m3, m4 = st.columns([3,1,1,1])
+    with m1: nm  = st.text_input("Nombre",  placeholder="Plato casero", key="nm",  label_visibility="collapsed")
+    with m2: km  = st.number_input("kcal",  0, 5000, 0, 5,   key="km",  label_visibility="collapsed")
+    with m3: pm2 = st.number_input("P(g)",  0.0,300.0,0.0,.5,key="pm2", label_visibility="collapsed")
+    with m4: cbm = st.number_input("C(g)",  0.0,500.0,0.0,.5,key="cbm", label_visibility="collapsed")
+    m5, m6 = st.columns([2,1])
+    with m5:
+        comm = st.selectbox("Comida",
+            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="comm")
     with m6:
-        if st.button("➕ Añadir",key="btn_man"):
-            if km>0: registrar_alimento(nm or "Libre",km,pm2,cbm,0,comm); st.success(f"✅ {km} kcal"); st.rerun()
-            else: st.warning("Introduce kcal > 0")
+        if st.button("Anadir", key="btn_man"):
+            if km > 0:
+                registrar_alimento(nm or "Libre", km, pm2, cbm, 0, comm)
+                st.success(f"{km} kcal registradas"); st.rerun()
+            else:
+                st.warning("Introduce kcal mayores que 0")
 
     sdiv("Diario de hoy")
-    diario=st.session_state.datos.get("diario_comidas",{}).get(hoy(),[])
+    diario = st.session_state.datos.get("diario_comidas",{}).get(hoy(),[])
     if not diario:
-        st.markdown(C('<div style="text-align:center;padding:1.2rem 0">'
-                      '<div style="font-size:2.5rem;margin-bottom:.4rem">🍽️</div>'
-                      '<div class="lbl" style="text-align:center">Sin registros todavia</div>'
-                      '<p style="color:var(--text3);font-size:.77rem;margin:0">Añade alimentos arriba</p></div>'),
-                    unsafe_allow_html=True)
+        card(
+            '<div style="text-align:center;padding:1.2rem 0">'
+            '<div style="font-size:2.4rem;margin-bottom:.4rem">🍽️</div>'
+            '<div class="fap-lbl" style="text-align:center">Sin registros todavia</div>'
+            '<p style="color:var(--text3);font-size:.76rem;margin:.2rem 0 0">Añade alimentos arriba</p>'
+            '</div>'
+        )
     else:
-        grupos={}
+        grupos = {}
         for item in diario: grupos.setdefault(item["comida"],[]).append(item)
-        for nc2,items in grupos.items():
-            tc=sum(i["cal"] for i in items)
-            filas="".join(f'<div class="row"><span class="rl">'
-                          f'<span style="font-size:.62rem;color:var(--orange);font-weight:700">{i["hora"]}</span>'
-                          f'  {food_icon(i["alimento"])} {i["alimento"]}</span>'
-                          f'<span class="rr">{i["cal"]} kcal</span></div>' for i in items)
-            st.markdown(C(f'<div class="meal-header"><span class="meal-title">{nc2}</span>'
-                          f'<span class="badge bk">{tc} kcal</span></div>{filas}'), unsafe_allow_html=True)
+        for nc2, items in grupos.items():
+            tc = sum(i["cal"] for i in items)
+            filas = "".join(
+                f'<div class="fap-row">'
+                f'<span class="fap-rl">'
+                f'<span style="font-size:.6rem;color:var(--green);font-weight:700">{i["hora"]}</span>'
+                f'&nbsp; {food_icon(i["alimento"])} {i["alimento"]}</span>'
+                f'<span class="fap-rr">{i["cal"]} kcal</span>'
+                f'</div>'
+                for i in items
+            )
+            card(
+                f'<div class="fap-meal-hdr">'
+                f'<span class="fap-meal-ttl">{nc2}</span>'
+                f'{badge(f"{tc} kcal","b-green")}'
+                f'</div>{filas}'
+            )
 
-    if st.button("🗑️ Resetear diario",key="btn_reset"):
-        d=st.session_state.datos
-        d.setdefault("historial_calorias",{})[hoy()]=0
-        d.setdefault("historial_macros",{})[hoy()]={"prot":0.0,"carb":0.0,"grasa":0.0}
-        d.setdefault("diario_comidas",{})[hoy()]=[]
+    if st.button("Resetear diario", key="btn_reset"):
+        d = st.session_state.datos
+        d.setdefault("historial_calorias",{})[hoy()] = 0
+        d.setdefault("historial_macros",{})[hoy()]   = {"prot":0.0,"carb":0.0,"grasa":0.0}
+        d.setdefault("diario_comidas",{})[hoy()]      = []
         save_datos(); st.success("Diario reseteado."); st.rerun()
 
 # ══════════════════════════════════════════════════════════════════════════════
 # DIETAS
 # ══════════════════════════════════════════════════════════════════════════════
 with t_diet:
-    dt1,dt2,dt3,dt4=st.tabs(["Planes","Calculadora","IA Dietista","Mis dietas"])
+    dt1, dt2, dt3, dt4 = st.tabs(["Planes","Calculadora","IA Dietista","Mis dietas"])
+
     with dt1:
-        plan_k=st.selectbox("Plan",list(DIETAS_TEMPLATE.keys()),key="plan_k")
-        plan=DIETAS_TEMPLATE[plan_k]
-        tc_p=sum(c["cal"] for c in plan["comidas"]); tp_p=sum(c["prot"] for c in plan["comidas"])
-        tcb_p=sum(c["carb"] for c in plan["comidas"]); tg_p=sum(c["grasa"] for c in plan["comidas"])
-        st.markdown(C(f'<div class="lbl" style="color:rgba(255,255,255,.75)">Objetivo</div>'
-                      f'<div style="font-family:Nunito,sans-serif;font-size:.9rem;font-weight:800;color:#fff;margin-bottom:.6rem">{plan["objetivo"]}</div>'
-                      f'<span class="badge" style="background:rgba(255,255,255,.25);color:#fff">🔥 {tc_p} kcal</span>'
-                      f'<span class="badge" style="background:rgba(255,255,255,.2);color:#fff">P {tp_p}g</span>'
-                      f'<span class="badge" style="background:rgba(255,255,255,.2);color:#fff">C {tcb_p}g</span>'
-                      f'<span class="badge" style="background:rgba(255,255,255,.2);color:#fff">G {tg_p}g</span>',
-                      "card-orange"), unsafe_allow_html=True)
+        plan_k = st.selectbox("Plan", list(DIETAS_TEMPLATE.keys()), key="plan_k")
+        plan   = DIETAS_TEMPLATE[plan_k]
+        tc_p   = sum(c["cal"]  for c in plan["comidas"])
+        tp_p   = sum(c["prot"] for c in plan["comidas"])
+        tcb_p  = sum(c["carb"] for c in plan["comidas"])
+        tg_p   = sum(c["grasa"]for c in plan["comidas"])
+        card(
+            f'<div class="fap-lbl" style="color:rgba(255,255,255,.7)">Objetivo del plan</div>'
+            f'<div style="font-family:Sora,sans-serif;font-size:.88rem;font-weight:700;'
+            f'color:#fff;margin-bottom:.65rem">{plan["objetivo"]}</div>'
+            f'<span class="fap-badge" style="background:rgba(255,255,255,.22);color:#fff">🔥 {tc_p} kcal</span>'
+            f'<span class="fap-badge" style="background:rgba(255,255,255,.18);color:#fff">P {tp_p}g</span>'
+            f'<span class="fap-badge" style="background:rgba(255,255,255,.18);color:#fff">C {tcb_p}g</span>'
+            f'<span class="fap-badge" style="background:rgba(255,255,255,.18);color:#fff">G {tg_p}g</span>',
+            "fap-card-green"
+        )
         for c in plan["comidas"]:
-            st.markdown(C(f'<div class="meal-header">'
-                          f'<div style="display:flex;align-items:center;gap:.5rem">'
-                          f'<span style="font-size:1.5rem">{food_icon(c["alimentos"])}</span>'
-                          f'<span class="meal-title">{c["nombre"]}</span></div>'
-                          f'<span class="badge bk">{c["cal"]} kcal</span></div>'
-                          f'<p style="margin:.2rem 0 .4rem;font-size:.78rem;color:var(--text2)">{c["alimentos"]}</p>'
-                          f'<span class="badge bp">P {c["prot"]}g</span>'
-                          f'<span class="badge bc">C {c["carb"]}g</span>'
-                          f'<span class="badge bf">G {c["grasa"]}g</span>'), unsafe_allow_html=True)
-        if st.button("✅ Usar como objetivo diario",key="btn_usar"):
+            card(
+                f'<div class="fap-meal-hdr">'
+                f'<div style="display:flex;align-items:center;gap:.5rem">'
+                f'<span style="font-size:1.45rem">{food_icon(c["alimentos"])}</span>'
+                f'<span class="fap-meal-ttl">{c["nombre"]}</span>'
+                f'</div>'
+                f'{badge(f"{c[chr(99)+chr(97)+chr(108)]} kcal","b-green")}'
+                f'</div>'
+                f'<p style="margin:.2rem 0 .4rem;font-size:.77rem;color:var(--text2)">{c["alimentos"]}</p>'
+                f'{badge(f"P {c[chr(112)+chr(114)+chr(111)+chr(116)]}g","b-blue")}'
+                f'{badge(f"C {c[chr(99)+chr(97)+chr(114)+chr(98)]}g","b-teal")}'
+                f'{badge(f"G {c[chr(103)+chr(114)+chr(97)+chr(115)+chr(97)]}g","b-amber")}'
+            )
+        if st.button("Usar como objetivo diario", key="btn_usar"):
             st.session_state.datos.setdefault("perfil",{}).update(
                 {"objetivo_cal":tc_p,"obj_prot":tp_p,"obj_carb":tcb_p,"obj_grasa":tg_p})
             save_datos(); st.success(f"Objetivo: {tc_p} kcal/dia"); st.rerun()
 
     with dt2:
-        pf2=get_pf()
-        d1,d2=st.columns(2)
+        pf2 = get_pf()
+        d1, d2 = st.columns(2)
         with d1:
-            dp=st.number_input("Peso (kg)",30.0,250.0,float(pf2.get("peso",75)),.5,key="dp")
-            da=st.number_input("Altura (cm)",100,250,int(pf2.get("altura",175)),key="da")
+            dp  = st.number_input("Peso (kg)",  30.0,250.0,float(pf2.get("peso",75)),.5,key="dp")
+            da  = st.number_input("Altura (cm)",100,250,int(pf2.get("altura",175)),key="da")
         with d2:
-            de=st.number_input("Edad",10,100,int(pf2.get("edad",25)),key="de")
-            dsx=st.selectbox("Sexo",["Hombre","Mujer"],key="dsx")
-        dact=st.selectbox("Actividad",["Sedentario (sin ejercicio)","Ligero (1-2 dias/semana)",
-            "Moderado (3-4 dias/semana)","Activo (5-6 dias/semana)","Muy activo (2 veces/dia)"],index=2,key="dact")
-        dobj=st.selectbox("Objetivo",["Perdida de grasa (-300 kcal)","Perdida agresiva (-500 kcal)",
+            de  = st.number_input("Edad",10,100,int(pf2.get("edad",25)),key="de")
+            dsx = st.selectbox("Sexo",["Hombre","Mujer"],key="dsx")
+        dact = st.selectbox("Actividad",[
+            "Sedentario (sin ejercicio)","Ligero (1-2 dias/semana)",
+            "Moderado (3-4 dias/semana)","Activo (5-6 dias/semana)","Muy activo (2 veces/dia)"],
+            index=2, key="dact")
+        dobj = st.selectbox("Objetivo",[
+            "Perdida de grasa (-300 kcal)","Perdida agresiva (-500 kcal)",
             "Mantenimiento","Volumen limpio (+200 kcal)","Volumen (+400 kcal)"],key="dobj")
-        if st.button("🔢 Calcular TDEE",key="btn_calc"):
-            tdee=calcular_tdee(dp,da,de,dsx,dact)
-            delta={"Perdida de grasa (-300 kcal)":-300,"Perdida agresiva (-500 kcal)":-500,
-                   "Mantenimiento":0,"Volumen limpio (+200 kcal)":200,"Volumen (+400 kcal)":400}[dobj]
-            cobj=tdee+delta; perd="Perdida" in dobj
-            prot_g=round(dp*(2.2 if perd else 1.9)); gras_g=round(dp*(1.0 if perd else 1.1))
-            carb_g=max(round((cobj-prot_g*4-gras_g*9)/4),50)
-            imc=round(dp/((da/100)**2),1)
-            cat="Bajo peso" if imc<18.5 else "Normopeso" if imc<25 else "Sobrepeso" if imc<30 else "Obesidad"
-            st.session_state.calc_res={"tdee":tdee,"cobj":cobj,"prot":prot_g,"carb":carb_g,"grasa":gras_g,"imc":imc,"cat":cat,"dp":dp,"da":da,"de":de}
+        if st.button("Calcular TDEE", key="btn_calc"):
+            tdee = calcular_tdee(dp, da, de, dsx, dact)
+            delta = {"Perdida de grasa (-300 kcal)":-300,"Perdida agresiva (-500 kcal)":-500,
+                     "Mantenimiento":0,"Volumen limpio (+200 kcal)":200,"Volumen (+400 kcal)":400}[dobj]
+            cobj   = tdee + delta; perd = "Perdida" in dobj
+            prot_g = round(dp*(2.2 if perd else 1.9))
+            gras_g = round(dp*(1.0 if perd else 1.1))
+            carb_g = max(round((cobj-prot_g*4-gras_g*9)/4), 50)
+            imc    = round(dp/((da/100)**2), 1)
+            cat    = ("Bajo peso" if imc<18.5 else "Normopeso" if imc<25
+                      else "Sobrepeso" if imc<30 else "Obesidad")
+            st.session_state.calc_res = {
+                "tdee":tdee,"cobj":cobj,"prot":prot_g,"carb":carb_g,
+                "grasa":gras_g,"imc":imc,"cat":cat,"dp":dp,"da":da,"de":de}
         if st.session_state.calc_res:
-            res=st.session_state.calc_res
-            st.markdown(C(
-                f'<div class="lbl lbl-orange">Resultado</div>'
-                f'<div class="sgrid" style="margin-bottom:.8rem">'
-                f'<div class="mini-stat"><div class="mini-val">{res["tdee"]}</div><div class="mini-lbl">Mantenimiento kcal</div></div>'
-                f'<div class="mini-stat" style="border:2px solid var(--orange)">'
-                f'<div class="mini-val" style="color:var(--orange)">{res["cobj"]}</div>'
-                f'<div class="mini-lbl">Tu objetivo kcal</div></div></div>'
-                f'<p style="font-size:.8rem;font-weight:600;margin-bottom:.5rem">IMC: <b>{res["imc"]}</b> — {res["cat"]}</p>'
-                f'<span class="badge bp">P {res["prot"]}g</span>'
-                f'<span class="badge bc">C {res["carb"]}g</span>'
-                f'<span class="badge bf">G {res["grasa"]}g</span>'
-            ), unsafe_allow_html=True)
-            if st.button("💾 Guardar objetivos",key="btn_sc"):
-                st.session_state.datos.setdefault("perfil",{}).update(
-                    {"peso":res["dp"],"altura":res["da"],"edad":res["de"],
-                     "objetivo_cal":res["cobj"],"obj_prot":res["prot"],"obj_carb":res["carb"],"obj_grasa":res["grasa"]})
-                save_datos(); st.success("✅ Guardados."); st.rerun()
+            res = st.session_state.calc_res
+            card(
+                f'<div class="fap-lbl fap-lbl-green">Resultado</div>'
+                f'<div class="fap-sgrid" style="margin-bottom:.8rem">'
+                f'<div class="fap-mini"><div class="fap-mini-val">{res["tdee"]}</div>'
+                f'<div class="fap-mini-lbl">Mantenimiento kcal</div></div>'
+                f'<div class="fap-mini" style="border:2px solid var(--green)">'
+                f'<div class="fap-mini-val" style="color:var(--green)">{res["cobj"]}</div>'
+                f'<div class="fap-mini-lbl">Tu objetivo kcal</div></div>'
+                f'</div>'
+                f'<p style="font-size:.79rem;font-weight:600;margin-bottom:.5rem">'
+                f'IMC: <strong>{res["imc"]}</strong> — {res["cat"]}</p>'
+                f'{badge(f"P {res[chr(112)+chr(114)+chr(111)+chr(116)]}g","b-blue")}'
+                f'{badge(f"C {res[chr(99)+chr(97)+chr(114)+chr(98)]}g","b-teal")}'
+                f'{badge(f"G {res[chr(103)+chr(114)+chr(97)+chr(115)+chr(97)]}g","b-amber")}'
+            )
+            if st.button("Guardar objetivos", key="btn_sc"):
+                st.session_state.datos.setdefault("perfil",{}).update({
+                    "peso":res["dp"],"altura":res["da"],"edad":res["de"],
+                    "objetivo_cal":res["cobj"],"obj_prot":res["prot"],
+                    "obj_carb":res["carb"],"obj_grasa":res["grasa"]})
+                save_datos(); st.success("Guardados correctamente."); st.rerun()
 
     with dt3:
-        key_ia=st.session_state.groq_key if "Groq" in st.session_state.proveedor_ia else st.session_state.gemini_key
+        key_ia = st.session_state.groq_key if "Groq" in st.session_state.proveedor_ia else st.session_state.gemini_key
         if not key_ia.strip():
-            st.info("🔑 Configura tu API Key en Config.")
+            st.info("Configura tu API Key en Config.")
         else:
-            pf3=get_pf(); d1,d2=st.columns(2)
+            pf3 = get_pf()
+            d1, d2 = st.columns(2)
             with d1:
-                iap=st.number_input("Peso (kg)",30.0,250.0,float(pf3.get("peso",75)),.5,key="iap")
-                iaa=st.number_input("Altura (cm)",100,250,int(pf3.get("altura",175)),key="iaa")
-                iae=st.number_input("Edad",10,100,int(pf3.get("edad",25)),key="iae")
+                iap  = st.number_input("Peso (kg)",  30.0,250.0,float(pf3.get("peso",75)),.5,key="iap")
+                iaa  = st.number_input("Altura (cm)",100,250,int(pf3.get("altura",175)),key="iaa")
+                iae  = st.number_input("Edad",10,100,int(pf3.get("edad",25)),key="iae")
             with d2:
-                iasx=st.selectbox("Sexo",["Hombre","Mujer"],key="iasx")
-                iaob=st.selectbox("Objetivo",["Perder grasa","Ganar musculo","Mantenimiento","Mejorar rendimiento","Salud general"],key="iaob")
-                iaac=st.selectbox("Actividad",["Sedentario","Ligero","Moderado","Activo","Muy activo"],key="iaac")
-            iarest=st.multiselect("Restricciones",["Sin gluten","Sin lactosa","Vegetariano","Vegano","Sin cerdo","Sin mariscos","Bajo sodio","Bajo azucar"],key="iarest")
-            iaext=st.text_area("Info adicional",placeholder="Alergias, patologias...",height=60,key="iaext")
-            if st.button("🤖 Generar plan con IA",key="btn_ia"):
-                rest_s=", ".join(iarest) if iarest else "ninguna"
-                pr=(f"Eres dietista-nutricionista experto. Plan completo en espanol para:\n"
-                    f"- {iasx}, {iae} anios, {iap}kg, {iaa}cm\n- Objetivo: {iaob} | Actividad: {iaac} | Restricciones: {rest_s}\n"
-                    f"- Extra: {iaext or 'ninguna'}\nIncluye: 1)Calorias y macros 2)Plan 5-6 comidas con cantidades exactas "
-                    f"3)Timing pre/post entreno 4)Lista compra semanal 5)3 consejos. Muy especifico.")
-                with st.spinner("Generando plan..."):
-                    res=ia_call(pr)
-                    if res=="ERROR_NO_KEY": st.warning("Configura API Key en Config.")
-                    else: st.session_state.ia_res=res
+                iasx = st.selectbox("Sexo",["Hombre","Mujer"],key="iasx")
+                iaob = st.selectbox("Objetivo",[
+                    "Perder grasa","Ganar musculo","Mantenimiento",
+                    "Mejorar rendimiento","Salud general"],key="iaob")
+                iaac = st.selectbox("Actividad",[
+                    "Sedentario","Ligero","Moderado","Activo","Muy activo"],key="iaac")
+            iarest = st.multiselect("Restricciones",[
+                "Sin gluten","Sin lactosa","Vegetariano","Vegano",
+                "Sin cerdo","Sin mariscos","Bajo sodio","Bajo azucar"],key="iarest")
+            iaext = st.text_area("Info adicional",
+                placeholder="Alergias, patologias...", height=60, key="iaext")
+            if st.button("Generar plan con IA", key="btn_ia"):
+                rest_s = ", ".join(iarest) if iarest else "ninguna"
+                pr = (f"Eres dietista-nutricionista experto. Plan completo en espanol para:\n"
+                      f"- {iasx}, {iae} anios, {iap}kg, {iaa}cm\n"
+                      f"- Objetivo: {iaob} | Actividad: {iaac} | Restricciones: {rest_s}\n"
+                      f"- Extra: {iaext or 'ninguna'}\n"
+                      f"Incluye: 1)Calorias y macros 2)Plan 5-6 comidas con cantidades exactas "
+                      f"3)Timing pre/post entreno 4)Lista compra semanal 5)3 consejos practicos.")
+                with st.spinner("Generando plan personalizado..."):
+                    res = ia_call(pr)
+                    if res == "ERROR_NO_KEY":
+                        st.warning("Configura API Key en Config.")
+                    else:
+                        st.session_state.ia_res = res
             if st.session_state.ia_res:
-                st.markdown(C(f'<div class="lbl lbl-orange">Plan generado por IA</div>'
-                              f'<p style="white-space:pre-wrap;color:var(--text2);font-size:.8rem;line-height:1.85;margin:0">{st.session_state.ia_res}</p>'),
-                            unsafe_allow_html=True)
-                if st.button("🔄 Nuevo plan",key="btn_ia_r"):
-                    st.session_state.ia_res=None; st.rerun()
+                card(
+                    f'<div class="fap-lbl fap-lbl-green">Plan generado por IA</div>'
+                    f'<p style="white-space:pre-wrap;color:var(--text2);font-size:.79rem;'
+                    f'line-height:1.85;margin:0">{st.session_state.ia_res}</p>'
+                )
+                if st.button("Nuevo plan", key="btn_ia_r"):
+                    st.session_state.ia_res = None; st.rerun()
 
     with dt4:
-        dc_all=st.session_state.datos.get("dietas_custom",{})
+        dc_all = st.session_state.datos.get("dietas_custom",{})
         if dc_all:
-            dc_sel=st.selectbox("Mis dietas",["— Nueva —"]+list(dc_all.keys()),key="dc_sel")
-            if dc_sel!="— Nueva —":
-                dc=dc_all[dc_sel]
+            dc_sel = st.selectbox("Mis dietas", ["Nueva dieta"]+list(dc_all.keys()), key="dc_sel")
+            if dc_sel != "Nueva dieta":
+                dc = dc_all[dc_sel]
                 if dc.get("notas"):
-                    st.markdown(C(f'<p style="font-size:.8rem;color:var(--text2);margin:0">{dc["notas"]}</p>'),unsafe_allow_html=True)
+                    card(f'<p style="font-size:.79rem;color:var(--text2);margin:0">{dc["notas"]}</p>')
                 for c in dc.get("comidas",[]):
-                    st.markdown(C(f'<div class="meal-header">'
-                                  f'<span class="meal-title">{food_icon(c.get("alimentos",""))} {c["nombre"]}</span>'
-                                  f'<span class="badge bk">{c.get("cal",0)} kcal</span></div>'
-                                  f'<p style="margin:0 0 .4rem;font-size:.78rem;color:var(--text2)">{c.get("alimentos","")}</p>'
-                                  f'<span class="badge bp">P {c.get("prot",0)}g</span>'
-                                  f'<span class="badge bc">C {c.get("carb",0)}g</span>'
-                                  f'<span class="badge bf">G {c.get("grasa",0)}g</span>'),unsafe_allow_html=True)
-                if st.button("🗑️ Eliminar dieta",key="btn_del_dc"):
-                    del st.session_state.datos["dietas_custom"][dc_sel]; save_datos(); st.success("Eliminada."); st.rerun()
+                    card(
+                        f'<div class="fap-meal-hdr">'
+                        f'<span class="fap-meal-ttl">'
+                        f'{food_icon(c.get("alimentos",""))} {c["nombre"]}'
+                        f'</span>'
+                        f'{badge(f"{c.get(chr(99)+chr(97)+chr(108),0)} kcal","b-green")}'
+                        f'</div>'
+                        f'<p style="margin:0 0 .4rem;font-size:.77rem;color:var(--text2)">'
+                        f'{c.get("alimentos","")}</p>'
+                        f'{badge(f"P {c.get(chr(112)+chr(114)+chr(111)+chr(116),0)}g","b-blue")}'
+                        f'{badge(f"C {c.get(chr(99)+chr(97)+chr(114)+chr(98),0)}g","b-teal")}'
+                        f'{badge(f"G {c.get(chr(103)+chr(114)+chr(97)+chr(115)+chr(97),0)}g","b-amber")}'
+                    )
+                if st.button("Eliminar dieta", key="btn_del_dc"):
+                    del st.session_state.datos["dietas_custom"][dc_sel]
+                    save_datos(); st.success("Eliminada."); st.rerun()
+
         sdiv("Crear nueva dieta")
-        nc_nom=st.text_input("Nombre",placeholder="Mi dieta de verano",key="nc_nom")
-        nc_not=st.text_area("Descripcion",placeholder="Objetivo...",height=50,key="nc_not")
-        sdiv("Añadir comidas")
-        dc1,dc2=st.columns([2,1])
+        nc_nom = st.text_input("Nombre", placeholder="Mi dieta de verano", key="nc_nom")
+        nc_not = st.text_area("Descripcion", placeholder="Objetivo...", height=50, key="nc_not")
+        sdiv("Anadir comidas")
+        dc1, dc2 = st.columns([2,1])
         with dc1:
-            nc_cn=st.text_input("Nombre comida",placeholder="Almuerzo",key="nc_cn")
-            nc_al=st.text_area("Alimentos",placeholder="Pollo 150g, Arroz 100g",height=45,key="nc_al")
+            nc_cn  = st.text_input("Nombre comida", placeholder="Almuerzo", key="nc_cn")
+            nc_al  = st.text_area("Alimentos", placeholder="Pollo 150g, Arroz 100g", height=45, key="nc_al")
         with dc2:
-            nc_cal=st.number_input("kcal",0,3000,0,10,key="nc_cal")
-            nc_pr=st.number_input("P(g)",0.0,200.0,0.0,.5,key="nc_pr")
-            nc_cb2=st.number_input("C(g)",0.0,500.0,0.0,.5,key="nc_cb2")
-            nc_gr=st.number_input("G(g)",0.0,200.0,0.0,.5,key="nc_gr")
-        if st.button("➕ Añadir comida",key="btn_add_nc"):
+            nc_cal = st.number_input("kcal", 0,3000,0,10,key="nc_cal")
+            nc_pr  = st.number_input("P(g)", 0.0,200.0,0.0,.5,key="nc_pr")
+            nc_cb2 = st.number_input("C(g)", 0.0,500.0,0.0,.5,key="nc_cb2")
+            nc_gr  = st.number_input("G(g)", 0.0,200.0,0.0,.5,key="nc_gr")
+        if st.button("Anadir comida", key="btn_add_nc"):
             if nc_cn:
-                st.session_state.dc_temp.append({"nombre":nc_cn,"alimentos":nc_al,"cal":nc_cal,"prot":nc_pr,"carb":nc_cb2,"grasa":nc_gr})
+                st.session_state.dc_temp.append({
+                    "nombre":nc_cn,"alimentos":nc_al,"cal":nc_cal,
+                    "prot":nc_pr,"carb":nc_cb2,"grasa":nc_gr})
                 st.success(f"'{nc_cn}' añadida.")
-            else: st.warning("Escribe nombre de la comida.")
-        if st.session_state.dc_temp:
-            tot=sum(c["cal"] for c in st.session_state.dc_temp)
-            filas="".join(f'<div class="row"><span class="rl">{i+1}. {food_icon(c.get("alimentos",""))} {c["nombre"]}</span>'
-                          f'<span class="rr">{c["cal"]} kcal</span></div>'
-                          for i,c in enumerate(st.session_state.dc_temp))
-            st.markdown(C(f'{filas}<div style="text-align:right;margin-top:.4rem">'
-                          f'<span class="badge bk">Total: {tot} kcal</span></div>'),unsafe_allow_html=True)
-        if st.button("💾 Guardar dieta",key="btn_save_dc"):
-            if not nc_nom: st.warning("Dale un nombre.")
-            elif not st.session_state.dc_temp: st.warning("Añade al menos una comida.")
             else:
-                st.session_state.datos.setdefault("dietas_custom",{})[nc_nom]={"notas":nc_not,"comidas":st.session_state.dc_temp.copy()}
-                save_datos(); st.session_state.dc_temp=[]; st.success(f"✅ '{nc_nom}' guardada."); st.rerun()
+                st.warning("Escribe el nombre de la comida.")
+        if st.session_state.dc_temp:
+            tot = sum(c["cal"] for c in st.session_state.dc_temp)
+            filas = "".join(
+                f'<div class="fap-row">'
+                f'<span class="fap-rl">{i+1}. {food_icon(c.get("alimentos",""))} {c["nombre"]}</span>'
+                f'<span class="fap-rr">{c["cal"]} kcal</span>'
+                f'</div>'
+                for i,c in enumerate(st.session_state.dc_temp)
+            )
+            card(
+                f'{filas}'
+                f'<div style="text-align:right;margin-top:.4rem">'
+                f'{badge(f"Total: {tot} kcal","b-green")}'
+                f'</div>'
+            )
+        if st.button("Guardar dieta", key="btn_save_dc"):
+            if not nc_nom:
+                st.warning("Dale un nombre a la dieta.")
+            elif not st.session_state.dc_temp:
+                st.warning("Añade al menos una comida.")
+            else:
+                st.session_state.datos.setdefault("dietas_custom",{})[nc_nom] = {
+                    "notas":nc_not, "comidas":st.session_state.dc_temp.copy()}
+                save_datos(); st.session_state.dc_temp = []
+                st.success(f"'{nc_nom}' guardada."); st.rerun()
 
 # ══════════════════════════════════════════════════════════════════════════════
 # GIMNASIO
 # ══════════════════════════════════════════════════════════════════════════════
 with t_gym:
-    g1,g2,g3=st.tabs(["Ejercicios","Rutinas","Registro"])
+    g1, g2, g3 = st.tabs(["Ejercicios","Rutinas","Registro"])
+
     with g1:
-        grupo=st.selectbox("Grupo muscular",list(EJERCICIOS_GYM.keys()),key="grupo")
+        grupo = st.selectbox("Grupo muscular", list(EJERCICIOS_GYM.keys()), key="grupo")
         for ej in EJERCICIOS_GYM[grupo]:
-            tc=TIPO_COLOR.get(ej["tipo"],{"color":"#ff6b35","bg":"rgba(255,107,53,.1)"})
-            st.markdown(C(
-                f'<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.3rem;margin-bottom:.4rem">'
-                f'<span style="font-family:Nunito,sans-serif;font-size:.88rem;font-weight:800;color:var(--text)">{ej["nombre"]}</span>'
-                f'<span class="typebadge" style="color:{tc["color"]};background:{tc["bg"]}">{ej["tipo"]}</span></div>'
-                f'<div style="font-size:.68rem;color:var(--text3);font-weight:600;margin-bottom:.3rem">{ej["equipo"]}</div>'
-                f'<div style="display:flex;gap:.5rem;flex-wrap:wrap;font-size:.77rem;color:var(--text2);margin-bottom:.3rem">'
-                f'<span style="font-weight:700;color:var(--orange)">{ej["series_rec"]} series</span>'
-                f'<span>·</span><span>{ej["reps_rec"]} reps</span><span>·</span><span>{ej["descanso"]}</span></div>'
-                f'<p style="font-size:.72rem;color:var(--text3);font-style:italic;margin:0">{ej["notas"]}</p>'
-            ), unsafe_allow_html=True)
+            tc = TIPO_COLOR.get(ej["tipo"], {"color":"#10b981","bg":"rgba(16,185,129,.1)"})
+            card(
+                f'<div style="display:flex;justify-content:space-between;'
+                f'align-items:flex-start;flex-wrap:wrap;gap:.3rem;margin-bottom:.4rem">'
+                f'<span style="font-family:Sora,sans-serif;font-size:.87rem;font-weight:700;'
+                f'color:var(--text)">{ej["nombre"]}</span>'
+                f'<span class="fap-typebadge" style="color:{tc["color"]};background:{tc["bg"]}">'
+                f'{ej["tipo"]}</span>'
+                f'</div>'
+                f'<div style="font-size:.67rem;color:var(--text3);font-weight:600;margin-bottom:.3rem">'
+                f'{ej["equipo"]}</div>'
+                f'<div style="display:flex;gap:.5rem;flex-wrap:wrap;font-size:.76rem;'
+                f'color:var(--text2);margin-bottom:.3rem">'
+                f'<span style="font-weight:700;color:var(--green)">{ej["series_rec"]} series</span>'
+                f'<span>·</span><span>{ej["reps_rec"]} reps</span>'
+                f'<span>·</span><span>{ej["descanso"]}</span>'
+                f'</div>'
+                f'<p style="font-size:.71rem;color:var(--text3);font-style:italic;margin:0">'
+                f'{ej["notas"]}</p>'
+            )
 
     with g2:
-        todas={**RUTINAS_DEFAULT,**st.session_state.datos.get("rutinas_custom",{})}
-        rut_k=st.selectbox("Rutina",list(todas.keys()),key="rut_k")
-        rut=todas[rut_k]
-        desc=rut.get("desc","") if isinstance(rut,dict) else ""
-        ejs=rut.get("ejercicios",rut) if isinstance(rut,dict) else rut
+        todas = {**RUTINAS_DEFAULT, **st.session_state.datos.get("rutinas_custom",{})}
+        rut_k = st.selectbox("Rutina", list(todas.keys()), key="rut_k")
+        rut   = todas[rut_k]
+        desc  = rut.get("desc","") if isinstance(rut,dict) else ""
+        ejs   = rut.get("ejercicios",rut) if isinstance(rut,dict) else rut
         if desc:
-            st.markdown(f'<div style="font-size:.72rem;font-weight:700;color:var(--text3);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.06em">{desc}</div>',unsafe_allow_html=True)
-        for idx,ej in enumerate(ejs):
-            ps=f" · {ej['peso']}" if ej.get("peso") else ""
-            ns=f'<p style="font-size:.7rem;color:var(--text3);font-style:italic;margin-top:.2rem">{ej["notas"]}</p>' if ej.get("notas") else ""
-            st.markdown(C(
+            st.markdown(
+                f'<div style="font-size:.7rem;font-weight:700;color:var(--text3);'
+                f'margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.06em">{desc}</div>',
+                unsafe_allow_html=True
+            )
+        for idx, ej in enumerate(ejs):
+            ps = f" · {ej['peso']}" if ej.get("peso") else ""
+            ns = (f'<p style="font-size:.69rem;color:var(--text3);font-style:italic;margin-top:.2rem">'
+                  f'{ej["notas"]}</p>') if ej.get("notas") else ""
+            card(
                 f'<div style="display:flex;align-items:flex-start;gap:.7rem">'
-                f'<div class="ex-num">{idx+1:02d}</div>'
-                f'<div style="flex:1"><div style="font-family:Nunito,sans-serif;font-size:.85rem;font-weight:800;color:var(--text);margin-bottom:.25rem">{ej["ejercicio"]}</div>'
-                f'<div style="display:flex;gap:.4rem;flex-wrap:wrap;font-size:.76rem;color:var(--text2)">'
-                f'<span style="font-weight:700;color:var(--orange)">{ej["series"]}x</span>'
-                f'<span>{ej["reps"]} reps</span><span>·</span><span>{ej["descanso"]}{ps}</span></div>{ns}</div></div>'
-            ), unsafe_allow_html=True)
+                f'<div class="fap-exnum">{idx+1:02d}</div>'
+                f'<div style="flex:1">'
+                f'<div style="font-family:Sora,sans-serif;font-size:.84rem;font-weight:700;'
+                f'color:var(--text);margin-bottom:.25rem">{ej["ejercicio"]}</div>'
+                f'<div style="display:flex;gap:.4rem;flex-wrap:wrap;font-size:.75rem;color:var(--text2)">'
+                f'<span style="font-weight:700;color:var(--green)">{ej["series"]}x</span>'
+                f'<span>{ej["reps"]} reps</span>'
+                f'<span>·</span><span>{ej["descanso"]}{ps}</span>'
+                f'</div>{ns}'
+                f'</div></div>'
+            )
         sdiv("Crear rutina personalizada")
-        with st.expander("✚ Nueva rutina"):
-            nr_n=st.text_input("Nombre",placeholder="Mi rutina lunes",key="nr_n")
-            nr_d=st.text_input("Descripcion",placeholder="Pecho y triceps",key="nr_d")
-            e1,e2,e3=st.columns([3,1,2])
-            with e1: nr_ej=st.text_input("Ejercicio",placeholder="Press banca",key="nr_ej",label_visibility="collapsed")
-            with e2: nr_s=st.number_input("Series",1,20,4,key="nr_s",label_visibility="collapsed")
-            with e3: nr_r=st.text_input("Reps",placeholder="8-12",key="nr_r",label_visibility="collapsed")
-            e4,e5,e6=st.columns(3)
-            with e4: nr_p=st.text_input("Peso",placeholder="60kg",key="nr_p",label_visibility="collapsed")
-            with e5: nr_dc=st.text_input("Descanso",placeholder="90s",key="nr_dc",label_visibility="collapsed")
-            with e6: nr_nt=st.text_input("Nota",placeholder="...",key="nr_nt",label_visibility="collapsed")
-            if st.button("➕ Añadir ejercicio",key="btn_add_ej"):
+        with st.expander("Nueva rutina"):
+            nr_n  = st.text_input("Nombre",    placeholder="Mi rutina lunes",key="nr_n")
+            nr_d  = st.text_input("Descripcion",placeholder="Pecho y triceps",key="nr_d")
+            e1,e2,e3 = st.columns([3,1,2])
+            with e1: nr_ej = st.text_input("Ejercicio",placeholder="Press banca",key="nr_ej",label_visibility="collapsed")
+            with e2: nr_s  = st.number_input("Series",1,20,4,key="nr_s",label_visibility="collapsed")
+            with e3: nr_r  = st.text_input("Reps",placeholder="8-12",key="nr_r",label_visibility="collapsed")
+            e4,e5,e6 = st.columns(3)
+            with e4: nr_p  = st.text_input("Peso",placeholder="60kg",key="nr_p",label_visibility="collapsed")
+            with e5: nr_dc = st.text_input("Descanso",placeholder="90s",key="nr_dc",label_visibility="collapsed")
+            with e6: nr_nt = st.text_input("Nota",placeholder="...",key="nr_nt",label_visibility="collapsed")
+            if st.button("Anadir ejercicio", key="btn_add_ej"):
                 if nr_ej:
-                    st.session_state.ej_temp.append({"ejercicio":nr_ej,"series":nr_s,"reps":nr_r or "8-12","peso":nr_p,"descanso":nr_dc or "60s","notas":nr_nt})
+                    st.session_state.ej_temp.append({
+                        "ejercicio":nr_ej,"series":nr_s,"reps":nr_r or "8-12",
+                        "peso":nr_p,"descanso":nr_dc or "60s","notas":nr_nt})
                     st.success(f"'{nr_ej}' añadido.")
-                else: st.warning("Escribe nombre del ejercicio.")
-            if st.session_state.ej_temp:
-                filas="".join(f'<div class="row"><span class="rl"><span class="ex-num">{i+1:02d}</span> {e["ejercicio"]}</span>'
-                              f'<span class="rr">{e["series"]}x{e["reps"]}</span></div>'
-                              for i,e in enumerate(st.session_state.ej_temp))
-                st.markdown(C(filas),unsafe_allow_html=True)
-            if st.button("💾 Guardar rutina",key="btn_save_rut"):
-                if not nr_n: st.warning("Dale un nombre.")
-                elif not st.session_state.ej_temp: st.warning("Añade al menos un ejercicio.")
                 else:
-                    st.session_state.datos.setdefault("rutinas_custom",{})[nr_n]={"desc":nr_d,"ejercicios":st.session_state.ej_temp.copy()}
-                    save_datos(); st.session_state.ej_temp=[]; st.success(f"✅ '{nr_n}' guardada."); st.rerun()
+                    st.warning("Escribe el nombre del ejercicio.")
+            if st.session_state.ej_temp:
+                filas = "".join(
+                    f'<div class="fap-row">'
+                    f'<span class="fap-rl"><span class="fap-exnum">{i+1:02d}</span> {e["ejercicio"]}</span>'
+                    f'<span class="fap-rr">{e["series"]}x{e["reps"]}</span>'
+                    f'</div>'
+                    for i,e in enumerate(st.session_state.ej_temp)
+                )
+                card(filas)
+            if st.button("Guardar rutina", key="btn_save_rut"):
+                if not nr_n:
+                    st.warning("Dale un nombre a la rutina.")
+                elif not st.session_state.ej_temp:
+                    st.warning("Añade al menos un ejercicio.")
+                else:
+                    st.session_state.datos.setdefault("rutinas_custom",{})[nr_n] = {
+                        "desc":nr_d, "ejercicios":st.session_state.ej_temp.copy()}
+                    save_datos(); st.session_state.ej_temp = []
+                    st.success(f"'{nr_n}' guardada."); st.rerun()
 
     with g3:
-        r1,r2=st.columns(2)
-        with r1: reg_tipo=st.selectbox("Tipo",["PPL — Empuje","PPL — Tiron","PPL — Piernas","Full Body","Upper","Lower","HIIT","Cardio","Otro"],key="reg_tipo")
-        with r2: reg_dur=st.number_input("Duracion (min)",10,300,60,key="reg_dur")
-        reg_notas=st.text_area("Notas",placeholder="Sensaciones, PRs...",height=60,key="reg_notas")
+        r1, r2 = st.columns(2)
+        with r1:
+            reg_tipo = st.selectbox("Tipo",[
+                "PPL Empuje","PPL Tiron","PPL Piernas","Full Body",
+                "Upper","Lower","HIIT","Cardio","Otro"],key="reg_tipo")
+        with r2:
+            reg_dur = st.number_input("Duracion (min)",10,300,60,key="reg_dur")
+        reg_notas = st.text_area("Notas",placeholder="Sensaciones, PRs...",height=55,key="reg_notas")
         sdiv("Series realizadas")
-        sr1,sr2,sr3,sr4=st.columns(4)
-        with sr1: ej_n=st.text_input("Ejercicio",placeholder="Sentadilla",key="ej_n",label_visibility="collapsed")
-        with sr2: set_s=st.number_input("Series",1,20,3,key="set_s",label_visibility="collapsed")
-        with sr3: set_r=st.text_input("Reps",placeholder="10",key="set_r",label_visibility="collapsed")
-        with sr4: set_p=st.text_input("Peso",placeholder="80kg",key="set_p",label_visibility="collapsed")
-        if st.button("➕ Añadir serie",key="btn_add_set"):
+        sr1,sr2,sr3,sr4 = st.columns(4)
+        with sr1: ej_n  = st.text_input("Ejercicio",placeholder="Sentadilla",key="ej_n",label_visibility="collapsed")
+        with sr2: set_s = st.number_input("Series",1,20,3,key="set_s",label_visibility="collapsed")
+        with sr3: set_r = st.text_input("Reps",placeholder="10",key="set_r",label_visibility="collapsed")
+        with sr4: set_p = st.text_input("Peso",placeholder="80kg",key="set_p",label_visibility="collapsed")
+        if st.button("Anadir serie", key="btn_add_set"):
             if ej_n:
-                st.session_state.sets_temp.append({"ejercicio":ej_n,"series":set_s,"reps":set_r or "—","peso":set_p or "—"})
+                st.session_state.sets_temp.append({
+                    "ejercicio":ej_n,"series":set_s,
+                    "reps":set_r or "","peso":set_p or ""})
                 st.success(f"'{ej_n}' añadido.")
-            else: st.warning("Escribe nombre del ejercicio.")
+            else:
+                st.warning("Escribe el nombre del ejercicio.")
         if st.session_state.sets_temp:
-            filas="".join(f'<div class="row"><span class="rl"><span class="ex-num">{i+1:02d}</span> {s["ejercicio"]}</span>'
-                          f'<span class="rr">{s["series"]}x{s["reps"]} · {s["peso"]}</span></div>'
-                          for i,s in enumerate(st.session_state.sets_temp))
-            st.markdown(C(filas),unsafe_allow_html=True)
-        if st.button("💾 Guardar sesion",key="btn_save_ses"):
-            reg=st.session_state.datos.setdefault("registro_entreno",{})
-            reg.setdefault(hoy(),[]).append({"tipo":reg_tipo,"duracion":reg_dur,"notas":reg_notas,
-                "series":st.session_state.sets_temp.copy(),"hora":datetime.now().strftime("%H:%M")})
-            save_datos(); st.session_state.sets_temp=[]; st.success("✅ Sesion guardada."); st.rerun()
+            filas = "".join(
+                f'<div class="fap-row">'
+                f'<span class="fap-rl"><span class="fap-exnum">{i+1:02d}</span> {s["ejercicio"]}</span>'
+                f'<span class="fap-rr">{s["series"]}x{s["reps"]} · {s["peso"]}</span>'
+                f'</div>'
+                for i,s in enumerate(st.session_state.sets_temp)
+            )
+            card(filas)
+        if st.button("Guardar sesion", key="btn_save_ses"):
+            reg = st.session_state.datos.setdefault("registro_entreno",{})
+            reg.setdefault(hoy(),[]).append({
+                "tipo":reg_tipo,"duracion":reg_dur,"notas":reg_notas,
+                "series":st.session_state.sets_temp.copy(),
+                "hora":datetime.now().strftime("%H:%M")})
+            save_datos(); st.session_state.sets_temp = []
+            st.success("Sesion guardada."); st.rerun()
+
         sdiv("Ultimas sesiones")
-        reg_all=st.session_state.datos.get("registro_entreno",{})
+        reg_all = st.session_state.datos.get("registro_entreno",{})
         if not reg_all:
-            st.markdown(C('<div style="text-align:center;padding:.85rem"><p style="color:var(--text3);font-size:.77rem;margin:0">Sin sesiones todavia</p></div>'),unsafe_allow_html=True)
-        for fk in sorted(reg_all.keys(),reverse=True)[:7]:
+            card('<div style="text-align:center;padding:.85rem">'
+                 '<p style="color:var(--text3);font-size:.76rem;margin:0">Sin sesiones todavia</p></div>')
+        for fk in sorted(reg_all.keys(), reverse=True)[:7]:
             for ses in reg_all[fk]:
-                ns=len(ses.get("series",[]))
-                st.markdown(C(
-                    f'<div class="meal-header"><span class="meal-title">🏋️ {ses["tipo"]}</span>'
-                    f'<span class="badge bn">{fk}</span></div>'
-                    f'<div style="display:flex;gap:.5rem;flex-wrap:wrap;font-size:.75rem;color:var(--text2)">'
-                    f'<span style="font-weight:700;color:var(--orange)">{ses["duracion"]} min</span>'
-                    f'<span>·</span><span>{ns} ejercicios</span><span>·</span><span>{ses.get("hora","")}</span></div>'
-                    f'{"<p style=margin-top:.3rem;font-size:.72rem;color:var(--text3)>"+ses["notas"]+"</p>" if ses.get("notas") else ""}'
-                ),unsafe_allow_html=True)
+                ns_count = len(ses.get("series",[]))
+                notas_html = ""
+                if ses.get("notas"):
+                    notas_html = (f'<p style="margin-top:.3rem;font-size:.71rem;color:var(--text3)">'
+                                  f'{ses["notas"]}</p>')
+                card(
+                    f'<div class="fap-meal-hdr">'
+                    f'<span class="fap-meal-ttl">💪 {ses["tipo"]}</span>'
+                    f'{badge(fk,"b-gray")}'
+                    f'</div>'
+                    f'<div style="display:flex;gap:.5rem;flex-wrap:wrap;'
+                    f'font-size:.74rem;color:var(--text2)">'
+                    f'<span style="font-weight:700;color:var(--green)">{ses["duracion"]} min</span>'
+                    f'<span>·</span><span>{ns_count} ejercicios</span>'
+                    f'<span>·</span><span>{ses.get("hora","")}</span>'
+                    f'</div>{notas_html}'
+                )
 
 # ══════════════════════════════════════════════════════════════════════════════
 # STATS / HISTORIAL
 # ══════════════════════════════════════════════════════════════════════════════
 with t_hist:
-    hist_c=st.session_state.datos.get("historial_calorias",{})
-    hist_m=st.session_state.datos.get("historial_macros",{})
-    reg_e=st.session_state.datos.get("registro_entreno",{})
+    hist_c = st.session_state.datos.get("historial_calorias",{})
+    hist_m = st.session_state.datos.get("historial_macros",{})
+    reg_e  = st.session_state.datos.get("registro_entreno",{})
+
     if not hist_c:
-        st.markdown(C('<div style="text-align:center;padding:1.5rem 0">'
-                      '<div style="font-size:3rem;margin-bottom:.5rem">📊</div>'
-                      '<div class="lbl lbl-orange" style="text-align:center">Sin historial todavia</div>'
-                      '<p style="color:var(--text3);font-size:.77rem;margin:0">Empieza registrando alimentos en la pestana Kcal</p></div>'),
-                    unsafe_allow_html=True)
+        card(
+            '<div style="text-align:center;padding:1.5rem 0">'
+            '<div style="font-size:3rem;margin-bottom:.5rem">📊</div>'
+            '<div class="fap-lbl fap-lbl-green" style="text-align:center">Sin historial todavia</div>'
+            '<p style="color:var(--text3);font-size:.76rem;margin:.2rem 0 0">'
+            'Empieza registrando alimentos en la pestana Kcal</p>'
+            '</div>'
+        )
     else:
-        fechas=sorted(hist_c.keys())[-14:]
-        vals=[hist_c.get(f,0) for f in fechas]
-        etiq=[f[-5:] for f in fechas]
-        obj_h=obj_cal()
-        prom=round(sum(vals)/len(vals)) if vals else 0
-        maxi=max(vals) if vals else 0
-        dias_ok=sum(1 for v in vals if 0<v<=obj_h)
-        total_r=len([v for v in vals if v>0])
+        fechas  = sorted(hist_c.keys())[-14:]
+        vals    = [hist_c.get(f,0) for f in fechas]
+        etiq    = [f[-5:] for f in fechas]
+        obj_h   = obj_cal()
+        prom    = round(sum(vals)/len(vals)) if vals else 0
+        dias_ok = sum(1 for v in vals if 0 < v <= obj_h)
+        total_r = len([v for v in vals if v > 0])
 
         st.markdown(
-            f'<div class="sgrid" style="margin-bottom:.85rem">'
-            f'<div class="mini-stat"><div class="mini-val" style="color:var(--orange)">{prom}</div>'
-            f'<div class="mini-lbl">Promedio kcal/dia</div></div>'
-            f'<div class="mini-stat"><div class="mini-val" style="color:var(--green)">{dias_ok}</div>'
-            f'<div class="mini-lbl">Dias en objetivo / {total_r}</div></div></div>',
-            unsafe_allow_html=True)
+            f'<div class="fap-sgrid" style="margin-bottom:.85rem">'
+            f'<div class="fap-mini">'
+            f'<div class="fap-mini-val" style="color:var(--green)">{prom}</div>'
+            f'<div class="fap-mini-lbl">Promedio kcal/dia</div>'
+            f'</div>'
+            f'<div class="fap-mini">'
+            f'<div class="fap-mini-val" style="color:var(--blue)">{dias_ok}</div>'
+            f'<div class="fap-mini-lbl">Dias en objetivo / {total_r}</div>'
+            f'</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
 
         if vals:
-            max_v=max(vals+[obj_h,1])
-            bars='<div style="display:flex;align-items:flex-end;gap:4px;height:100px;padding-bottom:2px">'
-            for et,vl in zip(etiq,vals):
-                h=int(vl/max_v*100) if vl>0 else 2
-                if vl>obj_h and vl>0: clr="linear-gradient(180deg,#e17055,#fab1a0)"
-                elif vl>0:            clr="linear-gradient(180deg,#ff6b35,#fdcb6e)"
-                else:                 clr="#e8eaed"
-                bars+=(f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">'
-                       f'<div style="flex:1;display:flex;align-items:flex-end;width:100%">'
-                       f'<div style="width:100%;height:{h}%;background:{clr};border-radius:5px 5px 0 0;min-height:4px"></div></div>'
-                       f'<div style="font-size:.48rem;font-weight:700;color:var(--text3);text-align:center;margin-top:3px">{et}</div></div>')
-            bars+='</div>'
-            st.markdown(C(
-                f'<div class="lbl lbl-orange">Calorias diarias — 14 dias</div>{bars}'
+            max_v = max(vals + [obj_h, 1])
+            bars  = '<div style="display:flex;align-items:flex-end;gap:4px;height:100px;padding-bottom:2px">'
+            for et, vl in zip(etiq, vals):
+                h  = int(vl/max_v*100) if vl > 0 else 2
+                if vl > obj_h and vl > 0:
+                    clr = "linear-gradient(180deg,#3b82f6,#93c5fd)"
+                elif vl > 0:
+                    clr = "linear-gradient(180deg,#10b981,#34d399)"
+                else:
+                    clr = "#e2e8f0"
+                bars += (
+                    f'<div style="flex:1;display:flex;flex-direction:column;'
+                    f'align-items:center;gap:3px">'
+                    f'<div style="flex:1;display:flex;align-items:flex-end;width:100%">'
+                    f'<div style="width:100%;height:{h}%;background:{clr};'
+                    f'border-radius:5px 5px 0 0;min-height:4px"></div></div>'
+                    f'<div style="font-size:.47rem;font-weight:600;color:var(--text3);'
+                    f'text-align:center;margin-top:3px">{et}</div>'
+                    f'</div>'
+                )
+            bars += '</div>'
+            card(
+                f'<div class="fap-lbl fap-lbl-green">Calorias diarias — 14 dias</div>'
+                f'{bars}'
                 f'<div style="display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap">'
-                f'<span class="badge bk" style="font-size:.52rem">Naranja = en objetivo</span>'
-                f'<span class="badge bw" style="font-size:.52rem">Rojo = excedido</span></div>'
-            ), unsafe_allow_html=True)
-
-        dias_m=[d for d in fechas if d in hist_m and any(v>0 for v in hist_m[d].values())]
-        if dias_m:
-            pm={"prot":0.0,"carb":0.0,"grasa":0.0}
-            for d in dias_m:
-                for k in pm: pm[k]+=hist_m[d].get(k,0)
-            n=len(dias_m); pm={k:round(v/n,1) for k,v in pm.items()}
-            st.markdown(C(
-                f'<div class="lbl lbl-orange">Macros promedio diario</div>'
-                f'<div class="mgrid">'
-                f'<div class="mini-stat"><div class="mini-val" style="color:var(--green)">{pm["prot"]}g</div><div class="mini-lbl">Proteina</div></div>'
-                f'<div class="mini-stat"><div class="mini-val" style="color:var(--purple)">{pm["carb"]}g</div><div class="mini-lbl">Carbos</div></div>'
-                f'<div class="mini-stat"><div class="mini-val" style="color:#b7860b">{pm["grasa"]}g</div><div class="mini-lbl">Grasas</div></div>'
+                f'{badge("Verde = en objetivo","b-green")}'
+                f'{badge("Azul = excedido","b-blue")}'
                 f'</div>'
-            ), unsafe_allow_html=True)
+            )
 
-        ses_t=sum(len(v) for v in reg_e.values())
-        min_t=sum(s.get("duracion",0) for v in reg_e.values() for s in v)
-        if ses_t>0:
+        dias_m = [d for d in fechas if d in hist_m and any(v > 0 for v in hist_m[d].values())]
+        if dias_m:
+            pm = {"prot":0.0,"carb":0.0,"grasa":0.0}
+            for d in dias_m:
+                for k in pm: pm[k] += hist_m[d].get(k,0)
+            n  = len(dias_m)
+            pm = {k: round(v/n, 1) for k,v in pm.items()}
+            card(
+                f'<div class="fap-lbl fap-lbl-green">Macros promedio diario</div>'
+                f'<div class="fap-mgrid">'
+                f'<div class="fap-mini">'
+                f'<div class="fap-mini-val" style="color:var(--green)">{pm["prot"]}g</div>'
+                f'<div class="fap-mini-lbl">Proteina</div></div>'
+                f'<div class="fap-mini">'
+                f'<div class="fap-mini-val" style="color:var(--blue)">{pm["carb"]}g</div>'
+                f'<div class="fap-mini-lbl">Carbos</div></div>'
+                f'<div class="fap-mini">'
+                f'<div class="fap-mini-val" style="color:var(--teal)">{pm["grasa"]}g</div>'
+                f'<div class="fap-mini-lbl">Grasas</div></div>'
+                f'</div>'
+            )
+
+        ses_t = sum(len(v) for v in reg_e.values())
+        min_t = sum(s.get("duracion",0) for v in reg_e.values() for s in v)
+        if ses_t > 0:
             st.markdown(
-                f'<div class="sgrid">'
-                f'<div class="mini-stat"><div class="mini-val" style="color:var(--orange)">{ses_t}</div><div class="mini-lbl">Sesiones totales</div></div>'
-                f'<div class="mini-stat"><div class="mini-val" style="color:var(--purple)">{round(min_t/60,1)}</div><div class="mini-lbl">Horas entrenando</div></div>'
-                f'</div>', unsafe_allow_html=True)
+                f'<div class="fap-sgrid">'
+                f'<div class="fap-mini">'
+                f'<div class="fap-mini-val" style="color:var(--green)">{ses_t}</div>'
+                f'<div class="fap-mini-lbl">Sesiones totales</div>'
+                f'</div>'
+                f'<div class="fap-mini">'
+                f'<div class="fap-mini-val" style="color:var(--blue)">{round(min_t/60,1)}</div>'
+                f'<div class="fap-mini-lbl">Horas entrenando</div>'
+                f'</div>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
 
-        if st.button("🗑️ Borrar historial completo",key="btn_del_hist"):
-            d=st.session_state.datos
-            d["historial_calorias"]={}; d["historial_macros"]={}; d["diario_comidas"]={}
+        if st.button("Borrar historial completo", key="btn_del_hist"):
+            d = st.session_state.datos
+            d["historial_calorias"] = {}
+            d["historial_macros"]   = {}
+            d["diario_comidas"]     = {}
             save_datos(); st.success("Historial borrado."); st.rerun()
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1185,108 +1605,141 @@ with t_hist:
 # ══════════════════════════════════════════════════════════════════════════════
 with t_cfg:
     sdiv("Sesion activa")
-    db_lbl="✅ Supabase conectado" if sb_ok() else "💾 Solo local (sin Supabase)"
-    db_badge="bp" if sb_ok() else "bn"
-    st.markdown(C(
-        f'<div class="row"><span class="rl">Usuario</span><span class="rr">{st.session_state.user_email}</span></div>'
-        f'<div class="row"><span class="rl">Base de datos</span><span class="rr"><span class="badge {db_badge}">{db_lbl}</span></span></div>'
-        f'<div class="row"><span class="rl">Estado</span><span class="rr"><span class="badge bp">● Activo</span></span></div>'
-    ), unsafe_allow_html=True)
-    if st.button("🚪 Cerrar sesion",key="btn_logout"):
-        for k in ["logged_in","user_id","user_email","datos","scan_res","ia_res","ej_temp","sets_temp","dc_temp","calc_res"]:
-            st.session_state.pop(k,None)
+    db_lbl   = "Supabase conectado" if sb_ok() else "Solo local (sin Supabase)"
+    db_badge = "b-green" if sb_ok() else "b-gray"
+    card(
+        f'<div class="fap-row"><span class="fap-rl">Usuario</span>'
+        f'<span class="fap-rr">{st.session_state.user_email}</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Base de datos</span>'
+        f'<span class="fap-rr">{badge(db_lbl, db_badge)}</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Estado</span>'
+        f'<span class="fap-rr">{badge("Activo","b-green")}</span></div>'
+    )
+    if st.button("Cerrar sesion", key="btn_logout"):
+        for k in ["logged_in","user_id","user_email","datos",
+                  "scan_res","ia_res","ej_temp","sets_temp","dc_temp","calc_res"]:
+            st.session_state.pop(k, None)
         st.rerun()
 
     sdiv("Proveedor de IA")
-    st.markdown(C(
-        '<div class="lbl lbl-orange">Comparativa</div>'
-        '<div class="row"><span class="rl">🟢 Groq (recomendado)</span><span class="rr"><span class="badge bp">1500 req/dia · Gratis</span></span></div>'
-        '<div class="row"><span class="rl">🔵 Gemini</span><span class="rr"><span class="badge bw">~20 req/dia</span></span></div>'
-        '<p style="font-size:.73rem;color:var(--text3);margin-top:.5rem;margin-bottom:0">Groq: mas generosa, rapida y completamente gratuita.</p>'
-    ), unsafe_allow_html=True)
-    prov_sel=st.selectbox("",["Groq (recomendado)","Gemini"],
-        index=0 if "Groq" in st.session_state.proveedor_ia else 1,key="prov_sel",label_visibility="collapsed")
-    if st.button("💾 Cambiar proveedor",key="btn_prov"):
-        st.session_state.proveedor_ia=prov_sel
-        st.session_state.datos.setdefault("api_keys",{})["proveedor_ia"]=prov_sel
-        save_datos(); st.success(f"✅ Proveedor: {prov_sel}"); st.rerun()
+    card(
+        f'<div class="fap-lbl fap-lbl-green">Comparativa</div>'
+        f'<div class="fap-row"><span class="fap-rl">Groq (recomendado)</span>'
+        f'<span class="fap-rr">{badge("1500 req/dia Gratis","b-green")}</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Gemini</span>'
+        f'<span class="fap-rr">{badge("~20 req/dia","b-sky")}</span></div>'
+        f'<p style="font-size:.72rem;color:var(--text3);margin-top:.5rem;margin-bottom:0">'
+        f'Groq es mas generosa, rapida y completamente gratuita.</p>'
+    )
+    prov_sel = st.selectbox("",["Groq (recomendado)","Gemini"],
+        index=0 if "Groq" in st.session_state.proveedor_ia else 1,
+        key="prov_sel", label_visibility="collapsed")
+    if st.button("Cambiar proveedor", key="btn_prov"):
+        st.session_state.proveedor_ia = prov_sel
+        st.session_state.datos.setdefault("api_keys",{})["proveedor_ia"] = prov_sel
+        save_datos(); st.success(f"Proveedor: {prov_sel}"); st.rerun()
 
-    sdiv("Groq API Key — Guardada en tu cuenta (1 sola vez)")
-    st.markdown(C(
-        '<div class="row"><span class="rl">1. Cuenta gratuita</span><span class="rr">console.groq.com/keys</span></div>'
-        '<div class="row"><span class="rl">2. Pulsa</span><span class="rr">Create API Key</span></div>'
-        '<div class="row"><span class="rl">3. Formato</span><span class="rr">gsk_...</span></div>'
-        '<div class="row"><span class="rl">Se guarda en tu cuenta</span><span class="rr"><span class="badge bp">No la repitas nunca mas</span></span></div>'
-    ), unsafe_allow_html=True)
-    gi=st.text_input("Groq Key",value=st.session_state.groq_key,type="password",placeholder="gsk_...",key="gi")
-    g1b,g2b=st.columns(2)
+    sdiv("Groq API Key")
+    card(
+        f'<div class="fap-row"><span class="fap-rl">1. Cuenta gratuita</span>'
+        f'<span class="fap-rr">console.groq.com/keys</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">2. Crear clave</span>'
+        f'<span class="fap-rr">Create API Key</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">3. Formato</span>'
+        f'<span class="fap-rr">gsk_...</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Se guarda en tu cuenta</span>'
+        f'<span class="fap-rr">{badge("No la repitas nunca mas","b-green")}</span></div>'
+    )
+    gi = st.text_input("Groq Key", value=st.session_state.groq_key,
+                       type="password", placeholder="gsk_...", key="gi")
+    g1b, g2b = st.columns(2)
     with g1b:
-        if st.button("💾 Guardar y vincular",key="btn_groq"):
-            st.session_state.groq_key=gi.strip()
-            ak=st.session_state.datos.setdefault("api_keys",{})
-            ak["groq_key"]=gi.strip(); ak["proveedor_ia"]=st.session_state.proveedor_ia
-            save_datos(); st.success("✅ Guardada en tu cuenta.")
+        if st.button("Guardar y vincular", key="btn_groq"):
+            st.session_state.groq_key = gi.strip()
+            ak = st.session_state.datos.setdefault("api_keys",{})
+            ak["groq_key"] = gi.strip(); ak["proveedor_ia"] = st.session_state.proveedor_ia
+            save_datos(); st.success("Guardada en tu cuenta.")
     with g2b:
-        if st.session_state.groq_key and st.button("⚡ Probar",key="btn_tg"):
+        if st.session_state.groq_key and st.button("Probar conexion", key="btn_tg"):
             with st.spinner("Probando..."):
-                prev=st.session_state.proveedor_ia; st.session_state.proveedor_ia="Groq (recomendado)"
-                res=ia_call("Responde solo la palabra: OK"); st.session_state.proveedor_ia=prev
-                st.success(f"✅ OK: {res[:50]}") if ("OK" in res or len(res)<80) else st.error(res[:150])
+                prev = st.session_state.proveedor_ia
+                st.session_state.proveedor_ia = "Groq (recomendado)"
+                res = ia_call("Responde solo la palabra: OK")
+                st.session_state.proveedor_ia = prev
+                if "OK" in res or len(res) < 80:
+                    st.success(f"Conexion correcta: {res[:50]}")
+                else:
+                    st.error(res[:150])
 
-    sdiv("Gemini API Key — aistudio.google.com")
-    mi=st.text_input("Gemini Key",value=st.session_state.gemini_key,type="password",placeholder="AIzaSy...",key="mi")
-    mg1,mg2=st.columns(2)
+    sdiv("Gemini API Key")
+    mi = st.text_input("Gemini Key", value=st.session_state.gemini_key,
+                       type="password", placeholder="AIzaSy...", key="mi")
+    mg1, mg2 = st.columns(2)
     with mg1:
-        if st.button("💾 Guardar y vincular",key="btn_gem"):
-            st.session_state.gemini_key=mi.strip()
-            st.session_state.datos.setdefault("api_keys",{})["gemini_key"]=mi.strip()
-            save_datos(); st.success("✅ Guardada en tu cuenta.")
+        if st.button("Guardar y vincular", key="btn_gem"):
+            st.session_state.gemini_key = mi.strip()
+            st.session_state.datos.setdefault("api_keys",{})["gemini_key"] = mi.strip()
+            save_datos(); st.success("Guardada en tu cuenta.")
     with mg2:
-        if st.session_state.gemini_key and st.button("⚡ Probar",key="btn_tm"):
+        if st.session_state.gemini_key and st.button("Probar conexion", key="btn_tm"):
             with st.spinner("Probando..."):
-                prev=st.session_state.proveedor_ia; st.session_state.proveedor_ia="Gemini"
-                res=ia_call("Responde solo la palabra: OK"); st.session_state.proveedor_ia=prev
-                st.success(f"✅ OK: {res[:50]}") if ("OK" in res or len(res)<80) else st.error(res[:150])
+                prev = st.session_state.proveedor_ia
+                st.session_state.proveedor_ia = "Gemini"
+                res = ia_call("Responde solo la palabra: OK")
+                st.session_state.proveedor_ia = prev
+                if "OK" in res or len(res) < 80:
+                    st.success(f"Conexion correcta: {res[:50]}")
+                else:
+                    st.error(res[:150])
 
     sdiv("Perfil personal")
-    pf_c=get_pf()
-    cfg1,cfg2=st.columns(2)
+    pf_c = get_pf()
+    cfg1, cfg2 = st.columns(2)
     with cfg1:
-        cn=st.text_input("Nombre",value=pf_c.get("nombre",""),key="cn")
-        cp2=st.number_input("Peso (kg)",30.0,250.0,float(pf_c.get("peso",75.0)),.5,key="cp2")
-        ca3=st.number_input("Altura (cm)",100,250,int(pf_c.get("altura",175)),key="ca3")
+        cn  = st.text_input("Nombre",      value=pf_c.get("nombre",""),              key="cn")
+        cp2 = st.number_input("Peso (kg)",  30.0,250.0,float(pf_c.get("peso",75.0)),.5,key="cp2")
+        ca3 = st.number_input("Altura (cm)",100,250,int(pf_c.get("altura",175)),     key="ca3")
     with cfg2:
-        ce=st.number_input("Edad",10,100,int(pf_c.get("edad",25)),key="ce")
-        coc=st.number_input("Obj. kcal/dia",800,6000,int(pf_c.get("objetivo_cal",2000)),50,key="coc")
-        cpr=st.number_input("Obj. proteina (g)",0,400,int(pf_c.get("obj_prot",150)),5,key="cpr")
-    cfg3,cfg4=st.columns(2)
-    with cfg3: ccb=st.number_input("Obj. carbos (g)",0,800,int(pf_c.get("obj_carb",220)),5,key="ccb")
-    with cfg4: cgr=st.number_input("Obj. grasas (g)",0,300,int(pf_c.get("obj_grasa",60)),5,key="cgr")
-    if st.button("💾 Guardar perfil",key="btn_perfil"):
-        st.session_state.datos.setdefault("perfil",{}).update(
-            {"nombre":cn,"peso":cp2,"altura":ca3,"edad":ce,
-             "objetivo_cal":coc,"obj_prot":cpr,"obj_carb":ccb,"obj_grasa":cgr})
-        save_datos(); st.success("✅ Perfil guardado."); st.rerun()
+        ce  = st.number_input("Edad",     10,100,int(pf_c.get("edad",25)),            key="ce")
+        coc = st.number_input("Obj. kcal/dia",800,6000,int(pf_c.get("objetivo_cal",2000)),50,key="coc")
+        cpr = st.number_input("Obj. proteina (g)",0,400,int(pf_c.get("obj_prot",150)),5, key="cpr")
+    cfg3, cfg4 = st.columns(2)
+    with cfg3: ccb = st.number_input("Obj. carbos (g)",0,800,int(pf_c.get("obj_carb",220)),5,key="ccb")
+    with cfg4: cgr = st.number_input("Obj. grasas (g)",0,300,int(pf_c.get("obj_grasa",60)),5,key="cgr")
+    if st.button("Guardar perfil", key="btn_perfil"):
+        st.session_state.datos.setdefault("perfil",{}).update({
+            "nombre":cn,"peso":cp2,"altura":ca3,"edad":ce,
+            "objetivo_cal":coc,"obj_prot":cpr,"obj_carb":ccb,"obj_grasa":cgr})
+        save_datos(); st.success("Perfil guardado."); st.rerun()
 
     sdiv("Supabase — Base de datos en la nube")
-    st.markdown(C(
-        '<div class="lbl lbl-orange">URL CORRECTA (sin /rest/v1/ al final)</div>'
-        '<div class="row"><span class="rl">✅ Correcto</span><span class="rr">https://xxxx.supabase.co</span></div>'
-        '<div class="row"><span class="rl">❌ Incorrecto</span><span class="rr">https://xxxx.supabase.co/rest/v1/</span></div>'
-        '<div class="row"><span class="rl">Configurar en</span><span class="rr">Streamlit → Manage app → Secrets</span></div>'
-        f'<div class="row"><span class="rl">Estado actual</span>'
-        f'<span class="rr"><span class="badge {"bp" if sb_ok() else "bw"}">{"✅ Conectado" if sb_ok() else "❌ No conectado"}</span></span></div>'
-    ), unsafe_allow_html=True)
+    card(
+        f'<div class="fap-lbl fap-lbl-green">URL correcta (sin /rest/v1/ al final)</div>'
+        f'<div class="fap-row"><span class="fap-rl">Correcto</span>'
+        f'<span class="fap-rr">https://xxxx.supabase.co</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Incorrecto</span>'
+        f'<span class="fap-rr">https://xxxx.supabase.co/rest/v1/</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Configurar en</span>'
+        f'<span class="fap-rr">Streamlit Manage app Secrets</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Estado actual</span>'
+        f'<span class="fap-rr">'
+        f'{badge("Conectado","b-green") if sb_ok() else badge("No conectado","b-gray")}'
+        f'</span></div>'
+    )
 
     sdiv("Acerca de")
-    st.markdown(C(
-        '<div class="row"><span class="rl">Version</span><span class="rr">FitAI Pro 5.2</span></div>'
-        '<div class="row"><span class="rl">Stack</span><span class="rr">Streamlit · Groq · Gemini · Supabase</span></div>'
-        '<div class="row"><span class="rl">Datos</span><span class="rr">Privados por usuario · RLS activo</span></div>'
-        '<div class="row"><span class="rl">Hosting</span><span class="rr">Streamlit Community Cloud (gratis)</span></div>'
-    ), unsafe_allow_html=True)
+    card(
+        f'<div class="fap-row"><span class="fap-rl">Version</span>'
+        f'<span class="fap-rr">FitAI Pro 6.0</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Stack</span>'
+        f'<span class="fap-rr">Streamlit · Groq · Gemini · Supabase</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Datos</span>'
+        f'<span class="fap-rr">Privados por usuario · RLS activo</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Hosting</span>'
+        f'<span class="fap-rr">Streamlit Community Cloud</span></div>'
+    )
 
-    # Restaurar API keys si hace falta al entrar a Config
-    ak=st.session_state.datos.get("api_keys",{})
+    # Restaurar API keys si hace falta
+    ak = st.session_state.datos.get("api_keys",{})
     if not st.session_state.groq_key   and ak.get("groq_key"):   st.session_state.groq_key   = ak["groq_key"]
     if not st.session_state.gemini_key and ak.get("gemini_key"): st.session_state.gemini_key = ak["gemini_key"]
