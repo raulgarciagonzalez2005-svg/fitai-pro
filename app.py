@@ -9,7 +9,7 @@ try:
 except ImportError:
     SUPABASE_AVAILABLE = False
 
-st.set_page_config(page_title="FitAI Pro", page_icon="💪",
+st.set_page_config(page_title="FitAI Pro", page_icon="⚡",
                    layout="centered", initial_sidebar_state="collapsed")
 
 st.markdown("""
@@ -84,11 +84,15 @@ html, body,
 .fap-date { font-size: .65rem; font-weight: 500; color: var(--text3); margin-top: .1rem; }
 .fap-avatar {
   width: 44px; height: 44px;
-  background: linear-gradient(135deg, var(--green), var(--blue));
+  background: var(--green2);
   border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 16px rgba(16,185,129,.3);
+  font-family: 'Sora', sans-serif;
+  font-size: .85rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: .02em;
+  box-shadow: 0 4px 16px rgba(5,150,105,.25);
 }
 
 /* ── CARDS ── */
@@ -100,22 +104,54 @@ html, body,
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
 }
+/* CORRECCIÓN CRÍTICA: todo texto dentro de cards coloreadas forzado a blanco */
 .fap-card-green {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, #0d9488, #059669);
   border: none;
-  color: #fff;
-  box-shadow: 0 6px 24px rgba(16,185,129,.3);
+  color: #ffffff !important;
+  box-shadow: 0 6px 24px rgba(5,150,105,.28);
+}
+.fap-card-green *,
+.fap-card-green p,
+.fap-card-green span,
+.fap-card-green div,
+.fap-card-green .fap-lbl,
+.fap-card-green .fap-big,
+.fap-card-green .fap-big-sub,
+.fap-card-green .fap-badge {
+  color: #ffffff !important;
 }
 .fap-card-blue {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   border: none;
-  color: #fff;
-  box-shadow: 0 6px 24px rgba(59,130,246,.28);
+  color: #ffffff !important;
+  box-shadow: 0 6px 24px rgba(37,99,235,.24);
+}
+.fap-card-blue *,
+.fap-card-blue p,
+.fap-card-blue span,
+.fap-card-blue div,
+.fap-card-blue .fap-lbl,
+.fap-card-blue .fap-big,
+.fap-card-blue .fap-big-sub,
+.fap-card-blue .fap-badge {
+  color: #ffffff !important;
 }
 .fap-card-teal {
-  background: linear-gradient(135deg, #14b8a6, #0d9488);
+  background: linear-gradient(135deg, #0f766e, #0d9488);
   border: none;
-  color: #fff;
+  color: #ffffff !important;
+  box-shadow: 0 6px 24px rgba(15,118,110,.24);
+}
+.fap-card-teal *,
+.fap-card-teal p,
+.fap-card-teal span,
+.fap-card-teal div,
+.fap-card-teal .fap-lbl,
+.fap-card-teal .fap-big,
+.fap-card-teal .fap-big-sub,
+.fap-card-teal .fap-badge {
+  color: #ffffff !important;
 }
 
 /* ── SECTION LABELS ── */
@@ -133,7 +169,7 @@ html, body,
 /* ── BIG NUMBER ── */
 .fap-big {
   font-family: 'Sora', sans-serif;
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   font-weight: 800;
   color: var(--text);
   line-height: 1;
@@ -148,7 +184,8 @@ html, body,
 }
 
 /* ── PROGRESS BAR ── */
-.fap-pb { background: var(--bg); border-radius: 999px; height: 7px; overflow: hidden; margin-top: .55rem; }
+.fap-pb { background: rgba(255,255,255,.2); border-radius: 999px; height: 6px; overflow: hidden; margin-top: .55rem; }
+.fap-pb-light { background: var(--bg); }
 .fap-pb-f { height: 100%; border-radius: 999px; transition: width .7s cubic-bezier(.4,0,.2,1); }
 
 /* ── RINGS ── */
@@ -171,17 +208,18 @@ html, body,
   border: 1px solid var(--border);
   text-align: center;
 }
-.fap-mini-val { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); line-height: 1; }
+.fap-mini-val { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text); line-height: 1; }
 .fap-mini-lbl { font-size: .57rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .07em; margin-top: .15rem; }
 
 /* ── BADGES ── */
 .fap-badge {
   display: inline-flex; align-items: center;
   padding: .2rem .6rem;
-  border-radius: 999px;
+  border-radius: 4px;
   font-size: .62rem;
   font-weight: 700;
   margin: .1rem .05rem 0 0;
+  letter-spacing: .02em;
 }
 .b-green  { background: var(--green3); color: var(--green2); }
 .b-blue   { background: var(--blue3);  color: var(--blue2); }
@@ -191,10 +229,23 @@ html, body,
 .b-amber  { background: rgba(245,158,11,.12); color: #b45309; }
 .b-red    { background: rgba(239,68,68,.1);   color: #dc2626; }
 
+/* ── TABLE HEADER ── */
+.fap-table-hdr {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .35rem 0 .45rem;
+  border-bottom: 2px solid var(--border2);
+  font-size: .6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: var(--text3);
+  margin-bottom: .1rem;
+}
+
 /* ── ROWS ── */
 .fap-row {
   display: flex; justify-content: space-between; align-items: center;
-  padding: .4rem 0; border-bottom: 1px solid var(--border); font-size: .8rem;
+  padding: .42rem 0; border-bottom: 1px solid var(--border); font-size: .8rem;
 }
 .fap-row:last-child { border-bottom: none; }
 .fap-rl { color: var(--text2); }
@@ -210,39 +261,39 @@ html, body,
 /* ── TYPE BADGE ── */
 .fap-typebadge {
   font-size: .52rem; font-weight: 800;
-  padding: .18rem .55rem; border-radius: 999px;
+  padding: .18rem .55rem; border-radius: 4px;
   letter-spacing: .04em; text-transform: uppercase;
 }
 .fap-exnum { font-family: 'DM Mono', monospace; font-size: .73rem; font-weight: 500; color: var(--green); min-width: 26px; }
 
-/* ── BUTTONS ── */
+/* ── BUTTONS — color plano corporativo, sin degradado brillante ── */
 div.stButton > button {
-  background: linear-gradient(135deg, var(--green), var(--green2)) !important;
+  background: var(--green2) !important;
   color: #fff !important;
   font-family: 'DM Sans', sans-serif !important;
   font-size: .82rem !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   border: none !important;
   border-radius: var(--rsm) !important;
   padding: .65rem 1.25rem !important;
   width: 100% !important;
   cursor: pointer !important;
-  transition: all .2s !important;
-  box-shadow: 0 3px 14px rgba(16,185,129,.3) !important;
+  transition: background .18s, box-shadow .18s !important;
+  box-shadow: 0 1px 4px rgba(5,150,105,.18) !important;
   letter-spacing: .01em !important;
 }
 div.stButton > button:hover {
-  box-shadow: 0 5px 20px rgba(16,185,129,.45) !important;
-  transform: translateY(-1px) !important;
+  background: #047857 !important;
+  box-shadow: 0 3px 12px rgba(5,150,105,.28) !important;
 }
-div.stButton > button:active { transform: translateY(0) !important; }
+div.stButton > button:active { background: #065f46 !important; box-shadow: none !important; }
 
-/* ── INPUTS ── */
+/* ── INPUTS — fondo sólido, texto legible en modo oscuro del SO ── */
 div[data-baseweb="input"] input,
 div[data-baseweb="textarea"] textarea,
 .stNumberInput input {
-  background: var(--surface2) !important;
-  color: var(--text) !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
   border: 1.5px solid var(--border2) !important;
   border-radius: var(--rsm) !important;
   font-family: 'DM Sans', sans-serif !important;
@@ -254,10 +305,15 @@ div[data-baseweb="textarea"] textarea:focus {
   box-shadow: 0 0 0 3px rgba(16,185,129,.14) !important;
 }
 div[data-baseweb="select"] > div {
-  background: var(--surface2) !important;
+  background: #ffffff !important;
   border: 1.5px solid var(--border2) !important;
   border-radius: var(--rsm) !important;
-  color: var(--text) !important;
+  color: #0f172a !important;
+}
+/* Texto del select seleccionado */
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] div {
+  color: #0f172a !important;
 }
 label {
   color: var(--text2) !important;
@@ -284,9 +340,9 @@ label {
   padding: .38rem .85rem !important;
 }
 [aria-selected="true"][data-baseweb="tab"] {
-  background: linear-gradient(135deg, var(--green), var(--green2)) !important;
+  background: var(--green2) !important;
   color: #fff !important;
-  box-shadow: 0 2px 10px rgba(16,185,129,.3) !important;
+  box-shadow: 0 1px 6px rgba(5,150,105,.22) !important;
 }
 
 /* ── ALERTS ── */
@@ -345,26 +401,21 @@ li[role="option"]:hover { background: var(--green3) !important; }
 
 @media (max-width: 520px) {
   .block-container { padding: 0 .65rem 6rem !important; }
-  .fap-big { font-size: 2.3rem; }
+  .fap-big { font-size: 2rem; }
   .fap-mgrid { gap: .5rem; }
+  .fap-ring { width: 88px; height: 88px; }
+  .fap-ring svg { width: 88px; height: 88px; }
 }
 </style>
 """, unsafe_allow_html=True)
 
 # ── DATA ──────────────────────────────────────────────────────────────────────
 USERS_FILE = "fitai_users.json"
-FOOD_ICONS = {
-    "Pollo":"🍗","pavo":"🦃","Atun":"🐟","Salmon":"🐠","Merluza":"🐟",
-    "Ternera":"🥩","Cerdo":"🥩","Huevo":"🥚","Claras":"🥚","Queso":"🧀",
-    "Yogur":"🥛","Leche":"🥛","Whey":"💪","Caseina":"💪","Avena":"🌾",
-    "Arroz":"🍚","Pasta":"🍝","Pan":"🍞","Boniato":"🍠","Patata":"🥔",
-    "Quinoa":"🌿","Lentejas":"🫘","Garbanzos":"🫘","Alubias":"🫘",
-    "Aguacate":"🥑","Aceite":"🫒","Almendras":"🌰","Nueces":"🌰",
-    "Platano":"🍌","Manzana":"🍎","Naranja":"🍊","Fresas":"🍓",
-    "Arandanos":"🫐","Brocoli":"🥦","Espinacas":"🥬","Tomate":"🍅",
-    "Pepino":"🥒","Lechuga":"🥬","Zanahoria":"🥕","Pimiento":"🫑",
-    "Calabacin":"🥒","Tofu":"🧆","Tempeh":"🧆","Aceitunas":"🫒","Hummus":"🫘",
-}
+
+# food_icon devuelve un punto de categoría o string vacío (sin emoticonos)
+def food_icon(n):
+    return ""
+
 ALIMENTOS_DB = {
     "Pollo a la plancha (100g)":    {"cal":165,"prot":31.0,"carb":0.0,"grasa":3.6},
     "Pechuga de pavo (100g)":       {"cal":135,"prot":30.0,"carb":0.0,"grasa":1.0},
@@ -690,11 +741,6 @@ def cal_hoy(): return st.session_state.datos.get("historial_calorias",{}).get(ho
 def mac_hoy(): return st.session_state.datos.get("historial_macros",{}).get(hoy(),{"prot":0.0,"carb":0.0,"grasa":0.0})
 def save_datos(): save_udata(st.session_state.user_id, st.session_state.datos)
 
-def food_icon(n):
-    for k,v in FOOD_ICONS.items():
-        if k.lower() in n.lower(): return v
-    return "🥗"
-
 def sdiv(lbl):
     st.markdown(
         f'<div class="fap-sep">'
@@ -708,9 +754,10 @@ def sdiv(lbl):
 def card(html, extra_cls=""):
     st.markdown(f'<div class="fap-card {extra_cls}">{html}</div>', unsafe_allow_html=True)
 
-def pb(val, mx, color):
+def pb(val, mx, color, light=False):
     pct = min(val/mx*100, 100) if mx > 0 else 0
-    return (f'<div class="fap-pb">'
+    track_cls = "fap-pb-light" if light else ""
+    return (f'<div class="fap-pb {track_cls}">'
             f'<div class="fap-pb-f" style="width:{pct:.1f}%;background:{color}"></div>'
             f'</div>')
 
@@ -814,7 +861,7 @@ def extraer_kcal(txt):
 # ═══════════════════════════════════════════════════════════════════════════════
 if not st.session_state.logged_in:
     st.markdown("""
-    <div style="background:linear-gradient(135deg,#10b981 0%,#059669 45%,#3b82f6 100%);
+    <div style="background:linear-gradient(135deg,#0d9488 0%,#059669 45%,#2563eb 100%);
                 border-radius:0 0 28px 28px;padding:2.8rem 1.4rem 2.2rem;
                 margin:0 -1rem 2rem;text-align:center">
       <div style="font-size:.58rem;font-weight:700;color:rgba(255,255,255,.65);
@@ -909,6 +956,8 @@ if not st.session_state.logged_in:
 # ═══════════════════════════════════════════════════════════════════════════════
 nombre_u = get_pf().get("nombre","") or st.session_state.user_email.split("@")[0]
 fecha_str = datetime.now().strftime("%d %b %Y")
+# Iniciales para el avatar (máx 2 caracteres)
+iniciales = "".join(p[0].upper() for p in nombre_u.split()[:2]) or nombre_u[:2].upper()
 
 st.markdown(
     f'<div class="fap-header">'
@@ -917,12 +966,12 @@ st.markdown(
     f'<div class="fap-name">{nombre_u}</div>'
     f'<div class="fap-date">{fecha_str}</div>'
     f'</div>'
-    f'<div class="fap-avatar">💪</div>'
+    f'<div class="fap-avatar">{iniciales}</div>'
     f'</div>',
     unsafe_allow_html=True
 )
 
-t_nut, t_diet, t_gym, t_hist, t_cfg = st.tabs(["🍎 Kcal","🥗 Dietas","💪 Gym","📊 Stats","⚙️ Config"])
+t_nut, t_diet, t_gym, t_hist, t_cfg = st.tabs(["Kcal","Dietas","Gimnasio","Stats","Config"])
 
 # ══════════════════════════════════════════════════════════════════════════════
 # NUTRICION
@@ -952,9 +1001,9 @@ with t_nut:
             f'<div class="fap-lbl fap-lbl-green">Objetivo diario</div>'
             f'<div class="fap-big">{oc}</div>'
             f'<div class="fap-big-sub">kcal / dia</div>'
-            f'{pb(cv, oc, ring_c)}'
+            f'{pb(cv, oc, ring_c, light=False)}'
             f'<div style="margin-top:.7rem;display:flex;align-items:center;gap:.5rem">'
-            f'<span style="font-family:Sora,sans-serif;font-size:1.5rem;font-weight:800;color:{ec}">{ev}</span>'
+            f'<span style="font-family:Sora,sans-serif;font-size:1.4rem;font-weight:800;color:{ec}">{ev}</span>'
             f'<span style="font-size:.62rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">{el}</span>'
             f'</div>'
         )
@@ -982,10 +1031,12 @@ with t_nut:
             st.image(img_up, use_container_width=True)
             s1, s2 = st.columns(2)
             with s1:
-                com_scan = st.selectbox("Comida",
-                    ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="sc_com")
+                com_scan = st.selectbox("Momento del dia",
+                    ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],
+                    key="sc_com",
+                    help="Selecciona en que comida del dia encuadrar este alimento")
             with s2:
-                if st.button("Analizar", key="btn_scan"):
+                if st.button("Analizar con IA", key="btn_scan"):
                     with st.spinner("Analizando..."):
                         pr = ("Eres nutricionista experto. Analiza en espanol con formato:\n"
                               "Alimentos detectados:\n- [alimento] - [X] kcal P:[Xg] C:[Xg] G:[Xg]\n\n"
@@ -1014,13 +1065,22 @@ with t_nut:
                 if st.button("Descartar", key="btn_disc"):
                     st.session_state.scan_res = None; st.rerun()
 
-    sdiv("Registrar alimento")
+    sdiv("Registrar alimento de la base de datos")
     ra1, ra2 = st.columns([3,1])
     with ra1:
-        alim = st.selectbox("Alimento", list(ALIMENTOS_DB.keys()),
-                            key="sel_alim", label_visibility="collapsed")
+        alim = st.selectbox(
+            "Alimento",
+            list(ALIMENTOS_DB.keys()),
+            key="sel_alim",
+            help="Selecciona un alimento de la lista"
+        )
     with ra2:
-        cant = st.number_input("g", 1, 2000, 100, key="cant", label_visibility="collapsed")
+        cant = st.number_input(
+            "Cantidad (g)",
+            1, 2000, 100,
+            key="cant",
+            help="Gramos que vas a consumir"
+        )
     ad = ALIMENTOS_DB[alim]; fac = cant / 100
     cav   = round(ad["cal"]  * fac)
     prv   = round(ad["prot"] * fac, 1)
@@ -1028,11 +1088,10 @@ with t_nut:
     grv   = round(ad["grasa"]* fac, 1)
     card(
         f'<div style="display:flex;align-items:center;gap:.85rem">'
-        f'<div style="font-size:2.1rem">{food_icon(alim)}</div>'
-        f'<div>'
+        f'<div style="flex:1">'
         f'<div style="font-family:Sora,sans-serif;font-size:.86rem;font-weight:700;'
         f'color:var(--text);margin-bottom:.35rem">{alim} — {cant}g</div>'
-        f'{badge(f"🔥 {cav} kcal","b-green")}'
+        f'{badge(f"{cav} kcal","b-green")}'
         f'{badge(f"P {prv}g","b-blue")}'
         f'{badge(f"C {cbv2}g","b-teal")}'
         f'{badge(f"G {grv}g","b-amber")}'
@@ -1040,25 +1099,37 @@ with t_nut:
     )
     ra3, ra4 = st.columns([2,1])
     with ra3:
-        com_db = st.selectbox("Comida",
-            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="com_db")
+        com_db = st.selectbox(
+            "Momento del dia",
+            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],
+            key="com_db",
+            help="Momento en que consumes este alimento"
+        )
     with ra4:
-        if st.button("Anadir", key="btn_add_db"):
+        if st.button("Añadir al diario", key="btn_add_db"):
             registrar_alimento(f"{alim} ({cant}g)", cav, prv, cbv2, grv, com_db)
             st.success(f"{cav} kcal registradas"); st.rerun()
 
     sdiv("Registro manual")
+    st.markdown(
+        '<p style="font-size:.72rem;color:var(--text3);margin-bottom:.6rem">'
+        'Introduce manualmente los datos nutricionales de un plato o alimento no listado.</p>',
+        unsafe_allow_html=True
+    )
     m1, m2, m3, m4 = st.columns([3,1,1,1])
-    with m1: nm  = st.text_input("Nombre",  placeholder="Plato casero", key="nm",  label_visibility="collapsed")
-    with m2: km  = st.number_input("kcal",  0, 5000, 0, 5,   key="km",  label_visibility="collapsed")
-    with m3: pm2 = st.number_input("P(g)",  0.0,300.0,0.0,.5,key="pm2", label_visibility="collapsed")
-    with m4: cbm = st.number_input("C(g)",  0.0,500.0,0.0,.5,key="cbm", label_visibility="collapsed")
+    with m1: nm  = st.text_input("Nombre del alimento",  placeholder="Plato casero, batido...", key="nm")
+    with m2: km  = st.number_input("Calorias (kcal)",  0, 5000, 0, 5, key="km")
+    with m3: pm2 = st.number_input("Proteinas (g)",  0.0, 300.0, 0.0, .5, key="pm2")
+    with m4: cbm = st.number_input("Carbohidratos (g)",  0.0, 500.0, 0.0, .5, key="cbm")
     m5, m6 = st.columns([2,1])
     with m5:
-        comm = st.selectbox("Comida",
-            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="comm")
+        comm = st.selectbox(
+            "Momento del dia",
+            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],
+            key="comm"
+        )
     with m6:
-        if st.button("Anadir", key="btn_man"):
+        if st.button("Añadir al diario", key="btn_man"):
             if km > 0:
                 registrar_alimento(nm or "Libre", km, pm2, cbm, 0, comm)
                 st.success(f"{km} kcal registradas"); st.rerun()
@@ -1069,10 +1140,14 @@ with t_nut:
     diario = st.session_state.datos.get("diario_comidas",{}).get(hoy(),[])
     if not diario:
         card(
-            '<div style="text-align:center;padding:1.2rem 0">'
-            '<div style="font-size:2.4rem;margin-bottom:.4rem">🍽️</div>'
+            '<div style="text-align:center;padding:1.4rem 0">'
+            '<div style="width:40px;height:40px;border-radius:12px;background:var(--bg);'
+            'display:flex;align-items:center;justify-content:center;margin:0 auto .6rem;'
+            'border:1.5px solid var(--border)">'
+            '<div style="width:18px;height:2px;background:var(--text4);border-radius:2px"></div>'
+            '</div>'
             '<div class="fap-lbl" style="text-align:center">Sin registros todavia</div>'
-            '<p style="color:var(--text3);font-size:.76rem;margin:.2rem 0 0">Añade alimentos arriba</p>'
+            '<p style="color:var(--text3);font-size:.76rem;margin:.2rem 0 0">Añade alimentos en las secciones anteriores</p>'
             '</div>'
         )
     else:
@@ -1080,12 +1155,19 @@ with t_nut:
         for item in diario: grupos.setdefault(item["comida"],[]).append(item)
         for nc2, items in grupos.items():
             tc = sum(i["cal"] for i in items)
+            # Cabecera de tabla con columnas claras
+            hdr = (f'<div class="fap-table-hdr">'
+                   f'<span>Alimento</span>'
+                   f'<span style="display:flex;gap:2rem">'
+                   f'<span>Hora</span><span>Kcal</span>'
+                   f'</span></div>')
             filas = "".join(
                 f'<div class="fap-row">'
-                f'<span class="fap-rl">'
-                f'<span style="font-size:.6rem;color:var(--green);font-weight:700">{i["hora"]}</span>'
-                f'&nbsp; {food_icon(i["alimento"])} {i["alimento"]}</span>'
-                f'<span class="fap-rr">{i["cal"]} kcal</span>'
+                f'<span class="fap-rl">{i["alimento"]}</span>'
+                f'<span class="fap-rr" style="display:flex;gap:1.5rem">'
+                f'<span style="font-family:DM Mono,monospace;font-size:.7rem;color:var(--text3)">{i["hora"]}</span>'
+                f'<span>{i["cal"]} kcal</span>'
+                f'</span>'
                 f'</div>'
                 for i in items
             )
@@ -1093,10 +1175,10 @@ with t_nut:
                 f'<div class="fap-meal-hdr">'
                 f'<span class="fap-meal-ttl">{nc2}</span>'
                 f'{badge(f"{tc} kcal","b-green")}'
-                f'</div>{filas}'
+                f'</div>{hdr}{filas}'
             )
 
-    if st.button("Resetear diario", key="btn_reset"):
+    if st.button("Resetear diario de hoy", key="btn_reset"):
         d = st.session_state.datos
         d.setdefault("historial_calorias",{})[hoy()] = 0
         d.setdefault("historial_macros",{})[hoy()]   = {"prot":0.0,"carb":0.0,"grasa":0.0}
@@ -1110,27 +1192,26 @@ with t_diet:
     dt1, dt2, dt3, dt4 = st.tabs(["Planes","Calculadora","IA Dietista","Mis dietas"])
 
     with dt1:
-        plan_k = st.selectbox("Plan", list(DIETAS_TEMPLATE.keys()), key="plan_k")
+        plan_k = st.selectbox("Plan de dieta", list(DIETAS_TEMPLATE.keys()), key="plan_k")
         plan   = DIETAS_TEMPLATE[plan_k]
         tc_p   = sum(c["cal"]  for c in plan["comidas"])
         tp_p   = sum(c["prot"] for c in plan["comidas"])
         tcb_p  = sum(c["carb"] for c in plan["comidas"])
         tg_p   = sum(c["grasa"]for c in plan["comidas"])
         card(
-            f'<div class="fap-lbl" style="color:rgba(255,255,255,.7)">Objetivo del plan</div>'
+            f'<div class="fap-lbl" style="color:rgba(255,255,255,.75)">Objetivo del plan</div>'
             f'<div style="font-family:Sora,sans-serif;font-size:.88rem;font-weight:700;'
-            f'color:#fff;margin-bottom:.65rem">{plan["objetivo"]}</div>'
-            f'<span class="fap-badge" style="background:rgba(255,255,255,.22);color:#fff">🔥 {tc_p} kcal</span>'
-            f'<span class="fap-badge" style="background:rgba(255,255,255,.18);color:#fff">P {tp_p}g</span>'
-            f'<span class="fap-badge" style="background:rgba(255,255,255,.18);color:#fff">C {tcb_p}g</span>'
-            f'<span class="fap-badge" style="background:rgba(255,255,255,.18);color:#fff">G {tg_p}g</span>',
+            f'color:#ffffff;margin-bottom:.65rem">{plan["objetivo"]}</div>'
+            f'<span class="fap-badge" style="background:rgba(255,255,255,.2);color:#fff;border-radius:4px">{tc_p} kcal</span>'
+            f'<span class="fap-badge" style="background:rgba(255,255,255,.15);color:#fff;border-radius:4px">P {tp_p}g</span>'
+            f'<span class="fap-badge" style="background:rgba(255,255,255,.15);color:#fff;border-radius:4px">C {tcb_p}g</span>'
+            f'<span class="fap-badge" style="background:rgba(255,255,255,.15);color:#fff;border-radius:4px">G {tg_p}g</span>',
             "fap-card-green"
         )
         for c in plan["comidas"]:
             card(
                 f'<div class="fap-meal-hdr">'
                 f'<div style="display:flex;align-items:center;gap:.5rem">'
-                f'<span style="font-size:1.45rem">{food_icon(c["alimentos"])}</span>'
                 f'<span class="fap-meal-ttl">{c["nombre"]}</span>'
                 f'</div>'
                 f'{badge(f"{c[chr(99)+chr(97)+chr(108)]} kcal","b-green")}'
@@ -1143,7 +1224,7 @@ with t_diet:
         if st.button("Usar como objetivo diario", key="btn_usar"):
             st.session_state.datos.setdefault("perfil",{}).update(
                 {"objetivo_cal":tc_p,"obj_prot":tp_p,"obj_carb":tcb_p,"obj_grasa":tg_p})
-            save_datos(); st.success(f"Objetivo: {tc_p} kcal/dia"); st.rerun()
+            save_datos(); st.success(f"Objetivo actualizado: {tc_p} kcal/dia"); st.rerun()
 
     with dt2:
         pf2 = get_pf()
@@ -1154,14 +1235,14 @@ with t_diet:
         with d2:
             de  = st.number_input("Edad",10,100,int(pf2.get("edad",25)),key="de")
             dsx = st.selectbox("Sexo",["Hombre","Mujer"],key="dsx")
-        dact = st.selectbox("Actividad",[
+        dact = st.selectbox("Nivel de actividad fisica",[
             "Sedentario (sin ejercicio)","Ligero (1-2 dias/semana)",
             "Moderado (3-4 dias/semana)","Activo (5-6 dias/semana)","Muy activo (2 veces/dia)"],
             index=2, key="dact")
-        dobj = st.selectbox("Objetivo",[
+        dobj = st.selectbox("Objetivo nutricional",[
             "Perdida de grasa (-300 kcal)","Perdida agresiva (-500 kcal)",
             "Mantenimiento","Volumen limpio (+200 kcal)","Volumen (+400 kcal)"],key="dobj")
-        if st.button("Calcular TDEE", key="btn_calc"):
+        if st.button("Calcular TDEE y macros", key="btn_calc"):
             tdee = calcular_tdee(dp, da, de, dsx, dact)
             delta = {"Perdida de grasa (-300 kcal)":-300,"Perdida agresiva (-500 kcal)":-500,
                      "Mantenimiento":0,"Volumen limpio (+200 kcal)":200,"Volumen (+400 kcal)":400}[dobj]
@@ -1192,7 +1273,7 @@ with t_diet:
                 f'{badge(f"C {res[chr(99)+chr(97)+chr(114)+chr(98)]}g","b-teal")}'
                 f'{badge(f"G {res[chr(103)+chr(114)+chr(97)+chr(115)+chr(97)]}g","b-amber")}'
             )
-            if st.button("Guardar objetivos", key="btn_sc"):
+            if st.button("Guardar estos objetivos en mi perfil", key="btn_sc"):
                 st.session_state.datos.setdefault("perfil",{}).update({
                     "peso":res["dp"],"altura":res["da"],"edad":res["de"],
                     "objetivo_cal":res["cobj"],"obj_prot":res["prot"],
@@ -1212,17 +1293,16 @@ with t_diet:
                 iae  = st.number_input("Edad",10,100,int(pf3.get("edad",25)),key="iae")
             with d2:
                 iasx = st.selectbox("Sexo",["Hombre","Mujer"],key="iasx")
-                iaob = st.selectbox("Objetivo",[
+                iaob = st.selectbox("Objetivo principal",[
                     "Perder grasa","Ganar musculo","Mantenimiento",
                     "Mejorar rendimiento","Salud general"],key="iaob")
-                iaac = st.selectbox("Actividad",[
-                    "Sedentario","Ligero","Moderado","Activo","Muy activo"],key="iaac")
-            iarest = st.multiselect("Restricciones",[
+                iaac = st.selectbox("Nivel de actividad",["Sedentario","Ligero","Moderado","Activo","Muy activo"],key="iaac")
+            iarest = st.multiselect("Restricciones alimentarias",[
                 "Sin gluten","Sin lactosa","Vegetariano","Vegano",
                 "Sin cerdo","Sin mariscos","Bajo sodio","Bajo azucar"],key="iarest")
-            iaext = st.text_area("Info adicional",
-                placeholder="Alergias, patologias...", height=60, key="iaext")
-            if st.button("Generar plan con IA", key="btn_ia"):
+            iaext = st.text_area("Informacion adicional (alergias, patologias, preferencias...)",
+                placeholder="Intolerancia a la fructosa, enfermedad celiaca...", height=60, key="iaext")
+            if st.button("Generar plan personalizado con IA", key="btn_ia"):
                 rest_s = ", ".join(iarest) if iarest else "ninguna"
                 pr = (f"Eres dietista-nutricionista experto. Plan completo en espanol para:\n"
                       f"- {iasx}, {iae} anios, {iap}kg, {iaa}cm\n"
@@ -1242,13 +1322,13 @@ with t_diet:
                     f'<p style="white-space:pre-wrap;color:var(--text2);font-size:.79rem;'
                     f'line-height:1.85;margin:0">{st.session_state.ia_res}</p>'
                 )
-                if st.button("Nuevo plan", key="btn_ia_r"):
+                if st.button("Generar nuevo plan", key="btn_ia_r"):
                     st.session_state.ia_res = None; st.rerun()
 
     with dt4:
         dc_all = st.session_state.datos.get("dietas_custom",{})
         if dc_all:
-            dc_sel = st.selectbox("Mis dietas", ["Nueva dieta"]+list(dc_all.keys()), key="dc_sel")
+            dc_sel = st.selectbox("Mis dietas guardadas", ["Nueva dieta"]+list(dc_all.keys()), key="dc_sel")
             if dc_sel != "Nueva dieta":
                 dc = dc_all[dc_sel]
                 if dc.get("notas"):
@@ -1256,9 +1336,7 @@ with t_diet:
                 for c in dc.get("comidas",[]):
                     card(
                         f'<div class="fap-meal-hdr">'
-                        f'<span class="fap-meal-ttl">'
-                        f'{food_icon(c.get("alimentos",""))} {c["nombre"]}'
-                        f'</span>'
+                        f'<span class="fap-meal-ttl">{c["nombre"]}</span>'
                         f'{badge(f"{c.get(chr(99)+chr(97)+chr(108),0)} kcal","b-green")}'
                         f'</div>'
                         f'<p style="margin:0 0 .4rem;font-size:.77rem;color:var(--text2)">'
@@ -1267,47 +1345,53 @@ with t_diet:
                         f'{badge(f"C {c.get(chr(99)+chr(97)+chr(114)+chr(98),0)}g","b-teal")}'
                         f'{badge(f"G {c.get(chr(103)+chr(114)+chr(97)+chr(115)+chr(97),0)}g","b-amber")}'
                     )
-                if st.button("Eliminar dieta", key="btn_del_dc"):
+                if st.button("Eliminar esta dieta", key="btn_del_dc"):
                     del st.session_state.datos["dietas_custom"][dc_sel]
                     save_datos(); st.success("Eliminada."); st.rerun()
 
         sdiv("Crear nueva dieta")
-        nc_nom = st.text_input("Nombre", placeholder="Mi dieta de verano", key="nc_nom")
-        nc_not = st.text_area("Descripcion", placeholder="Objetivo...", height=50, key="nc_not")
-        sdiv("Anadir comidas")
+        nc_nom = st.text_input("Nombre de la dieta", placeholder="Mi dieta de verano", key="nc_nom",
+                               help="Dale un nombre identificativo a tu plan personalizado")
+        nc_not = st.text_area("Descripcion u objetivo", placeholder="Objetivo, notas generales...", height=50, key="nc_not")
+
+        sdiv("Añadir comidas al plan")
         dc1, dc2 = st.columns([2,1])
         with dc1:
-            nc_cn  = st.text_input("Nombre comida", placeholder="Almuerzo", key="nc_cn")
-            nc_al  = st.text_area("Alimentos", placeholder="Pollo 150g, Arroz 100g", height=45, key="nc_al")
+            nc_cn  = st.text_input("Nombre de la toma", placeholder="Almuerzo, Pre-entreno...", key="nc_cn",
+                                   help="Como se llama esta comida dentro del plan")
+            nc_al  = st.text_area("Alimentos y cantidades", placeholder="Pollo 150g, Arroz 100g, Brocoli al vapor", height=45, key="nc_al")
         with dc2:
-            nc_cal = st.number_input("kcal", 0,3000,0,10,key="nc_cal")
-            nc_pr  = st.number_input("P(g)", 0.0,200.0,0.0,.5,key="nc_pr")
-            nc_cb2 = st.number_input("C(g)", 0.0,500.0,0.0,.5,key="nc_cb2")
-            nc_gr  = st.number_input("G(g)", 0.0,200.0,0.0,.5,key="nc_gr")
-        if st.button("Anadir comida", key="btn_add_nc"):
+            nc_cal = st.number_input("Calorias (kcal)", 0,3000,0,10,key="nc_cal")
+            nc_pr  = st.number_input("Proteinas (g)", 0.0,200.0,0.0,.5,key="nc_pr")
+            nc_cb2 = st.number_input("Carbohidratos (g)", 0.0,500.0,0.0,.5,key="nc_cb2")
+            nc_gr  = st.number_input("Grasas (g)", 0.0,200.0,0.0,.5,key="nc_gr")
+        if st.button("Añadir toma al plan", key="btn_add_nc"):
             if nc_cn:
                 st.session_state.dc_temp.append({
                     "nombre":nc_cn,"alimentos":nc_al,"cal":nc_cal,
                     "prot":nc_pr,"carb":nc_cb2,"grasa":nc_gr})
                 st.success(f"'{nc_cn}' añadida.")
             else:
-                st.warning("Escribe el nombre de la comida.")
+                st.warning("Escribe el nombre de la toma.")
         if st.session_state.dc_temp:
             tot = sum(c["cal"] for c in st.session_state.dc_temp)
+            hdr_dc = (f'<div class="fap-table-hdr">'
+                      f'<span>Toma</span><span>Kcal</span>'
+                      f'</div>')
             filas = "".join(
                 f'<div class="fap-row">'
-                f'<span class="fap-rl">{i+1}. {food_icon(c.get("alimentos",""))} {c["nombre"]}</span>'
+                f'<span class="fap-rl"><span class="fap-exnum">{i+1:02d}</span> {c["nombre"]}</span>'
                 f'<span class="fap-rr">{c["cal"]} kcal</span>'
                 f'</div>'
                 for i,c in enumerate(st.session_state.dc_temp)
             )
             card(
-                f'{filas}'
+                f'{hdr_dc}{filas}'
                 f'<div style="text-align:right;margin-top:.4rem">'
                 f'{badge(f"Total: {tot} kcal","b-green")}'
                 f'</div>'
             )
-        if st.button("Guardar dieta", key="btn_save_dc"):
+        if st.button("Guardar dieta completa", key="btn_save_dc"):
             if not nc_nom:
                 st.warning("Dale un nombre a la dieta.")
             elif not st.session_state.dc_temp:
@@ -1350,7 +1434,7 @@ with t_gym:
 
     with g2:
         todas = {**RUTINAS_DEFAULT, **st.session_state.datos.get("rutinas_custom",{})}
-        rut_k = st.selectbox("Rutina", list(todas.keys()), key="rut_k")
+        rut_k = st.selectbox("Rutina de entrenamiento", list(todas.keys()), key="rut_k")
         rut   = todas[rut_k]
         desc  = rut.get("desc","") if isinstance(rut,dict) else ""
         ejs   = rut.get("ejercicios",rut) if isinstance(rut,dict) else rut
@@ -1377,19 +1461,23 @@ with t_gym:
                 f'</div>{ns}'
                 f'</div></div>'
             )
+
         sdiv("Crear rutina personalizada")
         with st.expander("Nueva rutina"):
-            nr_n  = st.text_input("Nombre",    placeholder="Mi rutina lunes",key="nr_n")
-            nr_d  = st.text_input("Descripcion",placeholder="Pecho y triceps",key="nr_d")
+            nr_n  = st.text_input("Nombre de la rutina", placeholder="Mi rutina lunes", key="nr_n",
+                                  help="Nombre identificativo para tu rutina")
+            nr_d  = st.text_input("Descripcion breve", placeholder="Pecho y triceps — 60 min", key="nr_d")
+            st.markdown('<p style="font-size:.72rem;color:var(--text3);margin-bottom:.4rem">Añade ejercicios uno a uno:</p>',
+                        unsafe_allow_html=True)
             e1,e2,e3 = st.columns([3,1,2])
-            with e1: nr_ej = st.text_input("Ejercicio",placeholder="Press banca",key="nr_ej",label_visibility="collapsed")
-            with e2: nr_s  = st.number_input("Series",1,20,4,key="nr_s",label_visibility="collapsed")
-            with e3: nr_r  = st.text_input("Reps",placeholder="8-12",key="nr_r",label_visibility="collapsed")
+            with e1: nr_ej = st.text_input("Ejercicio", placeholder="Press banca plano", key="nr_ej")
+            with e2: nr_s  = st.number_input("Series", 1, 20, 4, key="nr_s")
+            with e3: nr_r  = st.text_input("Repeticiones", placeholder="8-12", key="nr_r")
             e4,e5,e6 = st.columns(3)
-            with e4: nr_p  = st.text_input("Peso",placeholder="60kg",key="nr_p",label_visibility="collapsed")
-            with e5: nr_dc = st.text_input("Descanso",placeholder="90s",key="nr_dc",label_visibility="collapsed")
-            with e6: nr_nt = st.text_input("Nota",placeholder="...",key="nr_nt",label_visibility="collapsed")
-            if st.button("Anadir ejercicio", key="btn_add_ej"):
+            with e4: nr_p  = st.text_input("Peso (kg)", placeholder="60", key="nr_p")
+            with e5: nr_dc = st.text_input("Descanso", placeholder="90s", key="nr_dc")
+            with e6: nr_nt = st.text_input("Nota tecnica", placeholder="Espalda neutra", key="nr_nt")
+            if st.button("Añadir ejercicio", key="btn_add_ej"):
                 if nr_ej:
                     st.session_state.ej_temp.append({
                         "ejercicio":nr_ej,"series":nr_s,"reps":nr_r or "8-12",
@@ -1398,6 +1486,9 @@ with t_gym:
                 else:
                     st.warning("Escribe el nombre del ejercicio.")
             if st.session_state.ej_temp:
+                hdr_rut = (f'<div class="fap-table-hdr">'
+                           f'<span>Ejercicio</span><span>Series x Reps</span>'
+                           f'</div>')
                 filas = "".join(
                     f'<div class="fap-row">'
                     f'<span class="fap-rl"><span class="fap-exnum">{i+1:02d}</span> {e["ejercicio"]}</span>'
@@ -1405,7 +1496,7 @@ with t_gym:
                     f'</div>'
                     for i,e in enumerate(st.session_state.ej_temp)
                 )
-                card(filas)
+                card(f'{hdr_rut}{filas}')
             if st.button("Guardar rutina", key="btn_save_rut"):
                 if not nr_n:
                     st.warning("Dale un nombre a la rutina.")
@@ -1420,19 +1511,33 @@ with t_gym:
     with g3:
         r1, r2 = st.columns(2)
         with r1:
-            reg_tipo = st.selectbox("Tipo",[
+            reg_tipo = st.selectbox("Tipo de sesion",[
                 "PPL Empuje","PPL Tiron","PPL Piernas","Full Body",
-                "Upper","Lower","HIIT","Cardio","Otro"],key="reg_tipo")
+                "Upper","Lower","HIIT","Cardio","Otro"],key="reg_tipo",
+                help="Clasifica el tipo de entrenamiento de hoy")
         with r2:
-            reg_dur = st.number_input("Duracion (min)",10,300,60,key="reg_dur")
-        reg_notas = st.text_area("Notas",placeholder="Sensaciones, PRs...",height=55,key="reg_notas")
-        sdiv("Series realizadas")
+            reg_dur = st.number_input("Duracion (minutos)", 10, 300, 60, key="reg_dur",
+                                      help="Tiempo total de entrenamiento en minutos")
+        reg_notas = st.text_area("Notas de sesion",
+                                 placeholder="Sensaciones, marcas personales, observaciones...",
+                                 height=55, key="reg_notas")
+
+        sdiv("Series realizadas en esta sesion")
+        st.markdown(
+            '<p style="font-size:.72rem;color:var(--text3);margin-bottom:.6rem">'
+            'Registra cada ejercicio que has realizado con sus series, repeticiones y carga.</p>',
+            unsafe_allow_html=True
+        )
         sr1,sr2,sr3,sr4 = st.columns(4)
-        with sr1: ej_n  = st.text_input("Ejercicio",placeholder="Sentadilla",key="ej_n",label_visibility="collapsed")
-        with sr2: set_s = st.number_input("Series",1,20,3,key="set_s",label_visibility="collapsed")
-        with sr3: set_r = st.text_input("Reps",placeholder="10",key="set_r",label_visibility="collapsed")
-        with sr4: set_p = st.text_input("Peso",placeholder="80kg",key="set_p",label_visibility="collapsed")
-        if st.button("Anadir serie", key="btn_add_set"):
+        with sr1: ej_n  = st.text_input("Nombre del ejercicio", placeholder="Sentadilla", key="ej_n",
+                                         help="Nombre del ejercicio realizado")
+        with sr2: set_s = st.number_input("Series", 1, 20, 3, key="set_s",
+                                          help="Numero de series completadas")
+        with sr3: set_r = st.text_input("Repeticiones", placeholder="10", key="set_r",
+                                        help="Repeticiones por serie (ej: 8, 8-12, max)")
+        with sr4: set_p = st.text_input("Peso (kg)", placeholder="80", key="set_p",
+                                        help="Carga utilizada en kg")
+        if st.button("Añadir a la sesion", key="btn_add_set"):
             if ej_n:
                 st.session_state.sets_temp.append({
                     "ejercicio":ej_n,"series":set_s,
@@ -1441,15 +1546,22 @@ with t_gym:
             else:
                 st.warning("Escribe el nombre del ejercicio.")
         if st.session_state.sets_temp:
+            hdr_sets = (f'<div class="fap-table-hdr">'
+                        f'<span>Ejercicio</span>'
+                        f'<span style="display:flex;gap:2rem"><span>Series</span><span>Carga</span></span>'
+                        f'</div>')
             filas = "".join(
                 f'<div class="fap-row">'
                 f'<span class="fap-rl"><span class="fap-exnum">{i+1:02d}</span> {s["ejercicio"]}</span>'
-                f'<span class="fap-rr">{s["series"]}x{s["reps"]} · {s["peso"]}</span>'
+                f'<span class="fap-rr" style="display:flex;gap:1.5rem">'
+                f'<span>{s["series"]}x{s["reps"]}</span>'
+                f'<span style="color:var(--green)">{s["peso"]} kg</span>'
+                f'</span>'
                 f'</div>'
                 for i,s in enumerate(st.session_state.sets_temp)
             )
-            card(filas)
-        if st.button("Guardar sesion", key="btn_save_ses"):
+            card(f'{hdr_sets}{filas}')
+        if st.button("Guardar sesion completa", key="btn_save_ses"):
             reg = st.session_state.datos.setdefault("registro_entreno",{})
             reg.setdefault(hoy(),[]).append({
                 "tipo":reg_tipo,"duracion":reg_dur,"notas":reg_notas,
@@ -1458,11 +1570,11 @@ with t_gym:
             save_datos(); st.session_state.sets_temp = []
             st.success("Sesion guardada."); st.rerun()
 
-        sdiv("Ultimas sesiones")
+        sdiv("Ultimas sesiones registradas")
         reg_all = st.session_state.datos.get("registro_entreno",{})
         if not reg_all:
             card('<div style="text-align:center;padding:.85rem">'
-                 '<p style="color:var(--text3);font-size:.76rem;margin:0">Sin sesiones todavia</p></div>')
+                 '<p style="color:var(--text3);font-size:.76rem;margin:0">Sin sesiones todavia. Completa el formulario anterior.</p></div>')
         for fk in sorted(reg_all.keys(), reverse=True)[:7]:
             for ses in reg_all[fk]:
                 ns_count = len(ses.get("series",[]))
@@ -1472,14 +1584,15 @@ with t_gym:
                                   f'{ses["notas"]}</p>')
                 card(
                     f'<div class="fap-meal-hdr">'
-                    f'<span class="fap-meal-ttl">💪 {ses["tipo"]}</span>'
+                    f'<span class="fap-meal-ttl">{ses["tipo"]}</span>'
                     f'{badge(fk,"b-gray")}'
                     f'</div>'
                     f'<div style="display:flex;gap:.5rem;flex-wrap:wrap;'
                     f'font-size:.74rem;color:var(--text2)">'
                     f'<span style="font-weight:700;color:var(--green)">{ses["duracion"]} min</span>'
                     f'<span>·</span><span>{ns_count} ejercicios</span>'
-                    f'<span>·</span><span>{ses.get("hora","")}</span>'
+                    f'<span>·</span>'
+                    f'<span style="font-family:DM Mono,monospace;color:var(--text3)">{ses.get("hora","")}</span>'
                     f'</div>{notas_html}'
                 )
 
@@ -1494,7 +1607,14 @@ with t_hist:
     if not hist_c:
         card(
             '<div style="text-align:center;padding:1.5rem 0">'
-            '<div style="font-size:3rem;margin-bottom:.5rem">📊</div>'
+            '<div style="width:48px;height:48px;border-radius:14px;background:var(--bg);'
+            'display:flex;align-items:center;justify-content:center;margin:0 auto .6rem;'
+            'border:1.5px solid var(--border)">'
+            '<div style="display:flex;align-items:flex-end;gap:3px;height:22px">'
+            '<div style="width:5px;height:12px;background:var(--text4);border-radius:2px"></div>'
+            '<div style="width:5px;height:18px;background:var(--text4);border-radius:2px"></div>'
+            '<div style="width:5px;height:8px;background:var(--text4);border-radius:2px"></div>'
+            '</div></div>'
             '<div class="fap-lbl fap-lbl-green" style="text-align:center">Sin historial todavia</div>'
             '<p style="color:var(--text3);font-size:.76rem;margin:.2rem 0 0">'
             'Empieza registrando alimentos en la pestana Kcal</p>'
@@ -1529,9 +1649,9 @@ with t_hist:
             for et, vl in zip(etiq, vals):
                 h  = int(vl/max_v*100) if vl > 0 else 2
                 if vl > obj_h and vl > 0:
-                    clr = "linear-gradient(180deg,#3b82f6,#93c5fd)"
+                    clr = "#3b82f6"
                 elif vl > 0:
-                    clr = "linear-gradient(180deg,#10b981,#34d399)"
+                    clr = "#10b981"
                 else:
                     clr = "#e2e8f0"
                 bars += (
@@ -1546,7 +1666,7 @@ with t_hist:
                 )
             bars += '</div>'
             card(
-                f'<div class="fap-lbl fap-lbl-green">Calorias diarias — 14 dias</div>'
+                f'<div class="fap-lbl fap-lbl-green">Calorias diarias — ultimos 14 dias</div>'
                 f'{bars}'
                 f'<div style="display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap">'
                 f'{badge("Verde = en objetivo","b-green")}'
@@ -1569,7 +1689,7 @@ with t_hist:
                 f'<div class="fap-mini-lbl">Proteina</div></div>'
                 f'<div class="fap-mini">'
                 f'<div class="fap-mini-val" style="color:var(--blue)">{pm["carb"]}g</div>'
-                f'<div class="fap-mini-lbl">Carbos</div></div>'
+                f'<div class="fap-mini-lbl">Carbohidratos</div></div>'
                 f'<div class="fap-mini">'
                 f'<div class="fap-mini-val" style="color:var(--teal)">{pm["grasa"]}g</div>'
                 f'<div class="fap-mini-lbl">Grasas</div></div>'
@@ -1623,7 +1743,7 @@ with t_cfg:
 
     sdiv("Proveedor de IA")
     card(
-        f'<div class="fap-lbl fap-lbl-green">Comparativa</div>'
+        f'<div class="fap-lbl fap-lbl-green">Comparativa de proveedores</div>'
         f'<div class="fap-row"><span class="fap-rl">Groq (recomendado)</span>'
         f'<span class="fap-rr">{badge("1500 req/dia Gratis","b-green")}</span></div>'
         f'<div class="fap-row"><span class="fap-rl">Gemini</span>'
@@ -1631,9 +1751,9 @@ with t_cfg:
         f'<p style="font-size:.72rem;color:var(--text3);margin-top:.5rem;margin-bottom:0">'
         f'Groq es mas generosa, rapida y completamente gratuita.</p>'
     )
-    prov_sel = st.selectbox("",["Groq (recomendado)","Gemini"],
+    prov_sel = st.selectbox("Proveedor de IA activo",["Groq (recomendado)","Gemini"],
         index=0 if "Groq" in st.session_state.proveedor_ia else 1,
-        key="prov_sel", label_visibility="collapsed")
+        key="prov_sel")
     if st.button("Cambiar proveedor", key="btn_prov"):
         st.session_state.proveedor_ia = prov_sel
         st.session_state.datos.setdefault("api_keys",{})["proveedor_ia"] = prov_sel
@@ -1650,7 +1770,7 @@ with t_cfg:
         f'<div class="fap-row"><span class="fap-rl">Se guarda en tu cuenta</span>'
         f'<span class="fap-rr">{badge("No la repitas nunca mas","b-green")}</span></div>'
     )
-    gi = st.text_input("Groq Key", value=st.session_state.groq_key,
+    gi = st.text_input("Groq API Key", value=st.session_state.groq_key,
                        type="password", placeholder="gsk_...", key="gi")
     g1b, g2b = st.columns(2)
     with g1b:
@@ -1672,7 +1792,7 @@ with t_cfg:
                     st.error(res[:150])
 
     sdiv("Gemini API Key")
-    mi = st.text_input("Gemini Key", value=st.session_state.gemini_key,
+    mi = st.text_input("Gemini API Key", value=st.session_state.gemini_key,
                        type="password", placeholder="AIzaSy...", key="mi")
     mg1, mg2 = st.columns(2)
     with mg1:
@@ -1701,11 +1821,11 @@ with t_cfg:
         ca3 = st.number_input("Altura (cm)",100,250,int(pf_c.get("altura",175)),     key="ca3")
     with cfg2:
         ce  = st.number_input("Edad",     10,100,int(pf_c.get("edad",25)),            key="ce")
-        coc = st.number_input("Obj. kcal/dia",800,6000,int(pf_c.get("objetivo_cal",2000)),50,key="coc")
-        cpr = st.number_input("Obj. proteina (g)",0,400,int(pf_c.get("obj_prot",150)),5, key="cpr")
+        coc = st.number_input("Objetivo kcal/dia",800,6000,int(pf_c.get("objetivo_cal",2000)),50,key="coc")
+        cpr = st.number_input("Objetivo proteina (g)",0,400,int(pf_c.get("obj_prot",150)),5, key="cpr")
     cfg3, cfg4 = st.columns(2)
-    with cfg3: ccb = st.number_input("Obj. carbos (g)",0,800,int(pf_c.get("obj_carb",220)),5,key="ccb")
-    with cfg4: cgr = st.number_input("Obj. grasas (g)",0,300,int(pf_c.get("obj_grasa",60)),5,key="cgr")
+    with cfg3: ccb = st.number_input("Objetivo carbohidratos (g)",0,800,int(pf_c.get("obj_carb",220)),5,key="ccb")
+    with cfg4: cgr = st.number_input("Objetivo grasas (g)",0,300,int(pf_c.get("obj_grasa",60)),5,key="cgr")
     if st.button("Guardar perfil", key="btn_perfil"):
         st.session_state.datos.setdefault("perfil",{}).update({
             "nombre":cn,"peso":cp2,"altura":ca3,"edad":ce,
@@ -1730,7 +1850,7 @@ with t_cfg:
     sdiv("Acerca de")
     card(
         f'<div class="fap-row"><span class="fap-rl">Version</span>'
-        f'<span class="fap-rr">FitAI Pro 6.0</span></div>'
+        f'<span class="fap-rr">FitAI Pro 6.1</span></div>'
         f'<div class="fap-row"><span class="fap-rl">Stack</span>'
         f'<span class="fap-rr">Streamlit · Groq · Gemini · Supabase</span></div>'
         f'<div class="fap-row"><span class="fap-rl">Datos</span>'
