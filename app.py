@@ -12,409 +12,375 @@ except ImportError:
 st.set_page_config(page_title="FitAI Pro", page_icon="⚡",
                    layout="centered", initial_sidebar_state="collapsed")
 
+# ─────────────────────────────────────────────────────────────────────────────
+# CSS — light-mode forzado, contraste garantizado, responsive móvil
+# ─────────────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Sora:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Sora:wght@400;600;700;800&display=swap');
 
+/* ── FORZAR MODO CLARO SIEMPRE ── */
 :root {
-  --bg: #f0f4f8;
+  color-scheme: light only !important;
+  --bg:      #f0f4f8;
   --surface: #ffffff;
-  --surface2: #f8fafc;
-  --border: #e2e8f0;
+  --s2:      #f8fafc;
+  --border:  #e2e8f0;
   --border2: #cbd5e1;
-  --green: #10b981;
-  --green2: #059669;
-  --green3: rgba(16,185,129,.12);
-  --green4: rgba(16,185,129,.06);
-  --blue: #3b82f6;
-  --blue2: #2563eb;
-  --blue3: rgba(59,130,246,.12);
-  --blue4: rgba(59,130,246,.06);
-  --teal: #14b8a6;
-  --teal3: rgba(20,184,166,.12);
-  --sky: #0ea5e9;
-  --emerald: #34d399;
-  --text: #0f172a;
-  --text2: #475569;
-  --text3: #94a3b8;
-  --text4: #cbd5e1;
-  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
-  --shadow2: 0 4px 24px rgba(0,0,0,.10);
-  --r: 18px;
-  --rsm: 12px;
+  --green:   #10b981;
+  --green2:  #059669;
+  --green3:  rgba(16,185,129,.13);
+  --green4:  rgba(16,185,129,.06);
+  --blue:    #3b82f6;
+  --blue2:   #2563eb;
+  --blue3:   rgba(59,130,246,.13);
+  --teal:    #14b8a6;
+  --teal3:   rgba(20,184,166,.13);
+  --sky:     #0ea5e9;
+  --text:    #0f172a;
+  --text2:   #475569;
+  --text3:   #94a3b8;
+  --text4:   #cbd5e1;
+  --sh:  0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);
+  --sh2: 0 4px 24px rgba(0,0,0,.10);
+  --r:   16px;
+  --rsm: 11px;
   --rxs: 8px;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
 
-html, body,
+/* Forzar fondo y color base — anula cualquier modo oscuro del SO/navegador */
+html,body,
 [data-testid="stAppViewContainer"],
 [data-testid="stMain"],
-.main {
+.main,
+.stApp {
   background: var(--bg) !important;
   color: var(--text) !important;
   font-family: 'DM Sans', sans-serif !important;
+  color-scheme: light !important;
 }
 
 #MainMenu, footer, header,
 [data-testid="stToolbar"],
 [data-testid="stDecoration"],
-[data-testid="stStatusWidget"] { display: none !important; }
+[data-testid="stStatusWidget"] { display:none !important; }
 
 .block-container {
-  max-width: 780px !important;
+  max-width: 760px !important;
   padding: 0 1rem 6rem !important;
   margin: 0 auto !important;
 }
 
-/* ── TOP HEADER ── */
+/* ── HEADER ── */
 .fap-header {
-  background: var(--surface);
-  border-radius: 0 0 24px 24px;
-  padding: 1.4rem 1.5rem 1.2rem;
-  margin: 0 -1rem 1.4rem;
-  box-shadow: var(--shadow);
+  background: #fff;
+  border-radius: 0 0 20px 20px;
+  padding: 1.2rem 1.4rem 1rem;
+  margin: 0 -1rem 1.2rem;
+  box-shadow: var(--sh);
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border);
 }
-.fap-greeting { font-size: .62rem; font-weight: 600; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; }
-.fap-name { font-family: 'Sora', sans-serif; font-size: 1.32rem; font-weight: 800; color: var(--text); line-height: 1.15; margin-top: .1rem; }
-.fap-date { font-size: .65rem; font-weight: 500; color: var(--text3); margin-top: .1rem; }
-.fap-avatar {
-  width: 44px; height: 44px;
+.fap-greeting { font-size:.6rem; font-weight:700; color:var(--text3); letter-spacing:.07em; text-transform:uppercase; }
+.fap-name     { font-family:'Sora',sans-serif; font-size:1.25rem; font-weight:800; color:var(--text); line-height:1.15; margin-top:.08rem; }
+.fap-date     { font-size:.62rem; font-weight:500; color:var(--text3); margin-top:.08rem; }
+.fap-avatar   {
+  width:42px; height:42px;
   background: var(--green2);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Sora', sans-serif;
-  font-size: .85rem;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: .02em;
-  box-shadow: 0 4px 16px rgba(5,150,105,.25);
+  border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Sora',sans-serif; font-size:.82rem; font-weight:800; color:#fff;
+  letter-spacing:.02em;
+  box-shadow: 0 3px 10px rgba(5,150,105,.22);
+  flex-shrink: 0;
 }
 
-/* ── CARDS ── */
+/* ── CARDS — BASE ── */
 .fap-card {
-  background: var(--surface);
+  background: #fff;
   border-radius: var(--r);
-  padding: 1.2rem 1.35rem;
-  margin-bottom: .8rem;
-  box-shadow: var(--shadow);
+  padding: 1.1rem 1.25rem;
+  margin-bottom: .75rem;
+  box-shadow: var(--sh);
   border: 1px solid var(--border);
-}
-/* CORRECCIÓN CRÍTICA: todo texto dentro de cards coloreadas forzado a blanco */
-.fap-card-green {
-  background: linear-gradient(135deg, #0d9488, #059669);
-  border: none;
-  color: #ffffff !important;
-  box-shadow: 0 6px 24px rgba(5,150,105,.28);
-}
-.fap-card-green *,
-.fap-card-green p,
-.fap-card-green span,
-.fap-card-green div,
-.fap-card-green .fap-lbl,
-.fap-card-green .fap-big,
-.fap-card-green .fap-big-sub,
-.fap-card-green .fap-badge {
-  color: #ffffff !important;
-}
-.fap-card-blue {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  border: none;
-  color: #ffffff !important;
-  box-shadow: 0 6px 24px rgba(37,99,235,.24);
-}
-.fap-card-blue *,
-.fap-card-blue p,
-.fap-card-blue span,
-.fap-card-blue div,
-.fap-card-blue .fap-lbl,
-.fap-card-blue .fap-big,
-.fap-card-blue .fap-big-sub,
-.fap-card-blue .fap-badge {
-  color: #ffffff !important;
-}
-.fap-card-teal {
-  background: linear-gradient(135deg, #0f766e, #0d9488);
-  border: none;
-  color: #ffffff !important;
-  box-shadow: 0 6px 24px rgba(15,118,110,.24);
-}
-.fap-card-teal *,
-.fap-card-teal p,
-.fap-card-teal span,
-.fap-card-teal div,
-.fap-card-teal .fap-lbl,
-.fap-card-teal .fap-big,
-.fap-card-teal .fap-big-sub,
-.fap-card-teal .fap-badge {
-  color: #ffffff !important;
+  color: var(--text) !important;
 }
 
-/* ── SECTION LABELS ── */
-.fap-lbl {
-  font-size: .6rem;
-  font-weight: 700;
-  color: var(--text3);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  margin-bottom: .5rem;
+/* ── CARDS COLOREADAS — texto blanco forzado en TODOS los descendientes ── */
+.fap-card-green,
+.fap-card-blue,
+.fap-card-teal {
+  border: none !important;
 }
-.fap-lbl-green { color: var(--green) !important; }
-.fap-lbl-blue  { color: var(--blue)  !important; }
+.fap-card-green { background: linear-gradient(135deg,#059669,#047857); box-shadow:0 5px 20px rgba(5,150,105,.28); }
+.fap-card-blue  { background: linear-gradient(135deg,#2563eb,#1d4ed8); box-shadow:0 5px 20px rgba(37,99,235,.24); }
+.fap-card-teal  { background: linear-gradient(135deg,#0d9488,#0f766e); box-shadow:0 5px 20px rgba(15,118,110,.24); }
+
+.fap-card-green *, .fap-card-blue *, .fap-card-teal *,
+.fap-card-green, .fap-card-blue, .fap-card-teal {
+  color: #ffffff !important;
+}
+/* Badges dentro de cards coloreadas */
+.fap-card-green .fap-badge,
+.fap-card-blue  .fap-badge,
+.fap-card-teal  .fap-badge {
+  background: rgba(255,255,255,.18) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255,255,255,.25) !important;
+}
+/* Override de fap-lbl dentro de cards coloreadas */
+.fap-card-green .fap-lbl,
+.fap-card-blue  .fap-lbl,
+.fap-card-teal  .fap-lbl {
+  color: rgba(255,255,255,.72) !important;
+}
+
+/* ── SECTION LABEL ── */
+.fap-lbl {
+  font-size:.58rem; font-weight:800; color:var(--text3);
+  letter-spacing:.1em; text-transform:uppercase; margin-bottom:.45rem;
+}
+.fap-lbl-green { color:var(--green2) !important; }
+.fap-lbl-blue  { color:var(--blue2)  !important; }
 
 /* ── BIG NUMBER ── */
 .fap-big {
-  font-family: 'Sora', sans-serif;
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1;
+  font-family:'Sora',sans-serif; font-size:2.2rem; font-weight:800;
+  color:var(--text); line-height:1;
 }
 .fap-big-sub {
-  font-size: .6rem;
-  font-weight: 600;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  margin-top: .15rem;
+  font-size:.58rem; font-weight:600; color:var(--text3);
+  text-transform:uppercase; letter-spacing:.08em; margin-top:.12rem;
 }
 
 /* ── PROGRESS BAR ── */
-.fap-pb { background: rgba(255,255,255,.2); border-radius: 999px; height: 6px; overflow: hidden; margin-top: .55rem; }
-.fap-pb-light { background: var(--bg); }
-.fap-pb-f { height: 100%; border-radius: 999px; transition: width .7s cubic-bezier(.4,0,.2,1); }
+.fap-pb { background:var(--bg); border-radius:999px; height:6px; overflow:hidden; margin-top:.5rem; }
+.fap-pb-f { height:100%; border-radius:999px; transition:width .6s cubic-bezier(.4,0,.2,1); }
 
 /* ── RINGS ── */
-.fap-ring-wrap { display: flex; flex-direction: column; align-items: center; gap: .35rem; }
-.fap-ring { position: relative; width: 108px; height: 108px; }
-.fap-ring svg { transform: rotate(-90deg); }
-.fap-ring-val { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
-.fap-ring-num { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 800; color: var(--text); line-height: 1; }
-.fap-ring-unit { font-size: .48rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; }
-.fap-ring-label { font-size: .58rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: .07em; text-align: center; }
-.fap-mgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .9rem; }
-.fap-sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+.fap-ring-wrap { display:flex; flex-direction:column; align-items:center; gap:.3rem; }
+.fap-ring { position:relative; width:100px; height:100px; }
+.fap-ring svg { transform:rotate(-90deg); }
+.fap-ring-val { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; }
+.fap-ring-num { font-family:'Sora',sans-serif; font-size:.95rem; font-weight:800; color:var(--text); line-height:1; }
+.fap-ring-unit { font-size:.44rem; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:.05em; }
+.fap-ring-label { font-size:.55rem; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:.06em; text-align:center; }
+.fap-mgrid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.75rem; }
+.fap-sgrid { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
 
 /* ── MINI STAT ── */
 .fap-mini {
-  background: var(--surface);
-  border-radius: var(--rsm);
-  padding: 1rem;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  text-align: center;
+  background:#fff; border-radius:var(--rsm); padding:.85rem;
+  box-shadow:var(--sh); border:1px solid var(--border); text-align:center;
 }
-.fap-mini-val { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text); line-height: 1; }
-.fap-mini-lbl { font-size: .57rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .07em; margin-top: .15rem; }
+.fap-mini-val { font-family:'Sora',sans-serif; font-size:1.4rem; font-weight:800; color:var(--text); line-height:1; }
+.fap-mini-lbl { font-size:.54rem; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:.06em; margin-top:.12rem; }
 
 /* ── BADGES ── */
 .fap-badge {
-  display: inline-flex; align-items: center;
-  padding: .2rem .6rem;
-  border-radius: 4px;
-  font-size: .62rem;
-  font-weight: 700;
-  margin: .1rem .05rem 0 0;
-  letter-spacing: .02em;
+  display:inline-flex; align-items:center;
+  padding:.18rem .55rem; border-radius:5px;
+  font-size:.6rem; font-weight:700;
+  margin:.1rem .04rem 0 0; letter-spacing:.02em;
 }
-.b-green  { background: var(--green3); color: var(--green2); }
-.b-blue   { background: var(--blue3);  color: var(--blue2); }
-.b-teal   { background: var(--teal3);  color: var(--teal); }
-.b-sky    { background: rgba(14,165,233,.12); color: #0284c7; }
-.b-gray   { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
-.b-amber  { background: rgba(245,158,11,.12); color: #b45309; }
-.b-red    { background: rgba(239,68,68,.1);   color: #dc2626; }
+.b-green  { background:var(--green3); color:#047857; }
+.b-blue   { background:var(--blue3);  color:var(--blue2); }
+.b-teal   { background:var(--teal3);  color:var(--teal); }
+.b-sky    { background:rgba(14,165,233,.13); color:#0284c7; }
+.b-gray   { background:var(--bg); color:var(--text2); border:1px solid var(--border); }
+.b-amber  { background:rgba(245,158,11,.13); color:#b45309; }
+.b-red    { background:rgba(239,68,68,.1);   color:#dc2626; }
 
 /* ── TABLE HEADER ── */
 .fap-table-hdr {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: .35rem 0 .45rem;
-  border-bottom: 2px solid var(--border2);
-  font-size: .6rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .09em;
-  color: var(--text3);
-  margin-bottom: .1rem;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:.3rem 0 .4rem;
+  border-bottom:2px solid var(--border2);
+  font-size:.56rem; font-weight:800;
+  text-transform:uppercase; letter-spacing:.08em; color:var(--text3);
+  margin-bottom:.05rem;
 }
 
 /* ── ROWS ── */
 .fap-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: .42rem 0; border-bottom: 1px solid var(--border); font-size: .8rem;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:.38rem 0; border-bottom:1px solid var(--border); font-size:.79rem;
 }
-.fap-row:last-child { border-bottom: none; }
-.fap-rl { color: var(--text2); }
-.fap-rr { color: var(--text); font-size: .76rem; font-weight: 600; }
-.fap-meal-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
-.fap-meal-ttl { font-family: 'Sora', sans-serif; font-size: .88rem; font-weight: 700; color: var(--text); }
+.fap-row:last-child { border-bottom:none; }
+.fap-rl { color:var(--text2); }
+.fap-rr { color:var(--text); font-size:.75rem; font-weight:600; }
+.fap-meal-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:.35rem; }
+.fap-meal-ttl { font-family:'Sora',sans-serif; font-size:.85rem; font-weight:700; color:var(--text); }
 
 /* ── DIVIDER ── */
-.fap-sep { display: flex; align-items: center; gap: .6rem; margin: 1.4rem 0 .85rem; }
-.fap-sep-l { flex: 1; height: 1px; background: var(--border); }
-.fap-sep-t { font-size: .56rem; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: .14em; white-space: nowrap; }
+.fap-sep { display:flex; align-items:center; gap:.5rem; margin:1.3rem 0 .8rem; }
+.fap-sep-l { flex:1; height:1px; background:var(--border); }
+.fap-sep-t { font-size:.53rem; font-weight:800; color:var(--green2); text-transform:uppercase; letter-spacing:.14em; white-space:nowrap; }
 
-/* ── TYPE BADGE ── */
+/* ── TYPE BADGE GYM ── */
 .fap-typebadge {
-  font-size: .52rem; font-weight: 800;
-  padding: .18rem .55rem; border-radius: 4px;
-  letter-spacing: .04em; text-transform: uppercase;
+  font-size:.5rem; font-weight:800;
+  padding:.16rem .52rem; border-radius:5px;
+  letter-spacing:.04em; text-transform:uppercase;
 }
-.fap-exnum { font-family: 'DM Mono', monospace; font-size: .73rem; font-weight: 500; color: var(--green); min-width: 26px; }
+.fap-exnum { font-family:'DM Mono',monospace; font-size:.7rem; font-weight:500; color:var(--green); min-width:24px; }
 
-/* ── BUTTONS — color plano corporativo, sin degradado brillante ── */
+/* ── BUTTONS — color corporativo plano ── */
 div.stButton > button {
   background: var(--green2) !important;
   color: #fff !important;
   font-family: 'DM Sans', sans-serif !important;
-  font-size: .82rem !important;
+  font-size: .81rem !important;
   font-weight: 600 !important;
   border: none !important;
   border-radius: var(--rsm) !important;
-  padding: .65rem 1.25rem !important;
+  padding: .6rem 1.1rem !important;
   width: 100% !important;
   cursor: pointer !important;
-  transition: background .18s, box-shadow .18s !important;
-  box-shadow: 0 1px 4px rgba(5,150,105,.18) !important;
-  letter-spacing: .01em !important;
+  transition: background .15s, box-shadow .15s !important;
+  box-shadow: 0 1px 4px rgba(5,150,105,.15) !important;
 }
-div.stButton > button:hover {
-  background: #047857 !important;
-  box-shadow: 0 3px 12px rgba(5,150,105,.28) !important;
-}
-div.stButton > button:active { background: #065f46 !important; box-shadow: none !important; }
+div.stButton > button:hover  { background:#047857 !important; box-shadow:0 3px 10px rgba(5,150,105,.25) !important; }
+div.stButton > button:active { background:#065f46 !important; box-shadow:none !important; }
 
-/* ── INPUTS — fondo sólido, texto legible en modo oscuro del SO ── */
+/* ── INPUTS — fondo blanco sólido, texto oscuro siempre ── */
 div[data-baseweb="input"] input,
 div[data-baseweb="textarea"] textarea,
-.stNumberInput input {
+.stNumberInput input,
+div[data-baseweb="input"],
+div[data-baseweb="textarea"] {
   background: #ffffff !important;
   color: #0f172a !important;
   border: 1.5px solid var(--border2) !important;
   border-radius: var(--rsm) !important;
   font-family: 'DM Sans', sans-serif !important;
-  font-size: .82rem !important;
+  font-size: .81rem !important;
 }
 div[data-baseweb="input"] input:focus,
-div[data-baseweb="textarea"] textarea:focus {
-  border-color: var(--green) !important;
+div[data-baseweb="textarea"] textarea:focus,
+.stNumberInput input:focus {
+  border-color: var(--green2) !important;
   box-shadow: 0 0 0 3px rgba(16,185,129,.14) !important;
+  outline: none !important;
 }
-div[data-baseweb="select"] > div {
+
+/* ── SELECTS / DROPDOWNS ── */
+div[data-baseweb="select"] > div,
+div[data-baseweb="select"] > div > div {
   background: #ffffff !important;
+  color: #0f172a !important;
   border: 1.5px solid var(--border2) !important;
   border-radius: var(--rsm) !important;
-  color: #0f172a !important;
 }
-/* Texto del select seleccionado */
-div[data-baseweb="select"] span,
-div[data-baseweb="select"] div {
-  color: #0f172a !important;
-}
-label {
+div[data-baseweb="select"] span { color: #0f172a !important; }
+[data-baseweb="popover"] { background:#fff !important; border:1px solid var(--border2) !important; border-radius:var(--rsm) !important; }
+[data-baseweb="menu"] { background:#fff !important; }
+li[role="option"] { color: #0f172a !important; font-family:'DM Sans',sans-serif !important; background:#fff !important; }
+li[role="option"]:hover { background:var(--green3) !important; color:#047857 !important; }
+li[role="option"][aria-selected="true"] { background:var(--green3) !important; color:#047857 !important; }
+
+/* ── LABELS ── */
+label,
+[data-testid="stWidgetLabel"] p,
+.stNumberInput label {
   color: var(--text2) !important;
-  font-size: .74rem !important;
+  font-size: .72rem !important;
   font-family: 'DM Sans', sans-serif !important;
   font-weight: 600 !important;
 }
 
 /* ── TABS ── */
 [data-baseweb="tab-list"] {
-  background: var(--surface) !important;
+  background: #fff !important;
   border-radius: var(--rsm) !important;
   padding: 3px !important;
   gap: 2px !important;
-  box-shadow: var(--shadow) !important;
+  box-shadow: var(--sh) !important;
   border: 1px solid var(--border) !important;
 }
 [data-baseweb="tab"] {
   color: var(--text3) !important;
   font-family: 'DM Sans', sans-serif !important;
   font-weight: 700 !important;
-  font-size: .68rem !important;
+  font-size: .65rem !important;
   border-radius: var(--rxs) !important;
-  padding: .38rem .85rem !important;
+  padding: .36rem .75rem !important;
+  background: transparent !important;
 }
 [aria-selected="true"][data-baseweb="tab"] {
   background: var(--green2) !important;
   color: #fff !important;
-  box-shadow: 0 1px 6px rgba(5,150,105,.22) !important;
+  box-shadow: 0 1px 6px rgba(5,150,105,.2) !important;
 }
 
 /* ── ALERTS ── */
 [data-testid="stAlert"] {
-  background: var(--green4) !important;
-  border: 1px solid rgba(16,185,129,.2) !important;
-  border-left: 4px solid var(--green) !important;
+  background: #f0fdf4 !important;
+  border: 1px solid #bbf7d0 !important;
+  border-left: 4px solid var(--green2) !important;
   border-radius: var(--rsm) !important;
-  font-size: .79rem !important;
-  color: var(--green2) !important;
+  font-size: .78rem !important;
+  color: #065f46 !important;
 }
+[data-testid="stAlert"][data-baseweb="notification"] { color: #065f46 !important; }
+
+/* ── EXPANDER ── */
 [data-testid="stExpander"] {
-  background: var(--surface) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--rsm) !important;
-  box-shadow: var(--shadow) !important;
+  background: #fff !important; border:1px solid var(--border) !important;
+  border-radius: var(--rsm) !important; box-shadow: var(--sh) !important;
 }
-[data-testid="stExpander"] summary {
-  color: var(--text2) !important;
-  font-size: .79rem !important;
-  font-weight: 600 !important;
-}
+[data-testid="stExpander"] summary { color:var(--text2) !important; font-size:.78rem !important; font-weight:600 !important; }
 
 /* ── FILE UPLOADER ── */
 [data-testid="stFileUploader"] {
   border: 2px dashed var(--border2) !important;
   border-radius: var(--r) !important;
-  background: var(--surface2) !important;
+  background: var(--s2) !important;
 }
+[data-testid="stFileUploader"] * { color: var(--text2) !important; }
 
-/* ── LOGIN ── */
+/* ── LOGIN BOX ── */
 .fap-login-box {
-  background: var(--surface);
-  border-radius: 24px;
-  padding: 2rem 1.8rem;
-  box-shadow: var(--shadow2);
-  border: 1px solid var(--border);
-  max-width: 420px;
-  margin: 0 auto;
+  background: #fff; border-radius: 20px;
+  padding: 1.8rem 1.6rem;
+  box-shadow: var(--sh2); border: 1px solid var(--border);
+  max-width: 400px; margin: 0 auto;
 }
 
-/* ── DROPDOWNS ── */
-[data-baseweb="popover"] {
-  background: var(--surface) !important;
-  border: 1px solid var(--border2) !important;
-  border-radius: var(--rsm) !important;
-}
-[data-baseweb="menu"] { background: var(--surface) !important; }
-li[role="option"] { color: var(--text) !important; font-family: 'DM Sans', sans-serif !important; }
-li[role="option"]:hover { background: var(--green3) !important; }
+/* ── SPINNER ── */
+[data-testid="stSpinner"] { color: var(--green2) !important; }
 
 /* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 999px; }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:999px; }
 
+/* ── RESPONSIVE MÓVIL ── */
 @media (max-width: 520px) {
-  .block-container { padding: 0 .65rem 6rem !important; }
-  .fap-big { font-size: 2rem; }
-  .fap-mgrid { gap: .5rem; }
-  .fap-ring { width: 88px; height: 88px; }
-  .fap-ring svg { width: 88px; height: 88px; }
+  .block-container { padding:0 .6rem 6rem !important; }
+  .fap-big { font-size:1.9rem; }
+  .fap-mgrid { gap:.4rem; }
+  .fap-ring { width:84px; height:84px; }
+  .fap-ring svg { width:84px; height:84px; }
+  .fap-ring-num { font-size:.85rem; }
+  .fap-header { padding:.9rem 1rem .8rem; }
+  .fap-name { font-size:1.1rem; }
+  .fap-card { padding:.9rem 1rem; }
+  [data-baseweb="tab"] { font-size:.58rem !important; padding:.3rem .5rem !important; }
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ── DATA ──────────────────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# DATOS
+# ─────────────────────────────────────────────────────────────────────────────
 USERS_FILE = "fitai_users.json"
 
-# food_icon devuelve un punto de categoría o string vacío (sin emoticonos)
-def food_icon(n):
-    return ""
+def food_icon(n): return ""
 
 ALIMENTOS_DB = {
     "Pollo a la plancha (100g)":    {"cal":165,"prot":31.0,"carb":0.0,"grasa":3.6},
@@ -466,6 +432,7 @@ ALIMENTOS_DB = {
     "Aceitunas (30g)":              {"cal":43, "prot":0.3, "carb":2.3, "grasa":3.9},
     "Hummus (100g)":                {"cal":166,"prot":7.9, "carb":14.3,"grasa":9.6},
 }
+
 DIETAS_TEMPLATE = {
     "Volumen limpio (2800 kcal)":{"objetivo":"Ganar masa muscular con minima acumulacion de grasa","macros":{"prot":175,"carb":350,"grasa":75},"comidas":[
         {"nombre":"Desayuno","alimentos":"Avena 80g + Whey 30g + Platano + Leche 200ml","cal":580,"prot":42,"carb":82,"grasa":10},
@@ -501,6 +468,7 @@ DIETAS_TEMPLATE = {
         {"nombre":"Cena","alimentos":"Salmon 180g + Espinacas + Tomate + AOVE 8ml","cal":440,"prot":38,"carb":8,"grasa":28},
         {"nombre":"Antes dormir","alimentos":"Caseina 30g","cal":110,"prot":24,"carb":3,"grasa":1}]},
 }
+
 EJERCICIOS_GYM = {
     "Pecho":[
         {"nombre":"Press banca plano","tipo":"Fuerza","equipo":"Barra","series_rec":"4","reps_rec":"6-12","descanso":"90s","notas":"Escapulas retraidas"},
@@ -597,33 +565,25 @@ RUTINAS_DEFAULT = {
         {"ejercicio":"Rueda abdominal","series":3,"reps":"10","peso":"","descanso":"60s","notas":""}]},
 }
 TIPO_COLOR = {
-    "Fuerza":       {"color":"#10b981","bg":"rgba(16,185,129,.1)"},
-    "Hipertrofia":  {"color":"#3b82f6","bg":"rgba(59,130,246,.1)"},
-    "Aislamiento":  {"color":"#8b5cf6","bg":"rgba(139,92,246,.1)"},
-    "Peso corporal":{"color":"#10b981","bg":"rgba(16,185,129,.1)"},
-    "Cardio":       {"color":"#0ea5e9","bg":"rgba(14,165,233,.1)"},
-    "Estabilidad":  {"color":"#14b8a6","bg":"rgba(20,184,166,.1)"},
-    "Gluteos":      {"color":"#f59e0b","bg":"rgba(245,158,11,.1)"},
-    "Prevencion":   {"color":"#14b8a6","bg":"rgba(20,184,166,.1)"},
-    "Braquial":     {"color":"#8b5cf6","bg":"rgba(139,92,246,.1)"},
+    "Fuerza":       {"color":"#059669","bg":"rgba(5,150,105,.1)"},
+    "Hipertrofia":  {"color":"#2563eb","bg":"rgba(37,99,235,.1)"},
+    "Aislamiento":  {"color":"#7c3aed","bg":"rgba(124,58,237,.1)"},
+    "Peso corporal":{"color":"#059669","bg":"rgba(5,150,105,.1)"},
+    "Cardio":       {"color":"#0284c7","bg":"rgba(2,132,199,.1)"},
+    "Estabilidad":  {"color":"#0d9488","bg":"rgba(13,148,136,.1)"},
+    "Gluteos":      {"color":"#b45309","bg":"rgba(180,83,9,.1)"},
+    "Prevencion":   {"color":"#0d9488","bg":"rgba(13,148,136,.1)"},
+    "Braquial":     {"color":"#7c3aed","bg":"rgba(124,58,237,.1)"},
 }
 
-# ── AUTH & PERSISTENCE ────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# SUPABASE & AUTH
+# La autenticación usa Supabase Auth nativo.
+# Los datos del usuario se guardan en la tabla user_data (upsert por user_id).
+# El UID se almacena en st.session_state para toda la sesión del navegador.
+# En Streamlit Cloud NO hay filesystem persistente entre reinicios.
+# ─────────────────────────────────────────────────────────────────────────────
 def hash_pw(pw): return hashlib.sha256(pw.encode()).hexdigest()
-def load_users():
-    if os.path.exists(USERS_FILE):
-        try:
-            with open(USERS_FILE,"r",encoding="utf-8") as f: return json.load(f)
-        except: pass
-    return {}
-def save_users(u):
-    try:
-        with open(USERS_FILE,"w",encoding="utf-8") as f: json.dump(u,f,ensure_ascii=False,indent=2)
-    except Exception as e: st.warning(f"Error guardando usuarios: {e}")
-def get_user_file(uid): return f"fitai_{uid[:8]}.json"
-def empty_data():
-    return {"historial_calorias":{},"historial_macros":{},"diario_comidas":{},
-            "rutinas_custom":{},"dietas_custom":{},"perfil":{},"registro_entreno":{},"api_keys":{}}
 
 def _clean_url(url):
     if not url: return ""
@@ -644,132 +604,140 @@ def get_sb():
 
 def sb_ok(): return get_sb() is not None
 
+def empty_data():
+    return {"historial_calorias":{},"historial_macros":{},"diario_comidas":{},
+            "rutinas_custom":{},"dietas_custom":{},"perfil":{},"registro_entreno":{},"api_keys":{}}
+
 def sb_register(email, pw):
+    """Registro via Supabase Auth. Si no hay Supabase, error claro."""
     sb = get_sb()
-    if sb:
-        try:
-            r = sb.auth.sign_up({"email":email,"password":pw})
-            if r.user: return True, r.user.id
-            return False,"Error al registrar. Prueba con otro correo."
-        except Exception as e:
-            err = str(e).lower()
-            if "already" in err or "registered" in err: return False,"Este correo ya esta registrado."
-            return False,f"Error: {str(e)[:100]}"
-    users = load_users()
-    if email in users: return False,"El correo ya esta registrado (local)."
-    uid = str(uuid.uuid4())
-    users[email] = {"uid":uid,"pw_hash":hash_pw(pw),"created":str(datetime.now())}
-    save_users(users)
-    return True, uid
+    if not sb:
+        return False, "Sin Supabase configurado no es posible registrarse de forma persistente."
+    try:
+        r = sb.auth.sign_up({"email": email, "password": pw})
+        if r.user:
+            return True, r.user.id
+        return False, "No se pudo crear la cuenta. Prueba con otro correo."
+    except Exception as e:
+        err = str(e).lower()
+        if "already" in err or "registered" in err or "exists" in err:
+            return False, "Este correo ya esta registrado. Inicia sesion."
+        if "weak" in err or "password" in err:
+            return False, "Contrasena demasiado debil (minimo 6 caracteres)."
+        return False, f"Error al registrar: {str(e)[:120]}"
 
 def sb_login(email, pw):
+    """Login via Supabase Auth. Devuelve (ok, uid, error_msg)."""
     sb = get_sb()
-    if sb:
-        try:
-            r = sb.auth.sign_in_with_password({"email":email,"password":pw})
-            if r.user: return True, r.user.id, ""
-            return False,"","Credenciales incorrectas."
-        except Exception as e:
-            err = str(e).lower()
-            if any(x in err for x in ["invalid","credentials","wrong","email","password"]):
-                return False,"","Correo o contrasena incorrectos."
-            if "confirm" in err or "not confirmed" in err:
-                return False,"","Confirma tu correo (revisa el email)."
-            return False,"",f"Error: {str(e)[:100]}"
-    users = load_users()
-    if email not in users: return False,"","Correo no registrado."
-    if users[email]["pw_hash"] != hash_pw(pw): return False,"","Contrasena incorrecta."
-    return True, users[email]["uid"], ""
+    if not sb:
+        return False, "", "Sin Supabase configurado. Contacta al administrador."
+    try:
+        r = sb.auth.sign_in_with_password({"email": email, "password": pw})
+        if r.user:
+            return True, r.user.id, ""
+        return False, "", "Credenciales incorrectas."
+    except Exception as e:
+        err = str(e).lower()
+        if any(x in err for x in ["invalid","credentials","wrong","email","password","user not found"]):
+            return False, "", "Correo o contrasena incorrectos."
+        if "confirm" in err or "not confirmed" in err:
+            return False, "", "Confirma tu correo electronico (revisa tu bandeja de entrada)."
+        if "rate" in err or "limit" in err:
+            return False, "", "Demasiados intentos. Espera unos minutos."
+        return False, "", f"Error: {str(e)[:120]}"
 
 def load_udata(uid):
     sb = get_sb()
     if sb:
         try:
-            r = sb.table("user_data").select("*").eq("user_id",uid).execute()
+            r = sb.table("user_data").select("*").eq("user_id", uid).execute()
             if r.data:
                 row = r.data[0]
-                return {k: row.get(k) or {} for k in
-                    ["historial_calorias","historial_macros","diario_comidas",
-                     "rutinas_custom","dietas_custom","perfil","registro_entreno","api_keys"]}
-        except: pass
-    path = get_user_file(uid)
-    if os.path.exists(path):
-        try:
-            with open(path,"r",encoding="utf-8") as f:
-                d = json.load(f); d.setdefault("api_keys",{}); return d
-        except: pass
+                d = {k: row.get(k) or {} for k in
+                     ["historial_calorias","historial_macros","diario_comidas",
+                      "rutinas_custom","dietas_custom","perfil","registro_entreno","api_keys"]}
+                return d
+        except Exception as e:
+            st.warning(f"Error cargando datos: {e}")
     return empty_data()
 
 def save_udata(uid, data):
     sb = get_sb()
     if sb:
         try:
-            payload = {"user_id":uid}
+            payload = {"user_id": uid}
             for k in ["historial_calorias","historial_macros","diario_comidas",
-                       "rutinas_custom","dietas_custom","perfil","registro_entreno","api_keys"]:
-                payload[k] = data.get(k,{})
-            sb.table("user_data").upsert(payload,on_conflict="user_id").execute()
+                      "rutinas_custom","dietas_custom","perfil","registro_entreno","api_keys"]:
+                payload[k] = data.get(k, {})
+            sb.table("user_data").upsert(payload, on_conflict="user_id").execute()
             return
-        except: pass
+        except Exception as e:
+            st.warning(f"Error guardando datos: {e}")
+    # Fallback local (solo funciona en desarrollo, no en Cloud)
     try:
-        with open(get_user_file(uid),"w",encoding="utf-8") as f:
-            json.dump(data,f,ensure_ascii=False,indent=2)
-    except Exception as e: st.warning(f"Error al guardar: {e}")
+        uid_short = uid[:8] if uid else "local"
+        with open(f"fitai_{uid_short}.json","w",encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except: pass
 
-# ── SESSION STATE ─────────────────────────────────────────────────────────────
-def _ss(k,v):
-    if k not in st.session_state: st.session_state[k]=v
+# ─────────────────────────────────────────────────────────────────────────────
+# SESSION STATE
+# ─────────────────────────────────────────────────────────────────────────────
+def _ss(k, v):
+    if k not in st.session_state: st.session_state[k] = v
 
-for k,v in [("logged_in",False),("user_id",""),("user_email",""),("datos",{}),
-            ("gemini_key",""),("groq_key",""),("proveedor_ia","Groq (recomendado)"),
-            ("scan_res",None),("ia_res",None),("ej_temp",[]),("sets_temp",[]),
-            ("dc_temp",[]),("auth_mode","login"),("calc_res",None)]:
-    _ss(k,v)
+for k, v in [
+    ("logged_in", False), ("user_id", ""), ("user_email", ""), ("datos", {}),
+    ("gemini_key", ""), ("groq_key", ""), ("proveedor_ia", "Groq (recomendado)"),
+    ("scan_res", None), ("ia_res", None), ("ej_temp", []), ("sets_temp", []),
+    ("dc_temp", []), ("auth_mode", "login"), ("calc_res", None), ("auth_err", ""),
+]:
+    _ss(k, v)
 
+# Cargar keys de Secrets si están disponibles
 if not st.session_state.gemini_key:
-    try: st.session_state.gemini_key = st.secrets.get("GEMINI_KEY","")
+    try: st.session_state.gemini_key = st.secrets.get("GEMINI_KEY", "")
     except: pass
 if not st.session_state.groq_key:
-    try: st.session_state.groq_key = st.secrets.get("GROQ_KEY","")
+    try: st.session_state.groq_key = st.secrets.get("GROQ_KEY", "")
     except: pass
 
-# ── HELPERS ───────────────────────────────────────────────────────────────────
-def hoy(): return str(date.today())
-def get_pf(): return st.session_state.datos.get("perfil",{})
-def obj_cal(): return int(get_pf().get("objetivo_cal",2000))
-def cal_hoy(): return st.session_state.datos.get("historial_calorias",{}).get(hoy(),0)
-def mac_hoy(): return st.session_state.datos.get("historial_macros",{}).get(hoy(),{"prot":0.0,"carb":0.0,"grasa":0.0})
+# ─────────────────────────────────────────────────────────────────────────────
+# HELPERS
+# ─────────────────────────────────────────────────────────────────────────────
+def hoy():     return str(date.today())
+def get_pf():  return st.session_state.datos.get("perfil", {})
+def obj_cal(): return int(get_pf().get("objetivo_cal", 2000))
+def cal_hoy(): return st.session_state.datos.get("historial_calorias", {}).get(hoy(), 0)
+def mac_hoy(): return st.session_state.datos.get("historial_macros", {}).get(hoy(), {"prot":0.0,"carb":0.0,"grasa":0.0})
 def save_datos(): save_udata(st.session_state.user_id, st.session_state.datos)
 
 def sdiv(lbl):
     st.markdown(
-        f'<div class="fap-sep">'
-        f'<div class="fap-sep-l"></div>'
+        f'<div class="fap-sep"><div class="fap-sep-l"></div>'
         f'<span class="fap-sep-t">{lbl}</span>'
-        f'<div class="fap-sep-l"></div>'
-        f'</div>',
+        f'<div class="fap-sep-l"></div></div>',
         unsafe_allow_html=True
     )
 
 def card(html, extra_cls=""):
     st.markdown(f'<div class="fap-card {extra_cls}">{html}</div>', unsafe_allow_html=True)
 
-def pb(val, mx, color, light=False):
-    pct = min(val/mx*100, 100) if mx > 0 else 0
-    track_cls = "fap-pb-light" if light else ""
-    return (f'<div class="fap-pb {track_cls}">'
+def pb(val, mx, color):
+    pct = min(val / mx * 100, 100) if mx > 0 else 0
+    return (f'<div class="fap-pb">'
             f'<div class="fap-pb-f" style="width:{pct:.1f}%;background:{color}"></div>'
             f'</div>')
 
 def ring(pct, color, label, val_str, unit_str=""):
-    r = 46; c = 2*3.14159*r
+    r = 42; c = 2 * 3.14159 * r
     d = c * min(pct, 100) / 100; g = c - d
     return (
         f'<div class="fap-ring-wrap">'
         f'<div class="fap-ring">'
-        f'<svg width="108" height="108" viewBox="0 0 108 108">'
-        f'<circle cx="54" cy="54" r="{r}" fill="none" stroke="#e2e8f0" stroke-width="8"/>'
-        f'<circle cx="54" cy="54" r="{r}" fill="none" stroke="{color}" stroke-width="8"'
+        f'<svg width="100" height="100" viewBox="0 0 100 100">'
+        f'<circle cx="50" cy="50" r="{r}" fill="none" stroke="#e2e8f0" stroke-width="7"/>'
+        f'<circle cx="50" cy="50" r="{r}" fill="none" stroke="{color}" stroke-width="7"'
         f' stroke-dasharray="{d:.1f} {g:.1f}" stroke-linecap="round"/>'
         f'</svg>'
         f'<div class="fap-ring-val">'
@@ -831,7 +799,7 @@ def ia_call(prompt, img_bytes=None):
             if r.status_code == 429: return "Limite de Groq alcanzado. Espera un minuto."
             if r.status_code != 200: return f"Error Groq {r.status_code}"
             return r.json()["choices"][0]["message"]["content"]
-        except Exception as e: return f"Error conexion: {str(e)[:120]}"
+        except Exception as e: return f"Error de conexion: {str(e)[:120]}"
     else:
         key = st.session_state.gemini_key.strip()
         if not key: return "ERROR_NO_KEY"
@@ -856,112 +824,142 @@ def extraer_kcal(txt):
     except: pass
     return 0
 
-# ═══════════════════════════════════════════════════════════════════════════════
+# ═════════════════════════════════════════════════════════════════════════════
 # LOGIN / REGISTER
-# ═══════════════════════════════════════════════════════════════════════════════
+# ═════════════════════════════════════════════════════════════════════════════
 if not st.session_state.logged_in:
+    # Hero banner
     st.markdown("""
-    <div style="background:linear-gradient(135deg,#0d9488 0%,#059669 45%,#2563eb 100%);
-                border-radius:0 0 28px 28px;padding:2.8rem 1.4rem 2.2rem;
-                margin:0 -1rem 2rem;text-align:center">
-      <div style="font-size:.58rem;font-weight:700;color:rgba(255,255,255,.65);
-                  letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8rem">
+    <div style="background:linear-gradient(135deg,#047857 0%,#059669 50%,#1d4ed8 100%);
+                border-radius:0 0 24px 24px; padding:2.6rem 1.2rem 2rem;
+                margin:0 -1rem 1.8rem; text-align:center">
+      <div style="font-size:.55rem;font-weight:800;color:rgba(255,255,255,.6);
+                  letter-spacing:.22em;text-transform:uppercase;margin-bottom:.7rem">
         Tu asistente fitness con IA
       </div>
-      <div style="font-family:'Sora',sans-serif;font-size:4rem;font-weight:800;
-                  color:#fff;line-height:.9;letter-spacing:-.03em;margin-bottom:.5rem">
-        Fit<span style="color:#a7f3d0">AI</span>
+      <div style="font-family:'Sora',sans-serif;font-size:3.6rem;font-weight:800;
+                  color:#fff;line-height:.9;letter-spacing:-.03em;margin-bottom:.4rem">
+        Fit<span style="color:#6ee7b7">AI</span>
       </div>
-      <div style="font-family:'Sora',sans-serif;font-size:.95rem;font-weight:700;
-                  color:rgba(255,255,255,.7);margin-bottom:.8rem">PRO</div>
-      <div style="font-size:.7rem;color:rgba(255,255,255,.6);
-                  display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap">
-        <span>Nutricion</span><span style="opacity:.5">·</span><span>Dietas IA</span>
-        <span style="opacity:.5">·</span><span>Gimnasio</span><span style="opacity:.5">·</span><span>Progreso</span>
+      <div style="font-size:.65rem;font-weight:700;color:rgba(255,255,255,.55);
+                  letter-spacing:.18em;text-transform:uppercase;margin-bottom:.9rem">PRO</div>
+      <div style="display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;font-size:.65rem;color:rgba(255,255,255,.55)">
+        <span>Nutricion</span><span>·</span><span>Dietas IA</span><span>·</span><span>Gimnasio</span><span>·</span><span>Progreso</span>
       </div>
     </div>
     """, unsafe_allow_html=True)
 
-    _, col, _ = st.columns([0.3, 3, 0.3])
+    # Aviso si no hay Supabase
+    if not sb_ok():
+        st.warning("Supabase no detectado. Configura SUPABASE_URL y SUPABASE_KEY en los Secrets de tu app para que las cuentas sean persistentes.")
+
+    _, col, _ = st.columns([0.15, 3, 0.15])
     with col:
         mode = st.session_state.auth_mode
-        t = "Bienvenido de nuevo" if mode=="login" else "Crear cuenta"
-        s = "Accede a tu cuenta" if mode=="login" else "Registrate gratis"
+        t = "Bienvenido de nuevo" if mode == "login" else "Crear cuenta"
+        s = "Accede a tu cuenta" if mode == "login" else "Registrate gratis — es gratuito"
+
         st.markdown(
             f'<div class="fap-login-box">'
-            f'<div style="text-align:center;margin-bottom:1.4rem">'
-            f'<div style="font-family:Sora,sans-serif;font-size:1.25rem;font-weight:800;color:var(--text)">{t}</div>'
-            f'<div style="font-size:.72rem;color:var(--text3);margin-top:.25rem">{s}</div>'
+            f'<div style="text-align:center;margin-bottom:1.2rem">'
+            f'<div style="font-family:Sora,sans-serif;font-size:1.15rem;font-weight:800;color:#0f172a">{t}</div>'
+            f'<div style="font-size:.7rem;color:#94a3b8;margin-top:.2rem">{s}</div>'
             f'</div>',
             unsafe_allow_html=True
         )
 
-        email_in = st.text_input("Correo electronico", placeholder="hola@ejemplo.com", key="ae")
-        pw_in    = st.text_input("Contrasena", type="password", placeholder="Minimo 6 caracteres", key="ap")
+        email_in = st.text_input("Correo electronico", placeholder="tu@correo.com", key="ae")
+        pw_in    = st.text_input("Contrasena", type="password",
+                                 placeholder="Minimo 6 caracteres", key="ap",
+                                 help="La contrasena debe tener al menos 6 caracteres")
         if mode == "register":
-            nombre_in = st.text_input("Nombre (opcional)", placeholder="Alex", key="an")
+            nombre_in = st.text_input("Tu nombre (opcional)", placeholder="Alex", key="an")
 
-        st.markdown('<div style="height:.4rem"></div>', unsafe_allow_html=True)
+        # Mostrar error si existe
+        if st.session_state.auth_err:
+            st.error(st.session_state.auth_err)
+            st.session_state.auth_err = ""
+
+        st.markdown('<div style="height:.35rem"></div>', unsafe_allow_html=True)
 
         if mode == "login":
             if st.button("Entrar", key="btn_login"):
-                if not email_in or not pw_in:
-                    st.warning("Rellena correo y contrasena.")
+                if not email_in.strip() or not pw_in:
+                    st.session_state.auth_err = "Rellena correo y contrasena."
+                    st.rerun()
                 else:
-                    ok, uid, err = sb_login(email_in.strip().lower(), pw_in)
+                    with st.spinner("Verificando..."):
+                        ok, uid, err = sb_login(email_in.strip().lower(), pw_in)
                     if ok:
                         st.session_state.logged_in  = True
                         st.session_state.user_id    = uid
                         st.session_state.user_email = email_in.strip().lower()
                         st.session_state.datos      = load_udata(uid)
-                        ak = st.session_state.datos.get("api_keys",{})
+                        ak = st.session_state.datos.get("api_keys", {})
                         if not st.session_state.groq_key:   st.session_state.groq_key   = ak.get("groq_key","")
                         if not st.session_state.gemini_key: st.session_state.gemini_key = ak.get("gemini_key","")
-                        if ak.get("proveedor_ia"):          st.session_state.proveedor_ia = ak["proveedor_ia"]
+                        if ak.get("proveedor_ia"):           st.session_state.proveedor_ia = ak["proveedor_ia"]
                         st.rerun()
                     else:
-                        st.error(f"{err}")
-            st.markdown('<div style="height:.4rem"></div>', unsafe_allow_html=True)
-            if st.button("Crear cuenta nueva", key="btn_go_reg"):
+                        st.session_state.auth_err = err
+                        st.rerun()
+
+            st.markdown('<div style="height:.3rem"></div>', unsafe_allow_html=True)
+            if st.button("No tengo cuenta — Registrarme", key="btn_go_reg"):
                 st.session_state.auth_mode = "register"; st.rerun()
-        else:
-            if st.button("Registrarme", key="btn_reg"):
-                if not email_in or not pw_in:
-                    st.warning("Rellena correo y contrasena.")
+
+        else:  # register
+            if st.button("Crear mi cuenta", key="btn_reg"):
+                email_clean = email_in.strip().lower()
+                if not email_clean or not pw_in:
+                    st.session_state.auth_err = "Rellena correo y contrasena."
+                    st.rerun()
                 elif len(pw_in) < 6:
-                    st.warning("La contrasena debe tener al menos 6 caracteres.")
+                    st.session_state.auth_err = "La contrasena debe tener al menos 6 caracteres."
+                    st.rerun()
+                elif "@" not in email_clean or "." not in email_clean:
+                    st.session_state.auth_err = "Introduce un correo electronico valido."
+                    st.rerun()
                 else:
-                    ok, uid_or_err = sb_register(email_in.strip().lower(), pw_in)
+                    with st.spinner("Creando cuenta..."):
+                        ok, uid_or_err = sb_register(email_clean, pw_in)
                     if ok:
-                        nom = st.session_state.get("an","")
+                        nom = st.session_state.get("an", "")
                         st.session_state.logged_in  = True
                         st.session_state.user_id    = uid_or_err
-                        st.session_state.user_email = email_in.strip().lower()
+                        st.session_state.user_email = email_clean
                         st.session_state.datos      = empty_data()
                         st.session_state.datos["perfil"] = {
-                            "nombre":nom,"objetivo_cal":2000,"obj_prot":150,"obj_carb":220,"obj_grasa":60}
+                            "nombre": nom,
+                            "objetivo_cal": 2000,
+                            "obj_prot": 150,
+                            "obj_carb": 220,
+                            "obj_grasa": 60
+                        }
                         save_datos()
-                        st.success("Cuenta creada correctamente."); st.rerun()
+                        st.rerun()
                     else:
-                        st.error(f"{uid_or_err}")
-            st.markdown('<div style="height:.4rem"></div>', unsafe_allow_html=True)
-            if st.button("Ya tengo cuenta", key="btn_go_login"):
+                        st.session_state.auth_err = uid_or_err
+                        st.rerun()
+
+            st.markdown('<div style="height:.3rem"></div>', unsafe_allow_html=True)
+            if st.button("Ya tengo cuenta — Iniciar sesion", key="btn_go_login"):
                 st.session_state.auth_mode = "login"; st.rerun()
 
         st.markdown('</div>', unsafe_allow_html=True)
+
     st.stop()
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# MAIN APP
-# ═══════════════════════════════════════════════════════════════════════════════
-nombre_u = get_pf().get("nombre","") or st.session_state.user_email.split("@")[0]
+# ═════════════════════════════════════════════════════════════════════════════
+# APP PRINCIPAL
+# ═════════════════════════════════════════════════════════════════════════════
+nombre_u  = get_pf().get("nombre","") or st.session_state.user_email.split("@")[0]
 fecha_str = datetime.now().strftime("%d %b %Y")
-# Iniciales para el avatar (máx 2 caracteres)
 iniciales = "".join(p[0].upper() for p in nombre_u.split()[:2]) or nombre_u[:2].upper()
 
 st.markdown(
     f'<div class="fap-header">'
-    f'<div>'
+    f'<div style="min-width:0;flex:1">'
     f'<div class="fap-greeting">Hola de nuevo</div>'
     f'<div class="fap-name">{nombre_u}</div>'
     f'<div class="fap-date">{fecha_str}</div>'
@@ -971,7 +969,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-t_nut, t_diet, t_gym, t_hist, t_cfg = st.tabs(["Kcal","Dietas","Gimnasio","Stats","Config"])
+t_nut, t_diet, t_gym, t_hist, t_cfg = st.tabs(["Kcal", "Dietas", "Gimnasio", "Stats", "Config"])
 
 # ══════════════════════════════════════════════════════════════════════════════
 # NUTRICION
@@ -983,12 +981,11 @@ with t_nut:
     ocb = int(pf.get("obj_carb",220))
     og  = int(pf.get("obj_grasa",60))
     rest = max(oc-cv,0); ok_c = cv <= oc
-    pct  = int(min(cv/oc*100,100)) if oc else 0
-    pct_p  = int(min(mh["prot"] /op *100,100)) if op  else 0
+    pct    = int(min(cv/oc*100,100))   if oc  else 0
+    pct_p  = int(min(mh["prot"] /op *100,100))  if op  else 0
     pct_cb = int(min(mh["carb"] /ocb*100,100)) if ocb else 0
-    pct_g  = int(min(mh["grasa"]/og *100,100)) if og  else 0
-    ring_c  = "#10b981" if ok_c else "#3b82f6"
-    val_c   = "#10b981" if ok_c else "#2563eb"
+    pct_g  = int(min(mh["grasa"]/og *100,100))  if og  else 0
+    ring_c = "#059669" if ok_c else "#2563eb"
 
     c1, c2 = st.columns([1, 1.8])
     with c1:
@@ -996,35 +993,31 @@ with t_nut:
     with c2:
         ev = rest if ok_c else (cv - oc)
         el = "restantes" if ok_c else "excedidas"
-        ec = "#10b981" if ok_c else "#3b82f6"
         card(
             f'<div class="fap-lbl fap-lbl-green">Objetivo diario</div>'
             f'<div class="fap-big">{oc}</div>'
             f'<div class="fap-big-sub">kcal / dia</div>'
-            f'{pb(cv, oc, ring_c, light=False)}'
-            f'<div style="margin-top:.7rem;display:flex;align-items:center;gap:.5rem">'
-            f'<span style="font-family:Sora,sans-serif;font-size:1.4rem;font-weight:800;color:{ec}">{ev}</span>'
-            f'<span style="font-size:.62rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">{el}</span>'
+            f'{pb(cv, oc, ring_c)}'
+            f'<div style="margin-top:.6rem;display:flex;align-items:center;gap:.45rem">'
+            f'<span style="font-family:Sora,sans-serif;font-size:1.3rem;font-weight:800;color:{ring_c}">{ev}</span>'
+            f'<span style="font-size:.6rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">{el}</span>'
             f'</div>'
         )
 
-    pv  = f"{mh['prot']:.0f}g"
-    cbv = f"{mh['carb']:.0f}g"
-    gv  = f"{mh['grasa']:.0f}g"
     card(
-        f'<div class="fap-lbl fap-lbl-green">Macronutrientes</div>'
+        f'<div class="fap-lbl fap-lbl-green">Macronutrientes del dia</div>'
         f'<div class="fap-mgrid" style="justify-items:center">'
-        f'{ring(pct_p,"#10b981","Proteina",pv,f"/{op}g")}'
-        f'{ring(pct_cb,"#3b82f6","Carbohidr.",cbv,f"/{ocb}g")}'
-        f'{ring(pct_g,"#14b8a6","Grasas",gv,f"/{og}g")}'
+        f'{ring(pct_p,"#059669","Proteina",f"{mh[chr(112)+chr(114)+chr(111)+chr(116)]:.0f}g",f"/{op}g")}'
+        f'{ring(pct_cb,"#2563eb","Carbohidr.",f"{mh[chr(99)+chr(97)+chr(114)+chr(98)]:.0f}g",f"/{ocb}g")}'
+        f'{ring(pct_g,"#0d9488","Grasas",f"{mh[chr(103)+chr(114)+chr(97)+chr(115)+chr(97)]:.0f}g",f"/{og}g")}'
         f'</div>'
     )
 
-    sdiv("Scanner IA")
+    sdiv("Scanner IA — Analiza tu plato")
     prov_a = st.session_state.proveedor_ia
     key_a  = st.session_state.groq_key if "Groq" in prov_a else st.session_state.gemini_key
     if not key_a.strip():
-        st.info("Configura tu API Key en Config para activar el scanner IA.")
+        st.info("Configura tu API Key en la pestana Config para activar el scanner IA.")
     else:
         img_up = st.file_uploader("Foto del plato", type=["jpg","jpeg","png","webp"], key="up_scan")
         if img_up:
@@ -1032,12 +1025,10 @@ with t_nut:
             s1, s2 = st.columns(2)
             with s1:
                 com_scan = st.selectbox("Momento del dia",
-                    ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],
-                    key="sc_com",
-                    help="Selecciona en que comida del dia encuadrar este alimento")
+                    ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="sc_com")
             with s2:
                 if st.button("Analizar con IA", key="btn_scan"):
-                    with st.spinner("Analizando..."):
+                    with st.spinner("Analizando imagen..."):
                         pr = ("Eres nutricionista experto. Analiza en espanol con formato:\n"
                               "Alimentos detectados:\n- [alimento] - [X] kcal P:[Xg] C:[Xg] G:[Xg]\n\n"
                               "TOTAL: [NNN] kcal | P:[Xg] C:[Xg] G:[Xg]\nValoracion: [frase]")
@@ -1050,7 +1041,7 @@ with t_nut:
     if st.session_state.scan_res:
         card(
             f'<div class="fap-lbl fap-lbl-green">Analisis IA</div>'
-            f'<p style="white-space:pre-wrap;color:var(--text2);font-size:.79rem;line-height:1.85;margin:0">'
+            f'<p style="white-space:pre-wrap;color:#475569;font-size:.78rem;line-height:1.8;margin:0">'
             f'{st.session_state.scan_res}</p>'
         )
         kd = extraer_kcal(st.session_state.scan_res)
@@ -1060,94 +1051,67 @@ with t_nut:
                 if st.button(f"Registrar {kd} kcal", key="btn_reg_scan"):
                     registrar_alimento("Foto IA", kd, 0, 0, 0,
                                        st.session_state.get("sc_com","Extra"))
-                    st.session_state.scan_res = None; st.success("Registrado."); st.rerun()
+                    st.session_state.scan_res = None; st.rerun()
             with r2:
                 if st.button("Descartar", key="btn_disc"):
                     st.session_state.scan_res = None; st.rerun()
 
-    sdiv("Registrar alimento de la base de datos")
+    sdiv("Registrar alimento")
     ra1, ra2 = st.columns([3,1])
     with ra1:
-        alim = st.selectbox(
-            "Alimento",
-            list(ALIMENTOS_DB.keys()),
-            key="sel_alim",
-            help="Selecciona un alimento de la lista"
-        )
+        alim = st.selectbox("Alimento", list(ALIMENTOS_DB.keys()), key="sel_alim",
+                            help="Busca y selecciona un alimento de la lista")
     with ra2:
-        cant = st.number_input(
-            "Cantidad (g)",
-            1, 2000, 100,
-            key="cant",
-            help="Gramos que vas a consumir"
-        )
-    ad = ALIMENTOS_DB[alim]; fac = cant / 100
-    cav   = round(ad["cal"]  * fac)
-    prv   = round(ad["prot"] * fac, 1)
-    cbv2  = round(ad["carb"] * fac, 1)
-    grv   = round(ad["grasa"]* fac, 1)
+        cant = st.number_input("Cantidad (g)", 1, 2000, 100, key="cant",
+                               help="Gramos a consumir")
+    ad  = ALIMENTOS_DB[alim]; fac = cant/100
+    cav  = round(ad["cal"]*fac); prv  = round(ad["prot"]*fac,1)
+    cbv2 = round(ad["carb"]*fac,1); grv  = round(ad["grasa"]*fac,1)
     card(
-        f'<div style="display:flex;align-items:center;gap:.85rem">'
-        f'<div style="flex:1">'
-        f'<div style="font-family:Sora,sans-serif;font-size:.86rem;font-weight:700;'
-        f'color:var(--text);margin-bottom:.35rem">{alim} — {cant}g</div>'
+        f'<div style="font-family:Sora,sans-serif;font-size:.84rem;font-weight:700;'
+        f'color:#0f172a;margin-bottom:.35rem">{alim} — {cant}g</div>'
         f'{badge(f"{cav} kcal","b-green")}'
         f'{badge(f"P {prv}g","b-blue")}'
         f'{badge(f"C {cbv2}g","b-teal")}'
         f'{badge(f"G {grv}g","b-amber")}'
-        f'</div></div>'
     )
     ra3, ra4 = st.columns([2,1])
     with ra3:
-        com_db = st.selectbox(
-            "Momento del dia",
-            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],
-            key="com_db",
-            help="Momento en que consumes este alimento"
-        )
+        com_db = st.selectbox("Momento del dia",
+            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="com_db")
     with ra4:
         if st.button("Añadir al diario", key="btn_add_db"):
             registrar_alimento(f"{alim} ({cant}g)", cav, prv, cbv2, grv, com_db)
             st.success(f"{cav} kcal registradas"); st.rerun()
 
     sdiv("Registro manual")
-    st.markdown(
-        '<p style="font-size:.72rem;color:var(--text3);margin-bottom:.6rem">'
-        'Introduce manualmente los datos nutricionales de un plato o alimento no listado.</p>',
-        unsafe_allow_html=True
-    )
+    st.markdown('<p style="font-size:.7rem;color:#94a3b8;margin-bottom:.5rem">Para platos caseros o alimentos no listados.</p>', unsafe_allow_html=True)
     m1, m2, m3, m4 = st.columns([3,1,1,1])
-    with m1: nm  = st.text_input("Nombre del alimento",  placeholder="Plato casero, batido...", key="nm")
-    with m2: km  = st.number_input("Calorias (kcal)",  0, 5000, 0, 5, key="km")
-    with m3: pm2 = st.number_input("Proteinas (g)",  0.0, 300.0, 0.0, .5, key="pm2")
-    with m4: cbm = st.number_input("Carbohidratos (g)",  0.0, 500.0, 0.0, .5, key="cbm")
+    with m1: nm  = st.text_input("Nombre del alimento", placeholder="Plato casero...", key="nm")
+    with m2: km  = st.number_input("Calorias (kcal)", 0, 5000, 0, 5, key="km")
+    with m3: pm2 = st.number_input("Proteinas (g)", 0.0, 300.0, 0.0, .5, key="pm2")
+    with m4: cbm = st.number_input("Carbohidratos (g)", 0.0, 500.0, 0.0, .5, key="cbm")
     m5, m6 = st.columns([2,1])
     with m5:
-        comm = st.selectbox(
-            "Momento del dia",
-            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"],
-            key="comm"
-        )
+        comm = st.selectbox("Momento del dia",
+            ["Desayuno","Media manana","Almuerzo","Merienda","Cena","Extra"], key="comm")
     with m6:
         if st.button("Añadir al diario", key="btn_man"):
             if km > 0:
                 registrar_alimento(nm or "Libre", km, pm2, cbm, 0, comm)
                 st.success(f"{km} kcal registradas"); st.rerun()
-            else:
-                st.warning("Introduce kcal mayores que 0")
+            else: st.warning("Introduce kcal mayores que 0")
 
     sdiv("Diario de hoy")
     diario = st.session_state.datos.get("diario_comidas",{}).get(hoy(),[])
     if not diario:
         card(
-            '<div style="text-align:center;padding:1.4rem 0">'
-            '<div style="width:40px;height:40px;border-radius:12px;background:var(--bg);'
-            'display:flex;align-items:center;justify-content:center;margin:0 auto .6rem;'
-            'border:1.5px solid var(--border)">'
-            '<div style="width:18px;height:2px;background:var(--text4);border-radius:2px"></div>'
-            '</div>'
-            '<div class="fap-lbl" style="text-align:center">Sin registros todavia</div>'
-            '<p style="color:var(--text3);font-size:.76rem;margin:.2rem 0 0">Añade alimentos en las secciones anteriores</p>'
+            '<div style="text-align:center;padding:1.2rem 0">'
+            '<div style="width:38px;height:38px;border-radius:10px;background:#f8fafc;'
+            'border:1.5px solid #e2e8f0;display:flex;align-items:center;justify-content:center;margin:0 auto .55rem">'
+            '<div style="width:16px;height:2px;background:#cbd5e1;border-radius:2px"></div></div>'
+            '<div class="fap-lbl" style="text-align:center;color:#94a3b8">Sin registros hoy</div>'
+            '<p style="color:#94a3b8;font-size:.74rem;margin:.15rem 0 0">Usa las secciones anteriores para añadir alimentos</p>'
             '</div>'
         )
     else:
@@ -1155,20 +1119,15 @@ with t_nut:
         for item in diario: grupos.setdefault(item["comida"],[]).append(item)
         for nc2, items in grupos.items():
             tc = sum(i["cal"] for i in items)
-            # Cabecera de tabla con columnas claras
-            hdr = (f'<div class="fap-table-hdr">'
-                   f'<span>Alimento</span>'
-                   f'<span style="display:flex;gap:2rem">'
-                   f'<span>Hora</span><span>Kcal</span>'
-                   f'</span></div>')
+            hdr = ('<div class="fap-table-hdr"><span>Alimento</span>'
+                   '<span style="display:flex;gap:1.8rem"><span>Hora</span><span>Kcal</span></span></div>')
             filas = "".join(
                 f'<div class="fap-row">'
                 f'<span class="fap-rl">{i["alimento"]}</span>'
                 f'<span class="fap-rr" style="display:flex;gap:1.5rem">'
-                f'<span style="font-family:DM Mono,monospace;font-size:.7rem;color:var(--text3)">{i["hora"]}</span>'
-                f'<span>{i["cal"]} kcal</span>'
-                f'</span>'
-                f'</div>'
+                f'<span style="font-family:DM Mono,monospace;font-size:.68rem;color:#94a3b8">{i["hora"]}</span>'
+                f'<span>{i["cal"]}</span>'
+                f'</span></div>'
                 for i in items
             )
             card(
@@ -1194,29 +1153,27 @@ with t_diet:
     with dt1:
         plan_k = st.selectbox("Plan de dieta", list(DIETAS_TEMPLATE.keys()), key="plan_k")
         plan   = DIETAS_TEMPLATE[plan_k]
-        tc_p   = sum(c["cal"]  for c in plan["comidas"])
-        tp_p   = sum(c["prot"] for c in plan["comidas"])
-        tcb_p  = sum(c["carb"] for c in plan["comidas"])
-        tg_p   = sum(c["grasa"]for c in plan["comidas"])
+        tc_p  = sum(c["cal"]  for c in plan["comidas"])
+        tp_p  = sum(c["prot"] for c in plan["comidas"])
+        tcb_p = sum(c["carb"] for c in plan["comidas"])
+        tg_p  = sum(c["grasa"]for c in plan["comidas"])
         card(
-            f'<div class="fap-lbl" style="color:rgba(255,255,255,.75)">Objetivo del plan</div>'
-            f'<div style="font-family:Sora,sans-serif;font-size:.88rem;font-weight:700;'
-            f'color:#ffffff;margin-bottom:.65rem">{plan["objetivo"]}</div>'
-            f'<span class="fap-badge" style="background:rgba(255,255,255,.2);color:#fff;border-radius:4px">{tc_p} kcal</span>'
-            f'<span class="fap-badge" style="background:rgba(255,255,255,.15);color:#fff;border-radius:4px">P {tp_p}g</span>'
-            f'<span class="fap-badge" style="background:rgba(255,255,255,.15);color:#fff;border-radius:4px">C {tcb_p}g</span>'
-            f'<span class="fap-badge" style="background:rgba(255,255,255,.15);color:#fff;border-radius:4px">G {tg_p}g</span>',
+            f'<div class="fap-lbl" style="color:rgba(255,255,255,.7)">Objetivo del plan</div>'
+            f'<div style="font-family:Sora,sans-serif;font-size:.85rem;font-weight:700;color:#fff;margin-bottom:.6rem">'
+            f'{plan["objetivo"]}</div>'
+            f'<span class="fap-badge">{tc_p} kcal</span>'
+            f'<span class="fap-badge">P {tp_p}g</span>'
+            f'<span class="fap-badge">C {tcb_p}g</span>'
+            f'<span class="fap-badge">G {tg_p}g</span>',
             "fap-card-green"
         )
         for c in plan["comidas"]:
             card(
                 f'<div class="fap-meal-hdr">'
-                f'<div style="display:flex;align-items:center;gap:.5rem">'
                 f'<span class="fap-meal-ttl">{c["nombre"]}</span>'
-                f'</div>'
                 f'{badge(f"{c[chr(99)+chr(97)+chr(108)]} kcal","b-green")}'
                 f'</div>'
-                f'<p style="margin:.2rem 0 .4rem;font-size:.77rem;color:var(--text2)">{c["alimentos"]}</p>'
+                f'<p style="margin:.15rem 0 .35rem;font-size:.76rem;color:#475569">{c["alimentos"]}</p>'
                 f'{badge(f"P {c[chr(112)+chr(114)+chr(111)+chr(116)]}g","b-blue")}'
                 f'{badge(f"C {c[chr(99)+chr(97)+chr(114)+chr(98)]}g","b-teal")}'
                 f'{badge(f"G {c[chr(103)+chr(114)+chr(97)+chr(115)+chr(97)]}g","b-amber")}'
@@ -1224,7 +1181,7 @@ with t_diet:
         if st.button("Usar como objetivo diario", key="btn_usar"):
             st.session_state.datos.setdefault("perfil",{}).update(
                 {"objetivo_cal":tc_p,"obj_prot":tp_p,"obj_carb":tcb_p,"obj_grasa":tg_p})
-            save_datos(); st.success(f"Objetivo actualizado: {tc_p} kcal/dia"); st.rerun()
+            save_datos(); st.success(f"Objetivo: {tc_p} kcal/dia"); st.rerun()
 
     with dt2:
         pf2 = get_pf()
@@ -1235,7 +1192,7 @@ with t_diet:
         with d2:
             de  = st.number_input("Edad",10,100,int(pf2.get("edad",25)),key="de")
             dsx = st.selectbox("Sexo",["Hombre","Mujer"],key="dsx")
-        dact = st.selectbox("Nivel de actividad fisica",[
+        dact = st.selectbox("Nivel de actividad",[
             "Sedentario (sin ejercicio)","Ligero (1-2 dias/semana)",
             "Moderado (3-4 dias/semana)","Activo (5-6 dias/semana)","Muy activo (2 veces/dia)"],
             index=2, key="dact")
@@ -1243,7 +1200,7 @@ with t_diet:
             "Perdida de grasa (-300 kcal)","Perdida agresiva (-500 kcal)",
             "Mantenimiento","Volumen limpio (+200 kcal)","Volumen (+400 kcal)"],key="dobj")
         if st.button("Calcular TDEE y macros", key="btn_calc"):
-            tdee = calcular_tdee(dp, da, de, dsx, dact)
+            tdee  = calcular_tdee(dp, da, de, dsx, dact)
             delta = {"Perdida de grasa (-300 kcal)":-300,"Perdida agresiva (-500 kcal)":-500,
                      "Mantenimiento":0,"Volumen limpio (+200 kcal)":200,"Volumen (+400 kcal)":400}[dobj]
             cobj   = tdee + delta; perd = "Perdida" in dobj
@@ -1260,20 +1217,20 @@ with t_diet:
             res = st.session_state.calc_res
             card(
                 f'<div class="fap-lbl fap-lbl-green">Resultado</div>'
-                f'<div class="fap-sgrid" style="margin-bottom:.8rem">'
+                f'<div class="fap-sgrid" style="margin-bottom:.75rem">'
                 f'<div class="fap-mini"><div class="fap-mini-val">{res["tdee"]}</div>'
                 f'<div class="fap-mini-lbl">Mantenimiento kcal</div></div>'
-                f'<div class="fap-mini" style="border:2px solid var(--green)">'
-                f'<div class="fap-mini-val" style="color:var(--green)">{res["cobj"]}</div>'
+                f'<div class="fap-mini" style="border:2px solid var(--green2)">'
+                f'<div class="fap-mini-val" style="color:var(--green2)">{res["cobj"]}</div>'
                 f'<div class="fap-mini-lbl">Tu objetivo kcal</div></div>'
                 f'</div>'
-                f'<p style="font-size:.79rem;font-weight:600;margin-bottom:.5rem">'
+                f'<p style="font-size:.78rem;font-weight:600;margin-bottom:.45rem;color:#0f172a">'
                 f'IMC: <strong>{res["imc"]}</strong> — {res["cat"]}</p>'
                 f'{badge(f"P {res[chr(112)+chr(114)+chr(111)+chr(116)]}g","b-blue")}'
                 f'{badge(f"C {res[chr(99)+chr(97)+chr(114)+chr(98)]}g","b-teal")}'
                 f'{badge(f"G {res[chr(103)+chr(114)+chr(97)+chr(115)+chr(97)]}g","b-amber")}'
             )
-            if st.button("Guardar estos objetivos en mi perfil", key="btn_sc"):
+            if st.button("Guardar objetivos en mi perfil", key="btn_sc"):
                 st.session_state.datos.setdefault("perfil",{}).update({
                     "peso":res["dp"],"altura":res["da"],"edad":res["de"],
                     "objetivo_cal":res["cobj"],"obj_prot":res["prot"],
@@ -1293,16 +1250,16 @@ with t_diet:
                 iae  = st.number_input("Edad",10,100,int(pf3.get("edad",25)),key="iae")
             with d2:
                 iasx = st.selectbox("Sexo",["Hombre","Mujer"],key="iasx")
-                iaob = st.selectbox("Objetivo principal",[
+                iaob = st.selectbox("Objetivo",[
                     "Perder grasa","Ganar musculo","Mantenimiento",
                     "Mejorar rendimiento","Salud general"],key="iaob")
-                iaac = st.selectbox("Nivel de actividad",["Sedentario","Ligero","Moderado","Activo","Muy activo"],key="iaac")
+                iaac = st.selectbox("Actividad",["Sedentario","Ligero","Moderado","Activo","Muy activo"],key="iaac")
             iarest = st.multiselect("Restricciones alimentarias",[
                 "Sin gluten","Sin lactosa","Vegetariano","Vegano",
                 "Sin cerdo","Sin mariscos","Bajo sodio","Bajo azucar"],key="iarest")
-            iaext = st.text_area("Informacion adicional (alergias, patologias, preferencias...)",
-                placeholder="Intolerancia a la fructosa, enfermedad celiaca...", height=60, key="iaext")
-            if st.button("Generar plan personalizado con IA", key="btn_ia"):
+            iaext = st.text_area("Info adicional (alergias, patologias...)",
+                placeholder="Intolerancia a X, cirugias...", height=55, key="iaext")
+            if st.button("Generar plan con IA", key="btn_ia"):
                 rest_s = ", ".join(iarest) if iarest else "ninguna"
                 pr = (f"Eres dietista-nutricionista experto. Plan completo en espanol para:\n"
                       f"- {iasx}, {iae} anios, {iap}kg, {iaa}cm\n"
@@ -1318,9 +1275,9 @@ with t_diet:
                         st.session_state.ia_res = res
             if st.session_state.ia_res:
                 card(
-                    f'<div class="fap-lbl fap-lbl-green">Plan generado por IA</div>'
-                    f'<p style="white-space:pre-wrap;color:var(--text2);font-size:.79rem;'
-                    f'line-height:1.85;margin:0">{st.session_state.ia_res}</p>'
+                    f'<div class="fap-lbl fap-lbl-green">Plan generado</div>'
+                    f'<p style="white-space:pre-wrap;color:#475569;font-size:.78rem;line-height:1.8;margin:0">'
+                    f'{st.session_state.ia_res}</p>'
                 )
                 if st.button("Generar nuevo plan", key="btn_ia_r"):
                     st.session_state.ia_res = None; st.rerun()
@@ -1328,19 +1285,18 @@ with t_diet:
     with dt4:
         dc_all = st.session_state.datos.get("dietas_custom",{})
         if dc_all:
-            dc_sel = st.selectbox("Mis dietas guardadas", ["Nueva dieta"]+list(dc_all.keys()), key="dc_sel")
+            dc_sel = st.selectbox("Mis dietas", ["Nueva dieta"]+list(dc_all.keys()), key="dc_sel")
             if dc_sel != "Nueva dieta":
                 dc = dc_all[dc_sel]
                 if dc.get("notas"):
-                    card(f'<p style="font-size:.79rem;color:var(--text2);margin:0">{dc["notas"]}</p>')
+                    card(f'<p style="font-size:.78rem;color:#475569;margin:0">{dc["notas"]}</p>')
                 for c in dc.get("comidas",[]):
                     card(
                         f'<div class="fap-meal-hdr">'
                         f'<span class="fap-meal-ttl">{c["nombre"]}</span>'
                         f'{badge(f"{c.get(chr(99)+chr(97)+chr(108),0)} kcal","b-green")}'
                         f'</div>'
-                        f'<p style="margin:0 0 .4rem;font-size:.77rem;color:var(--text2)">'
-                        f'{c.get("alimentos","")}</p>'
+                        f'<p style="margin:0 0 .35rem;font-size:.76rem;color:#475569">{c.get("alimentos","")}</p>'
                         f'{badge(f"P {c.get(chr(112)+chr(114)+chr(111)+chr(116),0)}g","b-blue")}'
                         f'{badge(f"C {c.get(chr(99)+chr(97)+chr(114)+chr(98),0)}g","b-teal")}'
                         f'{badge(f"G {c.get(chr(103)+chr(114)+chr(97)+chr(115)+chr(97),0)}g","b-amber")}'
@@ -1350,55 +1306,43 @@ with t_diet:
                     save_datos(); st.success("Eliminada."); st.rerun()
 
         sdiv("Crear nueva dieta")
-        nc_nom = st.text_input("Nombre de la dieta", placeholder="Mi dieta de verano", key="nc_nom",
-                               help="Dale un nombre identificativo a tu plan personalizado")
-        nc_not = st.text_area("Descripcion u objetivo", placeholder="Objetivo, notas generales...", height=50, key="nc_not")
-
-        sdiv("Añadir comidas al plan")
+        nc_nom = st.text_input("Nombre de la dieta", placeholder="Mi dieta de verano", key="nc_nom")
+        nc_not = st.text_area("Descripcion u objetivo", placeholder="Objetivo, notas...", height=50, key="nc_not")
+        sdiv("Añadir tomas al plan")
         dc1, dc2 = st.columns([2,1])
         with dc1:
-            nc_cn  = st.text_input("Nombre de la toma", placeholder="Almuerzo, Pre-entreno...", key="nc_cn",
-                                   help="Como se llama esta comida dentro del plan")
-            nc_al  = st.text_area("Alimentos y cantidades", placeholder="Pollo 150g, Arroz 100g, Brocoli al vapor", height=45, key="nc_al")
+            nc_cn  = st.text_input("Nombre de la toma", placeholder="Almuerzo, Pre-entreno...", key="nc_cn")
+            nc_al  = st.text_area("Alimentos y cantidades", placeholder="Pollo 150g, Arroz 100g", height=45, key="nc_al")
         with dc2:
             nc_cal = st.number_input("Calorias (kcal)", 0,3000,0,10,key="nc_cal")
             nc_pr  = st.number_input("Proteinas (g)", 0.0,200.0,0.0,.5,key="nc_pr")
             nc_cb2 = st.number_input("Carbohidratos (g)", 0.0,500.0,0.0,.5,key="nc_cb2")
             nc_gr  = st.number_input("Grasas (g)", 0.0,200.0,0.0,.5,key="nc_gr")
-        if st.button("Añadir toma al plan", key="btn_add_nc"):
+        if st.button("Añadir toma", key="btn_add_nc"):
             if nc_cn:
                 st.session_state.dc_temp.append({
                     "nombre":nc_cn,"alimentos":nc_al,"cal":nc_cal,
                     "prot":nc_pr,"carb":nc_cb2,"grasa":nc_gr})
                 st.success(f"'{nc_cn}' añadida.")
-            else:
-                st.warning("Escribe el nombre de la toma.")
+            else: st.warning("Escribe el nombre de la toma.")
         if st.session_state.dc_temp:
             tot = sum(c["cal"] for c in st.session_state.dc_temp)
-            hdr_dc = (f'<div class="fap-table-hdr">'
-                      f'<span>Toma</span><span>Kcal</span>'
-                      f'</div>')
+            hdr_dc = '<div class="fap-table-hdr"><span>Toma</span><span>Kcal</span></div>'
             filas = "".join(
                 f'<div class="fap-row">'
                 f'<span class="fap-rl"><span class="fap-exnum">{i+1:02d}</span> {c["nombre"]}</span>'
-                f'<span class="fap-rr">{c["cal"]} kcal</span>'
+                f'<span class="fap-rr">{c["cal"]}</span>'
                 f'</div>'
                 for i,c in enumerate(st.session_state.dc_temp)
             )
-            card(
-                f'{hdr_dc}{filas}'
-                f'<div style="text-align:right;margin-top:.4rem">'
-                f'{badge(f"Total: {tot} kcal","b-green")}'
-                f'</div>'
-            )
-        if st.button("Guardar dieta completa", key="btn_save_dc"):
-            if not nc_nom:
-                st.warning("Dale un nombre a la dieta.")
-            elif not st.session_state.dc_temp:
-                st.warning("Añade al menos una comida.")
+            card(f'{hdr_dc}{filas}<div style="text-align:right;margin-top:.35rem">'
+                 f'{badge(f"Total: {tot} kcal","b-green")}</div>')
+        if st.button("Guardar dieta", key="btn_save_dc"):
+            if not nc_nom: st.warning("Dale un nombre a la dieta.")
+            elif not st.session_state.dc_temp: st.warning("Añade al menos una toma.")
             else:
                 st.session_state.datos.setdefault("dietas_custom",{})[nc_nom] = {
-                    "notas":nc_not, "comidas":st.session_state.dc_temp.copy()}
+                    "notas":nc_not,"comidas":st.session_state.dc_temp.copy()}
                 save_datos(); st.session_state.dc_temp = []
                 st.success(f"'{nc_nom}' guardada."); st.rerun()
 
@@ -1411,51 +1355,47 @@ with t_gym:
     with g1:
         grupo = st.selectbox("Grupo muscular", list(EJERCICIOS_GYM.keys()), key="grupo")
         for ej in EJERCICIOS_GYM[grupo]:
-            tc = TIPO_COLOR.get(ej["tipo"], {"color":"#10b981","bg":"rgba(16,185,129,.1)"})
+            tc = TIPO_COLOR.get(ej["tipo"], {"color":"#059669","bg":"rgba(5,150,105,.1)"})
             card(
-                f'<div style="display:flex;justify-content:space-between;'
-                f'align-items:flex-start;flex-wrap:wrap;gap:.3rem;margin-bottom:.4rem">'
-                f'<span style="font-family:Sora,sans-serif;font-size:.87rem;font-weight:700;'
-                f'color:var(--text)">{ej["nombre"]}</span>'
-                f'<span class="fap-typebadge" style="color:{tc["color"]};background:{tc["bg"]}">'
-                f'{ej["tipo"]}</span>'
+                f'<div style="display:flex;justify-content:space-between;align-items:flex-start;'
+                f'flex-wrap:wrap;gap:.25rem;margin-bottom:.35rem">'
+                f'<span style="font-family:Sora,sans-serif;font-size:.85rem;font-weight:700;color:#0f172a">'
+                f'{ej["nombre"]}</span>'
+                f'<span class="fap-typebadge" style="color:{tc["color"]};background:{tc["bg"]}">{ej["tipo"]}</span>'
                 f'</div>'
-                f'<div style="font-size:.67rem;color:var(--text3);font-weight:600;margin-bottom:.3rem">'
-                f'{ej["equipo"]}</div>'
-                f'<div style="display:flex;gap:.5rem;flex-wrap:wrap;font-size:.76rem;'
-                f'color:var(--text2);margin-bottom:.3rem">'
-                f'<span style="font-weight:700;color:var(--green)">{ej["series_rec"]} series</span>'
+                f'<div style="font-size:.65rem;color:#94a3b8;font-weight:600;margin-bottom:.25rem">{ej["equipo"]}</div>'
+                f'<div style="display:flex;gap:.45rem;flex-wrap:wrap;font-size:.75rem;color:#475569;margin-bottom:.25rem">'
+                f'<span style="font-weight:700;color:#059669">{ej["series_rec"]} series</span>'
                 f'<span>·</span><span>{ej["reps_rec"]} reps</span>'
                 f'<span>·</span><span>{ej["descanso"]}</span>'
                 f'</div>'
-                f'<p style="font-size:.71rem;color:var(--text3);font-style:italic;margin:0">'
-                f'{ej["notas"]}</p>'
+                f'<p style="font-size:.7rem;color:#94a3b8;font-style:italic;margin:0">{ej["notas"]}</p>'
             )
 
     with g2:
         todas = {**RUTINAS_DEFAULT, **st.session_state.datos.get("rutinas_custom",{})}
-        rut_k = st.selectbox("Rutina de entrenamiento", list(todas.keys()), key="rut_k")
+        rut_k = st.selectbox("Rutina", list(todas.keys()), key="rut_k")
         rut   = todas[rut_k]
         desc  = rut.get("desc","") if isinstance(rut,dict) else ""
         ejs   = rut.get("ejercicios",rut) if isinstance(rut,dict) else rut
         if desc:
             st.markdown(
-                f'<div style="font-size:.7rem;font-weight:700;color:var(--text3);'
-                f'margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.06em">{desc}</div>',
+                f'<div style="font-size:.67rem;font-weight:700;color:#94a3b8;'
+                f'margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.06em">{desc}</div>',
                 unsafe_allow_html=True
             )
         for idx, ej in enumerate(ejs):
             ps = f" · {ej['peso']}" if ej.get("peso") else ""
-            ns = (f'<p style="font-size:.69rem;color:var(--text3);font-style:italic;margin-top:.2rem">'
+            ns = (f'<p style="font-size:.68rem;color:#94a3b8;font-style:italic;margin-top:.18rem">'
                   f'{ej["notas"]}</p>') if ej.get("notas") else ""
             card(
-                f'<div style="display:flex;align-items:flex-start;gap:.7rem">'
+                f'<div style="display:flex;align-items:flex-start;gap:.65rem">'
                 f'<div class="fap-exnum">{idx+1:02d}</div>'
                 f'<div style="flex:1">'
-                f'<div style="font-family:Sora,sans-serif;font-size:.84rem;font-weight:700;'
-                f'color:var(--text);margin-bottom:.25rem">{ej["ejercicio"]}</div>'
-                f'<div style="display:flex;gap:.4rem;flex-wrap:wrap;font-size:.75rem;color:var(--text2)">'
-                f'<span style="font-weight:700;color:var(--green)">{ej["series"]}x</span>'
+                f'<div style="font-family:Sora,sans-serif;font-size:.82rem;font-weight:700;'
+                f'color:#0f172a;margin-bottom:.22rem">{ej["ejercicio"]}</div>'
+                f'<div style="display:flex;gap:.38rem;flex-wrap:wrap;font-size:.74rem;color:#475569">'
+                f'<span style="font-weight:700;color:#059669">{ej["series"]}x</span>'
                 f'<span>{ej["reps"]} reps</span>'
                 f'<span>·</span><span>{ej["descanso"]}{ps}</span>'
                 f'</div>{ns}'
@@ -1464,14 +1404,12 @@ with t_gym:
 
         sdiv("Crear rutina personalizada")
         with st.expander("Nueva rutina"):
-            nr_n  = st.text_input("Nombre de la rutina", placeholder="Mi rutina lunes", key="nr_n",
-                                  help="Nombre identificativo para tu rutina")
-            nr_d  = st.text_input("Descripcion breve", placeholder="Pecho y triceps — 60 min", key="nr_d")
-            st.markdown('<p style="font-size:.72rem;color:var(--text3);margin-bottom:.4rem">Añade ejercicios uno a uno:</p>',
-                        unsafe_allow_html=True)
+            nr_n  = st.text_input("Nombre de la rutina", placeholder="Mi rutina lunes", key="nr_n")
+            nr_d  = st.text_input("Descripcion", placeholder="Pecho y triceps", key="nr_d")
+            st.markdown('<p style="font-size:.7rem;color:#94a3b8;margin-bottom:.35rem">Añade ejercicios uno a uno:</p>', unsafe_allow_html=True)
             e1,e2,e3 = st.columns([3,1,2])
-            with e1: nr_ej = st.text_input("Ejercicio", placeholder="Press banca plano", key="nr_ej")
-            with e2: nr_s  = st.number_input("Series", 1, 20, 4, key="nr_s")
+            with e1: nr_ej = st.text_input("Ejercicio", placeholder="Press banca", key="nr_ej")
+            with e2: nr_s  = st.number_input("Series", 1,20,4,key="nr_s")
             with e3: nr_r  = st.text_input("Repeticiones", placeholder="8-12", key="nr_r")
             e4,e5,e6 = st.columns(3)
             with e4: nr_p  = st.text_input("Peso (kg)", placeholder="60", key="nr_p")
@@ -1483,12 +1421,9 @@ with t_gym:
                         "ejercicio":nr_ej,"series":nr_s,"reps":nr_r or "8-12",
                         "peso":nr_p,"descanso":nr_dc or "60s","notas":nr_nt})
                     st.success(f"'{nr_ej}' añadido.")
-                else:
-                    st.warning("Escribe el nombre del ejercicio.")
+                else: st.warning("Escribe el nombre del ejercicio.")
             if st.session_state.ej_temp:
-                hdr_rut = (f'<div class="fap-table-hdr">'
-                           f'<span>Ejercicio</span><span>Series x Reps</span>'
-                           f'</div>')
+                hdr_rut = '<div class="fap-table-hdr"><span>Ejercicio</span><span>Series x Reps</span></div>'
                 filas = "".join(
                     f'<div class="fap-row">'
                     f'<span class="fap-rl"><span class="fap-exnum">{i+1:02d}</span> {e["ejercicio"]}</span>'
@@ -1498,13 +1433,11 @@ with t_gym:
                 )
                 card(f'{hdr_rut}{filas}')
             if st.button("Guardar rutina", key="btn_save_rut"):
-                if not nr_n:
-                    st.warning("Dale un nombre a la rutina.")
-                elif not st.session_state.ej_temp:
-                    st.warning("Añade al menos un ejercicio.")
+                if not nr_n: st.warning("Dale un nombre.")
+                elif not st.session_state.ej_temp: st.warning("Añade al menos un ejercicio.")
                 else:
                     st.session_state.datos.setdefault("rutinas_custom",{})[nr_n] = {
-                        "desc":nr_d, "ejercicios":st.session_state.ej_temp.copy()}
+                        "desc":nr_d,"ejercicios":st.session_state.ej_temp.copy()}
                     save_datos(); st.session_state.ej_temp = []
                     st.success(f"'{nr_n}' guardada."); st.rerun()
 
@@ -1513,54 +1446,42 @@ with t_gym:
         with r1:
             reg_tipo = st.selectbox("Tipo de sesion",[
                 "PPL Empuje","PPL Tiron","PPL Piernas","Full Body",
-                "Upper","Lower","HIIT","Cardio","Otro"],key="reg_tipo",
-                help="Clasifica el tipo de entrenamiento de hoy")
+                "Upper","Lower","HIIT","Cardio","Otro"],key="reg_tipo")
         with r2:
-            reg_dur = st.number_input("Duracion (minutos)", 10, 300, 60, key="reg_dur",
-                                      help="Tiempo total de entrenamiento en minutos")
+            reg_dur = st.number_input("Duracion (minutos)", 10,300,60,key="reg_dur")
         reg_notas = st.text_area("Notas de sesion",
-                                 placeholder="Sensaciones, marcas personales, observaciones...",
-                                 height=55, key="reg_notas")
+            placeholder="Sensaciones, marcas personales, PRs...", height=55, key="reg_notas")
 
-        sdiv("Series realizadas en esta sesion")
-        st.markdown(
-            '<p style="font-size:.72rem;color:var(--text3);margin-bottom:.6rem">'
-            'Registra cada ejercicio que has realizado con sus series, repeticiones y carga.</p>',
-            unsafe_allow_html=True
-        )
+        sdiv("Series realizadas")
+        st.markdown('<p style="font-size:.7rem;color:#94a3b8;margin-bottom:.45rem">Anota cada ejercicio con sus series, repeticiones y carga.</p>', unsafe_allow_html=True)
         sr1,sr2,sr3,sr4 = st.columns(4)
-        with sr1: ej_n  = st.text_input("Nombre del ejercicio", placeholder="Sentadilla", key="ej_n",
+        with sr1: ej_n  = st.text_input("Ejercicio", placeholder="Sentadilla", key="ej_n",
                                          help="Nombre del ejercicio realizado")
-        with sr2: set_s = st.number_input("Series", 1, 20, 3, key="set_s",
-                                          help="Numero de series completadas")
+        with sr2: set_s = st.number_input("Series", 1,20,3,key="set_s",
+                                          help="Series completadas")
         with sr3: set_r = st.text_input("Repeticiones", placeholder="10", key="set_r",
-                                        help="Repeticiones por serie (ej: 8, 8-12, max)")
+                                        help="Reps por serie (ej: 8, max)")
         with sr4: set_p = st.text_input("Peso (kg)", placeholder="80", key="set_p",
-                                        help="Carga utilizada en kg")
+                                        help="Carga utilizada")
         if st.button("Añadir a la sesion", key="btn_add_set"):
             if ej_n:
                 st.session_state.sets_temp.append({
-                    "ejercicio":ej_n,"series":set_s,
-                    "reps":set_r or "","peso":set_p or ""})
+                    "ejercicio":ej_n,"series":set_s,"reps":set_r or "","peso":set_p or ""})
                 st.success(f"'{ej_n}' añadido.")
-            else:
-                st.warning("Escribe el nombre del ejercicio.")
+            else: st.warning("Escribe el nombre del ejercicio.")
         if st.session_state.sets_temp:
-            hdr_sets = (f'<div class="fap-table-hdr">'
-                        f'<span>Ejercicio</span>'
-                        f'<span style="display:flex;gap:2rem"><span>Series</span><span>Carga</span></span>'
-                        f'</div>')
+            hdr_s = ('<div class="fap-table-hdr"><span>Ejercicio</span>'
+                     '<span style="display:flex;gap:1.6rem"><span>Series</span><span>Carga</span></span></div>')
             filas = "".join(
                 f'<div class="fap-row">'
                 f'<span class="fap-rl"><span class="fap-exnum">{i+1:02d}</span> {s["ejercicio"]}</span>'
                 f'<span class="fap-rr" style="display:flex;gap:1.5rem">'
                 f'<span>{s["series"]}x{s["reps"]}</span>'
-                f'<span style="color:var(--green)">{s["peso"]} kg</span>'
-                f'</span>'
-                f'</div>'
+                f'<span style="color:#059669">{s["peso"]} kg</span>'
+                f'</span></div>'
                 for i,s in enumerate(st.session_state.sets_temp)
             )
-            card(f'{hdr_sets}{filas}')
+            card(f'{hdr_s}{filas}')
         if st.button("Guardar sesion completa", key="btn_save_ses"):
             reg = st.session_state.datos.setdefault("registro_entreno",{})
             reg.setdefault(hoy(),[]).append({
@@ -1570,34 +1491,32 @@ with t_gym:
             save_datos(); st.session_state.sets_temp = []
             st.success("Sesion guardada."); st.rerun()
 
-        sdiv("Ultimas sesiones registradas")
+        sdiv("Ultimas sesiones")
         reg_all = st.session_state.datos.get("registro_entreno",{})
         if not reg_all:
-            card('<div style="text-align:center;padding:.85rem">'
-                 '<p style="color:var(--text3);font-size:.76rem;margin:0">Sin sesiones todavia. Completa el formulario anterior.</p></div>')
+            card('<div style="text-align:center;padding:.75rem">'
+                 '<p style="color:#94a3b8;font-size:.74rem;margin:0">Sin sesiones todavia. Completa el formulario anterior.</p></div>')
         for fk in sorted(reg_all.keys(), reverse=True)[:7]:
             for ses in reg_all[fk]:
                 ns_count = len(ses.get("series",[]))
                 notas_html = ""
                 if ses.get("notas"):
-                    notas_html = (f'<p style="margin-top:.3rem;font-size:.71rem;color:var(--text3)">'
-                                  f'{ses["notas"]}</p>')
+                    notas_html = f'<p style="margin-top:.25rem;font-size:.7rem;color:#94a3b8">{ses["notas"]}</p>'
                 card(
                     f'<div class="fap-meal-hdr">'
                     f'<span class="fap-meal-ttl">{ses["tipo"]}</span>'
                     f'{badge(fk,"b-gray")}'
                     f'</div>'
-                    f'<div style="display:flex;gap:.5rem;flex-wrap:wrap;'
-                    f'font-size:.74rem;color:var(--text2)">'
-                    f'<span style="font-weight:700;color:var(--green)">{ses["duracion"]} min</span>'
+                    f'<div style="display:flex;gap:.45rem;flex-wrap:wrap;font-size:.73rem;color:#475569">'
+                    f'<span style="font-weight:700;color:#059669">{ses["duracion"]} min</span>'
                     f'<span>·</span><span>{ns_count} ejercicios</span>'
                     f'<span>·</span>'
-                    f'<span style="font-family:DM Mono,monospace;color:var(--text3)">{ses.get("hora","")}</span>'
+                    f'<span style="font-family:DM Mono,monospace;color:#94a3b8">{ses.get("hora","")}</span>'
                     f'</div>{notas_html}'
                 )
 
 # ══════════════════════════════════════════════════════════════════════════════
-# STATS / HISTORIAL
+# STATS
 # ══════════════════════════════════════════════════════════════════════════════
 with t_hist:
     hist_c = st.session_state.datos.get("historial_calorias",{})
@@ -1606,18 +1525,16 @@ with t_hist:
 
     if not hist_c:
         card(
-            '<div style="text-align:center;padding:1.5rem 0">'
-            '<div style="width:48px;height:48px;border-radius:14px;background:var(--bg);'
-            'display:flex;align-items:center;justify-content:center;margin:0 auto .6rem;'
-            'border:1.5px solid var(--border)">'
-            '<div style="display:flex;align-items:flex-end;gap:3px;height:22px">'
-            '<div style="width:5px;height:12px;background:var(--text4);border-radius:2px"></div>'
-            '<div style="width:5px;height:18px;background:var(--text4);border-radius:2px"></div>'
-            '<div style="width:5px;height:8px;background:var(--text4);border-radius:2px"></div>'
+            '<div style="text-align:center;padding:1.4rem 0">'
+            '<div style="width:44px;height:44px;border-radius:12px;background:#f8fafc;'
+            'border:1.5px solid #e2e8f0;display:flex;align-items:center;justify-content:center;margin:0 auto .5rem">'
+            '<div style="display:flex;align-items:flex-end;gap:3px;height:20px">'
+            '<div style="width:4px;height:10px;background:#cbd5e1;border-radius:2px"></div>'
+            '<div style="width:4px;height:16px;background:#cbd5e1;border-radius:2px"></div>'
+            '<div style="width:4px;height:7px;background:#cbd5e1;border-radius:2px"></div>'
             '</div></div>'
             '<div class="fap-lbl fap-lbl-green" style="text-align:center">Sin historial todavia</div>'
-            '<p style="color:var(--text3);font-size:.76rem;margin:.2rem 0 0">'
-            'Empieza registrando alimentos en la pestana Kcal</p>'
+            '<p style="color:#94a3b8;font-size:.74rem;margin:.15rem 0 0">Empieza registrando alimentos en la pestana Kcal</p>'
             '</div>'
         )
     else:
@@ -1630,45 +1547,33 @@ with t_hist:
         total_r = len([v for v in vals if v > 0])
 
         st.markdown(
-            f'<div class="fap-sgrid" style="margin-bottom:.85rem">'
-            f'<div class="fap-mini">'
-            f'<div class="fap-mini-val" style="color:var(--green)">{prom}</div>'
-            f'<div class="fap-mini-lbl">Promedio kcal/dia</div>'
-            f'</div>'
-            f'<div class="fap-mini">'
-            f'<div class="fap-mini-val" style="color:var(--blue)">{dias_ok}</div>'
-            f'<div class="fap-mini-lbl">Dias en objetivo / {total_r}</div>'
-            f'</div>'
+            f'<div class="fap-sgrid" style="margin-bottom:.8rem">'
+            f'<div class="fap-mini"><div class="fap-mini-val" style="color:#059669">{prom}</div>'
+            f'<div class="fap-mini-lbl">Promedio kcal/dia</div></div>'
+            f'<div class="fap-mini"><div class="fap-mini-val" style="color:#2563eb">{dias_ok}</div>'
+            f'<div class="fap-mini-lbl">Dias en objetivo / {total_r}</div></div>'
             f'</div>',
             unsafe_allow_html=True
         )
 
         if vals:
             max_v = max(vals + [obj_h, 1])
-            bars  = '<div style="display:flex;align-items:flex-end;gap:4px;height:100px;padding-bottom:2px">'
+            bars  = '<div style="display:flex;align-items:flex-end;gap:3px;height:90px">'
             for et, vl in zip(etiq, vals):
-                h  = int(vl/max_v*100) if vl > 0 else 2
-                if vl > obj_h and vl > 0:
-                    clr = "#3b82f6"
-                elif vl > 0:
-                    clr = "#10b981"
-                else:
-                    clr = "#e2e8f0"
+                h   = int(vl/max_v*100) if vl > 0 else 2
+                clr = "#2563eb" if (vl > obj_h and vl > 0) else ("#059669" if vl > 0 else "#e2e8f0")
                 bars += (
-                    f'<div style="flex:1;display:flex;flex-direction:column;'
-                    f'align-items:center;gap:3px">'
+                    f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">'
                     f'<div style="flex:1;display:flex;align-items:flex-end;width:100%">'
-                    f'<div style="width:100%;height:{h}%;background:{clr};'
-                    f'border-radius:5px 5px 0 0;min-height:4px"></div></div>'
-                    f'<div style="font-size:.47rem;font-weight:600;color:var(--text3);'
-                    f'text-align:center;margin-top:3px">{et}</div>'
+                    f'<div style="width:100%;height:{h}%;background:{clr};border-radius:4px 4px 0 0;min-height:3px"></div></div>'
+                    f'<div style="font-size:.44rem;font-weight:600;color:#94a3b8;text-align:center;margin-top:2px">{et}</div>'
                     f'</div>'
                 )
             bars += '</div>'
             card(
-                f'<div class="fap-lbl fap-lbl-green">Calorias diarias — ultimos 14 dias</div>'
+                f'<div class="fap-lbl fap-lbl-green">Calorias — 14 dias</div>'
                 f'{bars}'
-                f'<div style="display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap">'
+                f'<div style="display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap">'
                 f'{badge("Verde = en objetivo","b-green")}'
                 f'{badge("Azul = excedido","b-blue")}'
                 f'</div>'
@@ -1680,18 +1585,15 @@ with t_hist:
             for d in dias_m:
                 for k in pm: pm[k] += hist_m[d].get(k,0)
             n  = len(dias_m)
-            pm = {k: round(v/n, 1) for k,v in pm.items()}
+            pm = {k: round(v/n,1) for k,v in pm.items()}
             card(
                 f'<div class="fap-lbl fap-lbl-green">Macros promedio diario</div>'
                 f'<div class="fap-mgrid">'
-                f'<div class="fap-mini">'
-                f'<div class="fap-mini-val" style="color:var(--green)">{pm["prot"]}g</div>'
+                f'<div class="fap-mini"><div class="fap-mini-val" style="color:#059669">{pm["prot"]}g</div>'
                 f'<div class="fap-mini-lbl">Proteina</div></div>'
-                f'<div class="fap-mini">'
-                f'<div class="fap-mini-val" style="color:var(--blue)">{pm["carb"]}g</div>'
+                f'<div class="fap-mini"><div class="fap-mini-val" style="color:#2563eb">{pm["carb"]}g</div>'
                 f'<div class="fap-mini-lbl">Carbohidratos</div></div>'
-                f'<div class="fap-mini">'
-                f'<div class="fap-mini-val" style="color:var(--teal)">{pm["grasa"]}g</div>'
+                f'<div class="fap-mini"><div class="fap-mini-val" style="color:#0d9488">{pm["grasa"]}g</div>'
                 f'<div class="fap-mini-lbl">Grasas</div></div>'
                 f'</div>'
             )
@@ -1701,23 +1603,17 @@ with t_hist:
         if ses_t > 0:
             st.markdown(
                 f'<div class="fap-sgrid">'
-                f'<div class="fap-mini">'
-                f'<div class="fap-mini-val" style="color:var(--green)">{ses_t}</div>'
-                f'<div class="fap-mini-lbl">Sesiones totales</div>'
-                f'</div>'
-                f'<div class="fap-mini">'
-                f'<div class="fap-mini-val" style="color:var(--blue)">{round(min_t/60,1)}</div>'
-                f'<div class="fap-mini-lbl">Horas entrenando</div>'
-                f'</div>'
+                f'<div class="fap-mini"><div class="fap-mini-val" style="color:#059669">{ses_t}</div>'
+                f'<div class="fap-mini-lbl">Sesiones totales</div></div>'
+                f'<div class="fap-mini"><div class="fap-mini-val" style="color:#2563eb">{round(min_t/60,1)}</div>'
+                f'<div class="fap-mini-lbl">Horas entrenando</div></div>'
                 f'</div>',
                 unsafe_allow_html=True
             )
 
         if st.button("Borrar historial completo", key="btn_del_hist"):
             d = st.session_state.datos
-            d["historial_calorias"] = {}
-            d["historial_macros"]   = {}
-            d["diario_comidas"]     = {}
+            d["historial_calorias"] = {}; d["historial_macros"] = {}; d["diario_comidas"] = {}
             save_datos(); st.success("Historial borrado."); st.rerun()
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1725,8 +1621,8 @@ with t_hist:
 # ══════════════════════════════════════════════════════════════════════════════
 with t_cfg:
     sdiv("Sesion activa")
-    db_lbl   = "Supabase conectado" if sb_ok() else "Solo local (sin Supabase)"
-    db_badge = "b-green" if sb_ok() else "b-gray"
+    db_lbl   = "Supabase conectado" if sb_ok() else "Solo local (sin persistencia)"
+    db_badge = "b-green" if sb_ok() else "b-red"
     card(
         f'<div class="fap-row"><span class="fap-rl">Usuario</span>'
         f'<span class="fap-rr">{st.session_state.user_email}</span></div>'
@@ -1735,25 +1631,25 @@ with t_cfg:
         f'<div class="fap-row"><span class="fap-rl">Estado</span>'
         f'<span class="fap-rr">{badge("Activo","b-green")}</span></div>'
     )
+    if not sb_ok():
+        st.warning("Sin Supabase, los datos se pierden al reiniciar el servidor. Configura SUPABASE_URL y SUPABASE_KEY en los Secrets.")
     if st.button("Cerrar sesion", key="btn_logout"):
         for k in ["logged_in","user_id","user_email","datos",
-                  "scan_res","ia_res","ej_temp","sets_temp","dc_temp","calc_res"]:
+                  "scan_res","ia_res","ej_temp","sets_temp","dc_temp","calc_res","auth_err"]:
             st.session_state.pop(k, None)
         st.rerun()
 
     sdiv("Proveedor de IA")
     card(
-        f'<div class="fap-lbl fap-lbl-green">Comparativa de proveedores</div>'
+        f'<div class="fap-lbl fap-lbl-green">Comparativa</div>'
         f'<div class="fap-row"><span class="fap-rl">Groq (recomendado)</span>'
         f'<span class="fap-rr">{badge("1500 req/dia Gratis","b-green")}</span></div>'
         f'<div class="fap-row"><span class="fap-rl">Gemini</span>'
         f'<span class="fap-rr">{badge("~20 req/dia","b-sky")}</span></div>'
-        f'<p style="font-size:.72rem;color:var(--text3);margin-top:.5rem;margin-bottom:0">'
-        f'Groq es mas generosa, rapida y completamente gratuita.</p>'
+        f'<p style="font-size:.7rem;color:#94a3b8;margin-top:.45rem;margin-bottom:0">Groq es mas rapida y generosa en el tier gratuito.</p>'
     )
-    prov_sel = st.selectbox("Proveedor de IA activo",["Groq (recomendado)","Gemini"],
-        index=0 if "Groq" in st.session_state.proveedor_ia else 1,
-        key="prov_sel")
+    prov_sel = st.selectbox("Proveedor activo",["Groq (recomendado)","Gemini"],
+        index=0 if "Groq" in st.session_state.proveedor_ia else 1, key="prov_sel")
     if st.button("Cambiar proveedor", key="btn_prov"):
         st.session_state.proveedor_ia = prov_sel
         st.session_state.datos.setdefault("api_keys",{})["proveedor_ia"] = prov_sel
@@ -1761,14 +1657,12 @@ with t_cfg:
 
     sdiv("Groq API Key")
     card(
-        f'<div class="fap-row"><span class="fap-rl">1. Cuenta gratuita</span>'
+        f'<div class="fap-row"><span class="fap-rl">Cuenta gratuita en</span>'
         f'<span class="fap-rr">console.groq.com/keys</span></div>'
-        f'<div class="fap-row"><span class="fap-rl">2. Crear clave</span>'
-        f'<span class="fap-rr">Create API Key</span></div>'
-        f'<div class="fap-row"><span class="fap-rl">3. Formato</span>'
+        f'<div class="fap-row"><span class="fap-rl">Formato</span>'
         f'<span class="fap-rr">gsk_...</span></div>'
-        f'<div class="fap-row"><span class="fap-rl">Se guarda en tu cuenta</span>'
-        f'<span class="fap-rr">{badge("No la repitas nunca mas","b-green")}</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Se guarda en Supabase</span>'
+        f'<span class="fap-rr">{badge("Persistente","b-green")}</span></div>'
     )
     gi = st.text_input("Groq API Key", value=st.session_state.groq_key,
                        type="password", placeholder="gsk_...", key="gi")
@@ -1778,7 +1672,7 @@ with t_cfg:
             st.session_state.groq_key = gi.strip()
             ak = st.session_state.datos.setdefault("api_keys",{})
             ak["groq_key"] = gi.strip(); ak["proveedor_ia"] = st.session_state.proveedor_ia
-            save_datos(); st.success("Guardada en tu cuenta.")
+            save_datos(); st.success("Key guardada en tu cuenta.")
     with g2b:
         if st.session_state.groq_key and st.button("Probar conexion", key="btn_tg"):
             with st.spinner("Probando..."):
@@ -1786,10 +1680,8 @@ with t_cfg:
                 st.session_state.proveedor_ia = "Groq (recomendado)"
                 res = ia_call("Responde solo la palabra: OK")
                 st.session_state.proveedor_ia = prev
-                if "OK" in res or len(res) < 80:
-                    st.success(f"Conexion correcta: {res[:50]}")
-                else:
-                    st.error(res[:150])
+                if "OK" in res or len(res) < 80: st.success(f"Correcto: {res[:50]}")
+                else: st.error(res[:150])
 
     sdiv("Gemini API Key")
     mi = st.text_input("Gemini API Key", value=st.session_state.gemini_key,
@@ -1799,7 +1691,7 @@ with t_cfg:
         if st.button("Guardar y vincular", key="btn_gem"):
             st.session_state.gemini_key = mi.strip()
             st.session_state.datos.setdefault("api_keys",{})["gemini_key"] = mi.strip()
-            save_datos(); st.success("Guardada en tu cuenta.")
+            save_datos(); st.success("Key guardada en tu cuenta.")
     with mg2:
         if st.session_state.gemini_key and st.button("Probar conexion", key="btn_tm"):
             with st.spinner("Probando..."):
@@ -1807,22 +1699,20 @@ with t_cfg:
                 st.session_state.proveedor_ia = "Gemini"
                 res = ia_call("Responde solo la palabra: OK")
                 st.session_state.proveedor_ia = prev
-                if "OK" in res or len(res) < 80:
-                    st.success(f"Conexion correcta: {res[:50]}")
-                else:
-                    st.error(res[:150])
+                if "OK" in res or len(res) < 80: st.success(f"Correcto: {res[:50]}")
+                else: st.error(res[:150])
 
     sdiv("Perfil personal")
     pf_c = get_pf()
     cfg1, cfg2 = st.columns(2)
     with cfg1:
-        cn  = st.text_input("Nombre",      value=pf_c.get("nombre",""),              key="cn")
-        cp2 = st.number_input("Peso (kg)",  30.0,250.0,float(pf_c.get("peso",75.0)),.5,key="cp2")
-        ca3 = st.number_input("Altura (cm)",100,250,int(pf_c.get("altura",175)),     key="ca3")
+        cn  = st.text_input("Nombre", value=pf_c.get("nombre",""), key="cn")
+        cp2 = st.number_input("Peso (kg)", 30.0,250.0,float(pf_c.get("peso",75.0)),.5,key="cp2")
+        ca3 = st.number_input("Altura (cm)", 100,250,int(pf_c.get("altura",175)), key="ca3")
     with cfg2:
-        ce  = st.number_input("Edad",     10,100,int(pf_c.get("edad",25)),            key="ce")
-        coc = st.number_input("Objetivo kcal/dia",800,6000,int(pf_c.get("objetivo_cal",2000)),50,key="coc")
-        cpr = st.number_input("Objetivo proteina (g)",0,400,int(pf_c.get("obj_prot",150)),5, key="cpr")
+        ce  = st.number_input("Edad", 10,100,int(pf_c.get("edad",25)), key="ce")
+        coc = st.number_input("Objetivo kcal/dia", 800,6000,int(pf_c.get("objetivo_cal",2000)),50,key="coc")
+        cpr = st.number_input("Objetivo proteina (g)", 0,400,int(pf_c.get("obj_prot",150)),5,key="cpr")
     cfg3, cfg4 = st.columns(2)
     with cfg3: ccb = st.number_input("Objetivo carbohidratos (g)",0,800,int(pf_c.get("obj_carb",220)),5,key="ccb")
     with cfg4: cgr = st.number_input("Objetivo grasas (g)",0,300,int(pf_c.get("obj_grasa",60)),5,key="cgr")
@@ -1832,34 +1722,27 @@ with t_cfg:
             "objetivo_cal":coc,"obj_prot":cpr,"obj_carb":ccb,"obj_grasa":cgr})
         save_datos(); st.success("Perfil guardado."); st.rerun()
 
-    sdiv("Supabase — Base de datos en la nube")
+    sdiv("Supabase")
     card(
-        f'<div class="fap-lbl fap-lbl-green">URL correcta (sin /rest/v1/ al final)</div>'
-        f'<div class="fap-row"><span class="fap-rl">Correcto</span>'
+        f'<div class="fap-row"><span class="fap-rl">URL correcta</span>'
         f'<span class="fap-rr">https://xxxx.supabase.co</span></div>'
-        f'<div class="fap-row"><span class="fap-rl">Incorrecto</span>'
-        f'<span class="fap-rr">https://xxxx.supabase.co/rest/v1/</span></div>'
         f'<div class="fap-row"><span class="fap-rl">Configurar en</span>'
-        f'<span class="fap-rr">Streamlit Manage app Secrets</span></div>'
-        f'<div class="fap-row"><span class="fap-rl">Estado actual</span>'
+        f'<span class="fap-rr">Streamlit → Manage app → Secrets</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Estado</span>'
         f'<span class="fap-rr">'
-        f'{badge("Conectado","b-green") if sb_ok() else badge("No conectado","b-gray")}'
+        f'{badge("Conectado","b-green") if sb_ok() else badge("No conectado","b-red")}'
         f'</span></div>'
     )
 
     sdiv("Acerca de")
     card(
-        f'<div class="fap-row"><span class="fap-rl">Version</span>'
-        f'<span class="fap-rr">FitAI Pro 6.1</span></div>'
-        f'<div class="fap-row"><span class="fap-rl">Stack</span>'
-        f'<span class="fap-rr">Streamlit · Groq · Gemini · Supabase</span></div>'
-        f'<div class="fap-row"><span class="fap-rl">Datos</span>'
-        f'<span class="fap-rr">Privados por usuario · RLS activo</span></div>'
-        f'<div class="fap-row"><span class="fap-rl">Hosting</span>'
-        f'<span class="fap-rr">Streamlit Community Cloud</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Version</span><span class="fap-rr">FitAI Pro 6.2</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Stack</span><span class="fap-rr">Streamlit · Groq · Gemini · Supabase</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Datos</span><span class="fap-rr">Privados por usuario · RLS activo</span></div>'
+        f'<div class="fap-row"><span class="fap-rl">Hosting</span><span class="fap-rr">Streamlit Community Cloud</span></div>'
     )
 
-    # Restaurar API keys si hace falta
+    # Restaurar API keys si hace falta al recargar
     ak = st.session_state.datos.get("api_keys",{})
     if not st.session_state.groq_key   and ak.get("groq_key"):   st.session_state.groq_key   = ak["groq_key"]
     if not st.session_state.gemini_key and ak.get("gemini_key"): st.session_state.gemini_key = ak["gemini_key"]
